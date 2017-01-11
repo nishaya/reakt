@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "es2015",
+    "react"
+  ],
+  "plugins": [
+    "syntax-flow"
+  ],
+  "env": {
+    "test": {
+      "plugins": []
+    }
+  }
+}
