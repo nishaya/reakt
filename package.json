@@ -1,0 +1,8 @@
+{
+  "name": "reakt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nishaya/reakt.git",
+  "author": "nishaya <nishaya@users.noreply.github.com>",
+  "license": "MIT"
+}
