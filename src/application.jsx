@@ -19,7 +19,7 @@ render((<MuiThemeProvider>
     <Card>
       <CardHeader title="test app" subtitle="subtitle"/>
       <CardText>
-        <RaisedButton label="ok" primary style={style} />
+        <RaisedButton onMouseDown={e => console.log(e)} label="ok" primary style={style} />
         <RaisedButton label="ng" secondary style={style} />
         <RaisedButton label="disabled" disabled style={style} />
       </CardText>
