@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
+import IndexComponent from 'components/index'
 
 // http://www.material-ui.com/#/
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -14,12 +15,15 @@ const style = {
 }
 
 render((<MuiThemeProvider>
-  <Card>
-    <CardHeader title="test app" subtitle="subtitle"/>
-    <CardText>
-      <RaisedButton label="ok" primary style={style} />
-      <RaisedButton label="ng" secondary style={style} />
-      <RaisedButton label="disabled" disabled style={style} />    
-    </CardText>
-  </Card>
+  <div>
+    <Card>
+      <CardHeader title="test app" subtitle="subtitle"/>
+      <CardText>
+        <RaisedButton label="ok" primary style={style} />
+        <RaisedButton label="ng" secondary style={style} />
+        <RaisedButton label="disabled" disabled style={style} />
+      </CardText>
+    </Card>
+    <IndexComponent />
+  </div>
 </MuiThemeProvider>), document.getElementById('app'))

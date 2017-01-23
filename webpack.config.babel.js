@@ -8,6 +8,10 @@ module.exports = {
     path: './public',
     filename: 'application.js',
   },
+  resolve: {
+    root: [path.resolve('./'), path.resolve('./src')],
+    extensions: ['', '.js', '.jsx'],
+  },
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel'] },
