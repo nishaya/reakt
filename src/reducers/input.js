@@ -7,6 +7,6 @@ const initialState = {
 
 export default createReducer(initialState, {
   [INPUT_KEY_DOWN](state, action) {
-    return { ...state, keyDown: { ...state.keyDown, key: action.payload.key } }
+    return { ...state, keyDown: { ...state.keyDown, [action.payload.key]: true } }
   },
 })
