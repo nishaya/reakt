@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import InputActions from 'actions/input'
 
-export default class KeyboardInput extends Component {
+class KeyboardInput extends Component {
   constructor(props) {
     super(props)
     document.addEventListener('keydown', event => this.onKeyDown(event))
@@ -19,3 +22,6 @@ export default class KeyboardInput extends Component {
     </div>)
   }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators(InputActions, dispatch)
+export default connect({}, mapDispatchToProps)(KeyboardInput)
