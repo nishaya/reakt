@@ -34,6 +34,7 @@
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
     "flow-bin": "^0.37.4",
+    "redux-logger": "^2.7.4",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   }
