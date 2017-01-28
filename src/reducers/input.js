@@ -1,6 +1,5 @@
+import { INPUT_KEY_DOWN } from 'actions/action_types'
 import createReducer from './create_reducer'
-
-const INPUT_KEY_DOWN = 'INPUT_KEY_DOWN'
 
 const initialState = {
   keyDown: {},
