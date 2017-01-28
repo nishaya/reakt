@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-class KeyboardInput extends Component {
-  construct(props) {
+export default class KeyboardInput extends Component {
+  constructor(props) {
     super(props)
-    document.addEventListener('keydown', this.onKeyDown)
+    document.addEventListener('keydown', (event) => this.onKeyDown(event))
     this.state = {
       key: null,
     }
