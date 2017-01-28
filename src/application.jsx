@@ -10,7 +10,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 injectTapEventPlugin()
-const store = createStore(reducers)
+
+const createPersistentStore = compose()(createStore)
+
+const middlewares = applyMiddleware()
+const store = createPersistentStore(reducers, middlewares)
 
 render((<Provider store={store}>
   <MuiThemeProvider>
