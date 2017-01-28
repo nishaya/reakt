@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { compose, createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import createLogger from 'redux-logger'
 import { Provider } from 'react-redux'
 import IndexComponent from 'components/index'
@@ -12,10 +12,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 injectTapEventPlugin()
 
-const createPersistentStore = compose()(createStore)
-
 const middlewares = applyMiddleware(createLogger())
-const store = createPersistentStore(reducers, middlewares)
+const store = createStore(reducers, middlewares)
 
 render((<Provider store={store}>
   <MuiThemeProvider>
