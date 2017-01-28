@@ -1,0 +1,16 @@
+extends: airbnb
+parser: babel-eslint
+env:
+  browser: 1
+rules:
+  semi:
+    - error
+    - never
+  no-unused-vars:
+    - error
+  import/extensions: 0
+  import/no-extraneous-dependencies: 0
+  import/no-unresolved: 0
+
+  # React rules
+  react/prefer-stateless-function: 0
