@@ -1,9 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import InputActions from 'actions/input'
 
 class KeyboardInput extends Component {
+  static propTypes = {
+    keyDown: PropTypes.func,
+  }
+
+  static defaultProps = {
+    keyDown: () => {},
+  }
+
   constructor(props) {
     super(props)
     document.addEventListener('keydown', event => this.onKeyDown(event))
@@ -14,6 +22,7 @@ class KeyboardInput extends Component {
 
   onKeyDown(event) {
     this.setState({ key: event.key })
+    this.props.keyDown(event.key)
   }
 
   render() {

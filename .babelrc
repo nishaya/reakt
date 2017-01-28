@@ -5,6 +5,7 @@
   ],
   "plugins": [
     "syntax-flow",
+    "transform-class-properties",
     "transform-object-rest-spread",
   ],
   "env": {
