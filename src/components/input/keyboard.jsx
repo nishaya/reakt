@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class KeyboardInput extends Component {
   constructor(props) {
     super(props)
-    document.addEventListener('keydown', (event) => this.onKeyDown(event))
+    document.addEventListener('keydown', event => this.onKeyDown(event))
     this.state = {
       key: null,
     }

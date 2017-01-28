@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "lint": "eslint . --ext .js,.jsx --cache --fix"
   },
   "dependencies": {
     "material-ui": "^0.16.6",
