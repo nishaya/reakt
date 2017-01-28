@@ -23,5 +23,7 @@ class KeyboardInput extends Component {
   }
 }
 
+const mapStateToProps = () => ({})
+
 const mapDispatchToProps = dispatch => bindActionCreators(InputActions, dispatch)
-export default connect({}, mapDispatchToProps)(KeyboardInput)
+export default connect(mapStateToProps, mapDispatchToProps)(KeyboardInput)
