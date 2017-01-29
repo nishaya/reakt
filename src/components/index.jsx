@@ -10,7 +10,7 @@ export default class IndexComponent extends Component {
   }
 
   showKey() {
-    console.log(this.keyboardInput.getWrappedInstance())
+    console.log(this.keyboardInput.getWrappedInstance().key)
   }
 
   render() {
