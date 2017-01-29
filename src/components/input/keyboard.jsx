@@ -31,6 +31,10 @@ class KeyboardInput extends Component {
     this.textInput.focus()
   }
 
+  get key() {
+    return this.state.key
+  }
+
   textInput = null
 
   render() {
@@ -44,4 +48,4 @@ class KeyboardInput extends Component {
 const mapStateToProps = () => ({})
 
 const mapDispatchToProps = dispatch => bindActionCreators(InputActions, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(KeyboardInput)
+export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(KeyboardInput)
