@@ -1,12 +1,9 @@
-import ActionTypes, { INPUT_KEY_DOWN } from './action_types'
-
-console.log(ActionTypes.INPUT_KEY_DOWN)
-console.log(INPUT_KEY_DOWN)
+import { INPUT_KEY_DOWN } from './action_types'
 
 export default {
   keyDown: key => (
     {
-      type: ActionTypes.INPUT_KEY_DOWN,
+      type: INPUT_KEY_DOWN,
       payload: {
         key,
       },
