@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import KeyboardInput from 'components/input/keyboard'
+import MidiInput from 'components/input/midi'
 
 export default class IndexComponent extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export default class IndexComponent extends Component {
         <RaisedButton label="disabled" disabled style={style} />
       </CardText>
       <KeyboardInput ref={input => (this.keyboardInput = input)} />
+      <MidiInput />
     </Card>)
   }
 }
