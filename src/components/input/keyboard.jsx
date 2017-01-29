@@ -20,16 +20,22 @@ class KeyboardInput extends Component {
       key: null,
     }
     this.focus = this.focus.bind(this)
+    this.keyCount = 0
+    this.totalTime = 0
   }
 
   componentWillReceiveProps(newProps) {
-    console.timeEnd(this.pressedKey)
-    console.log(newProps)
+    if (newProps.pressedKeys[this.pressedKey]) {
+      const elapsedTime = performance.now() - this.time
+      this.totalTime += elapsedTime
+      console.log(`${elapsedTime}ms ${this.totalTime / this.keyCount}/${this.keyCount} `)
+    }
   }
 
   onKeyDown(event) {
     this.pressedKey = event.key
-    console.time(this.pressedKey)
+    this.time = performance.now()
+    this.keyCount += 1
 
     this.setState({ key: event.key })
     this.props.keyDown(event.key)
