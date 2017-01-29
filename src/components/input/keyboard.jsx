@@ -12,7 +12,6 @@ class KeyboardInput extends Component {
     keyDown: () => {},
   }
 
-
   constructor(props) {
     super(props)
     document.addEventListener('keydown', event => this.onKeyDown(event))
@@ -25,7 +24,7 @@ class KeyboardInput extends Component {
   onKeyDown(event) {
     this.setState({ key: event.key })
     this.props.keyDown(event.key)
-    this.focus()
+    this.textInput.value = event.key
   }
 
   focus() {
@@ -36,8 +35,8 @@ class KeyboardInput extends Component {
 
   render() {
     return (<div>
-      pressed key: {this.state.key}
       <input type="text" ref={(input) => { this.textInput = input }} />
+      <input type="text" value={`${this.state.key}`} readOnly />
     </div>)
   }
 }
