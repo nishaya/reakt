@@ -23,10 +23,14 @@ class KeyboardInput extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    console.timeEnd(this.pressedKey)
     console.log(newProps)
   }
 
   onKeyDown(event) {
+    this.pressedKey = event.key
+    console.time(this.pressedKey)
+
     this.setState({ key: event.key })
     this.props.keyDown(event.key)
     this.textInput.value = event.key
