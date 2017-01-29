@@ -6,6 +6,7 @@ import InputActions from 'actions/input'
 class KeyboardInput extends Component {
   static propTypes = {
     keyDown: PropTypes.func,
+    pressedKeys: PropTypes.shape(),
   }
 
   static defaultProps = {
@@ -19,6 +20,10 @@ class KeyboardInput extends Component {
       key: null,
     }
     this.focus = this.focus.bind(this)
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log(newProps)
   }
 
   onKeyDown(event) {
@@ -45,7 +50,9 @@ class KeyboardInput extends Component {
   }
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = state => ({
+  pressedKeys: state.input.keyDown,
+})
 
 const mapDispatchToProps = dispatch => bindActionCreators(InputActions, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(KeyboardInput)
