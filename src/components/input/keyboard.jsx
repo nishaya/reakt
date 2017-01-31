@@ -6,6 +6,7 @@ import InputActions from 'actions/input'
 class KeyboardInput extends Component {
   static propTypes = {
     keyDown: PropTypes.func,
+    keyUp: PropTypes.func,
     pressedKeys: PropTypes.shape(),
   }
 
@@ -16,6 +17,7 @@ class KeyboardInput extends Component {
   constructor(props) {
     super(props)
     document.addEventListener('keydown', event => this.onKeyDown(event))
+    document.addEventListener('keyup', event => this.onKeyUp(event))
     this.state = {
       key: null,
     }
@@ -40,6 +42,10 @@ class KeyboardInput extends Component {
     this.setState({ key: event.key })
     this.props.keyDown(event.key)
     this.textInput.value = event.key
+  }
+
+  onKeyUp(event) {
+    this.props.keyUp(event.key)
   }
 
   focus() {
