@@ -3,10 +3,11 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
-import InputActions from 'actions/input'
+import MidiActions from 'actions/midi'
 
 class MidiInput extends Component {
   static propTypes = {
+    onMidiMessage: PropTypes.func,
   }
 
   constructor(props) {
@@ -21,7 +22,7 @@ class MidiInput extends Component {
   midiEnabled(midi) {
     console.log('midiEnabled', midi.inputs)
     const inputs = []
-    for(const input of midi.inputs.values()) {
+    for (const input of midi.inputs.values()) {
       console.log(input)
       inputs.push(input)
     }
@@ -35,7 +36,11 @@ class MidiInput extends Component {
   selectInput(index) {
     console.log('selectInput', index)
     const input = this.state.inputs[index]
-    input.onmidimessage = e => console.log(e)
+    input.onmidimessage = (e) => {
+      console.log('onmidimessage')
+      console.log(e)
+      this.props.onMidiMessage(e.data)
+    }
     input.open().then(port => console.log('opened', port))
     this.setState({ selectedInput: input })
   }
@@ -58,5 +63,5 @@ class MidiInput extends Component {
 const mapStateToProps = state => ({
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators(InputActions, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators(MidiActions, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(MidiInput)
