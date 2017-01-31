@@ -16,6 +16,14 @@ class NoteOffEvent {
   }
 }
 
+class ControllChangeEvent {
+  constructor(message) {
+    this.channel = message[0] & 0b00001111
+    this.controlNumber = message[1]
+    this.value = message[2]
+  }
+}
+
 /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
 export default class MIDIEventFactory {
   static build(message) {
@@ -23,6 +31,7 @@ export default class MIDIEventFactory {
     const table = {
       0b10000000: data => new NoteOffEvent(data),
       0b10010000: data => new NoteOnEvent(data),
+      0b10110000: data => new ControllChangeEvent(data),
     }
     const status = message[0] & 0b11110000
     if (table[status]) {

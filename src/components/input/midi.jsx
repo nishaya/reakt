@@ -37,8 +37,6 @@ class MidiInput extends Component {
     console.log('selectInput', index)
     const input = this.state.inputs[index]
     input.onmidimessage = (e) => {
-      console.log('onmidimessage')
-      console.log(e)
       this.props.onMidiMessage(e.data)
     }
     input.open().then(port => console.log('opened', port))
