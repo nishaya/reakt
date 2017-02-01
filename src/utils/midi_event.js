@@ -1,5 +1,3 @@
-// a.constructor.name
-
 class NoteOnEvent {
   constructor(message) {
     this.channel = message[0] & 0b00001111
