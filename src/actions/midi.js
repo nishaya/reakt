@@ -2,7 +2,7 @@ import MIDIEventFactory from 'utils/midi_event'
 import {
   MIDI_NOTE_ON,
   MIDI_NOTE_OFF,
-  MIDI_CONTROLL_CHANGE,
+  MIDI_CONTROL_CHANGE,
 } from './action_types'
 
 export default {
@@ -13,7 +13,7 @@ export default {
     const actionTypes = {
       NoteOnEvent: MIDI_NOTE_ON,
       NoteOffEvent: MIDI_NOTE_OFF,
-      ControllChangeEvent: MIDI_CONTROLL_CHANGE,
+      ControllChangeEvent: MIDI_CONTROL_CHANGE,
     }
 
     return {
@@ -23,21 +23,4 @@ export default {
       },
     }
   },
-  noteOn: (note, velocity) => (
-    {
-      type: MIDI_NOTE_ON,
-      payload: {
-        note,
-        velocity,
-      },
-    }
-  ),
-  noteOff: note => (
-    {
-      type: MIDI_NOTE_OFF,
-      payload: {
-        note,
-      },
-    }
-  ),
 }
