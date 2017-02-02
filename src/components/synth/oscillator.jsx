@@ -23,8 +23,11 @@ class OscillatorComponent extends Component {
   }
 
   noteOn(note) {
+    const gain = this.audioCtx.createGain()
     const osc = this.audioCtx.createOscillator()
-    osc.connect(this.audioCtx.destination)
+    osc.connect(gain)
+    gain.connect(this.audioCtx.destination)
+    console.log(gain.gain.minValue, gain.gain.value, gain.gain.maxValue)
     osc.type = 'square'
     osc.frequency.value = 440 * Math.pow(2, ((note - 69) / 12))
     osc.start()
