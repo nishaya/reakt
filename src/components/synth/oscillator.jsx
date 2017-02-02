@@ -22,13 +22,14 @@ class OscillatorComponent extends Component {
 
   }
 
-  noteOn(note) {
+  noteOn(note, velocity) {
     const gain = this.audioCtx.createGain()
     const osc = this.audioCtx.createOscillator()
     osc.connect(gain)
     gain.connect(this.audioCtx.destination)
+    gain.gain.value = velocity / 127
     console.log(gain.gain.minValue, gain.gain.value, gain.gain.maxValue)
-    osc.type = 'square'
+    osc.type = 'sawtooth'
     osc.frequency.value = 440 * Math.pow(2, ((note - 69) / 12))
     osc.start()
     this.oscs[note] = osc
@@ -40,10 +41,10 @@ class OscillatorComponent extends Component {
 
   componentWillReceiveProps(nextProps) {
     for (let i = 0; i <= 127; i += 1) {
-      if (!this.props.noteOn[i] && nextProps.noteOn[i]) {
+      if (this.props.noteOn[i] === 0 && nextProps.noteOn[i] > 0) {
         console.log(`noteOn: ${i}`)
-        this.noteOn(i)
-      } else if (this.props.noteOn[i] && !nextProps.noteOn[i]) {
+        this.noteOn(i, nextProps.noteOn[i])
+      } else if (this.props.noteOn[i] > 0 && nextProps.noteOn[i] === 0) {
         console.log(`noteOff: ${i}`)
         this.noteOff(i)
       }
