@@ -28,7 +28,6 @@ class OscillatorComponent extends Component {
     osc.connect(gain)
     gain.connect(this.audioCtx.destination)
     gain.gain.value = velocity / 127
-    console.log(gain.gain.minValue, gain.gain.value, gain.gain.maxValue)
     osc.type = 'sawtooth'
     osc.frequency.value = 440 * Math.pow(2, ((note - 69) / 12))
     osc.start()
@@ -42,26 +41,11 @@ class OscillatorComponent extends Component {
   componentWillReceiveProps(nextProps) {
     for (let i = 0; i <= 127; i += 1) {
       if (this.props.noteOn[i] === 0 && nextProps.noteOn[i] > 0) {
-        console.log(`noteOn: ${i}`)
         this.noteOn(i, nextProps.noteOn[i])
       } else if (this.props.noteOn[i] > 0 && nextProps.noteOn[i] === 0) {
-        console.log(`noteOff: ${i}`)
         this.noteOff(i)
       }
     }
-  }
-
-  renderSliders() {
-    const sliders = []
-    for (let i = 20; i <= 27; i += 1) {
-      sliders.push((<Slider
-        key={`slider_${i}`}
-        min={0}
-        max={127}
-        value={this.props.controlChange[i]}
-      />))
-    }
-    return sliders
   }
 
   render() {
@@ -70,9 +54,6 @@ class OscillatorComponent extends Component {
         {Object.keys(this.props.noteOn).map(note => (
           this.props.noteOn[note] ? 'o' : '-'
         )).join('')}
-      </div>
-      <div>
-        {this.renderSliders()}
       </div>
     </div>)
   }
