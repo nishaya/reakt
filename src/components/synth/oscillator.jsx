@@ -14,8 +14,37 @@ class OscillatorComponent extends Component {
     controlChange: {},
   }
 
+  constructor(props) {
+    super(props)
+    this.audioCtx = new window.AudioContext
+    console.log(this.audioCtx)
+    this.oscs = []
+
+  }
+
+  noteOn(note) {
+    const osc = this.audioCtx.createOscillator()
+    osc.connect(this.audioCtx.destination)
+    osc.type = 'square'
+    osc.frequency.value = 440 * Math.pow(2, ((note - 69) / 12))
+    osc.start()
+    this.oscs[note] = osc
+  }
+
+  noteOff(note) {
+    this.oscs[note].stop()
+  }
+
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
+    for (let i = 0; i <= 127; i += 1) {
+      if (!this.props.noteOn[i] && nextProps.noteOn[i]) {
+        console.log(`noteOn: ${i}`)
+        this.noteOn(i)
+      } else if (this.props.noteOn[i] && !nextProps.noteOn[i]) {
+        console.log(`noteOff: ${i}`)
+        this.noteOff(i)
+      }
+    }
   }
 
   renderSliders() {
@@ -34,9 +63,9 @@ class OscillatorComponent extends Component {
   render() {
     return (<div>
       <div>
-        {Object.keys(this.props.noteOn).map(note =>
-          (<div key={`note_${note}`} style={{ display: 'inline' }}>{this.props.noteOn[note] ? 'o' : '-'}</div>),
-        )}
+        {Object.keys(this.props.noteOn).map(note => (
+          this.props.noteOn[note] ? 'o' : '-'
+        )).join('')}
       </div>
       <div>
         {this.renderSliders()}
