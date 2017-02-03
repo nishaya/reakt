@@ -19,14 +19,17 @@ class OscillatorComponent extends Component {
     this.audioCtx = new window.AudioContext
     console.log(this.audioCtx)
     this.oscs = []
-
+    this.filter = this.audioCtx.createBiquadFilter()
+    this.filter.type = 'lowpass'
+    this.filter.connect(this.audioCtx.destination)
   }
 
   noteOn(note, velocity) {
     const gain = this.audioCtx.createGain()
     const osc = this.audioCtx.createOscillator()
     osc.connect(gain)
-    gain.connect(this.audioCtx.destination)
+    // gain.connect(this.audioCtx.destination)
+    gain.connect(this.filter)
     gain.gain.value = velocity / 127
     osc.type = 'sawtooth'
     osc.frequency.value = 440 * Math.pow(2, ((note - 69) / 12))
