@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 export default class SliderControl extends Component {
   static propTypes = {
-    value: PropTypes.numbers,
+    value: PropTypes.number,
     label: PropTypes.string,
     // onChanged: PropTypes.func,
   }

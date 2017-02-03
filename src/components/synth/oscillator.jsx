@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Slider from 'material-ui/Slider'
+import SliderControl from 'components/control/slider'
 
 class OscillatorComponent extends Component {
   static propTypes = {
@@ -55,6 +55,8 @@ class OscillatorComponent extends Component {
           this.props.noteOn[note] ? 'o' : '-'
         )).join('')}
       </div>
+      <SliderControl label="Resonance #71" value={this.props.controlChange[71]} />
+      <SliderControl label="Cutoff #74" value={this.props.controlChange[74]} />
     </div>)
   }
 }
