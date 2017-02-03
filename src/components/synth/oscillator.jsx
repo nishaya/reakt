@@ -21,6 +21,7 @@ class OscillatorComponent extends Component {
     this.oscs = []
     this.filter = this.audioCtx.createBiquadFilter()
     this.filter.type = 'lowpass'
+    this.filter.Q.value = 10
     this.filter.connect(this.audioCtx.destination)
   }
 
@@ -31,7 +32,7 @@ class OscillatorComponent extends Component {
     // gain.connect(this.audioCtx.destination)
     gain.connect(this.filter)
     gain.gain.value = velocity / 127
-    osc.type = 'sawtooth'
+    osc.type = 'square'
     osc.frequency.value = 440 * Math.pow(2, ((note - 69) / 12))
     osc.start()
     this.oscs[note] = osc
@@ -48,6 +49,13 @@ class OscillatorComponent extends Component {
       } else if (this.props.noteOn[i] > 0 && nextProps.noteOn[i] === 0) {
         this.noteOff(i)
       }
+    }
+
+    if (this.props.controlChange[71] !== nextProps.controlChange[71]) {
+      this.filter.Q.value = ((nextProps.controlChange[71] / 127) * 70) + 0.0001
+    }
+    if (this.props.controlChange[74] !== nextProps.controlChange[74]) {
+      this.filter.frequency.value = ((nextProps.controlChange[74] / 127) * 15000) + 10
     }
   }
 
