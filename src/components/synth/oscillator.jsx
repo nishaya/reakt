@@ -22,6 +22,11 @@ class OscillatorComponent extends Component {
     this.filter.type = 'lowpass'
     this.filter.Q.value = 10
     this.filter.connect(this.audioCtx.destination)
+
+    this.lfo = this.audioCtx.createOscillator()
+    this.lfo.frequency.value = 8.0
+    this.lfo.type = 'sine'
+    this.lfo.start()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,16 +42,22 @@ class OscillatorComponent extends Component {
       this.filter.Q.value = ((nextProps.controlChange[71] / 127) * 70) + 0.0001
     }
     if (this.props.controlChange[74] !== nextProps.controlChange[74]) {
-      this.filter.frequency.value = ((nextProps.controlChange[74] / 127) * 15000) + 10
+      this.filter.frequency.value = ((nextProps.controlChange[74] / 127) * 15000) + 1
+    }
+    // LFO freq
+    if (this.props.controlChange[72] !== nextProps.controlChange[72]) {
+      this.lfo.frequency.value = (nextProps.controlChange[72] / 4) + 0.001
     }
   }
 
   noteOn(note, velocity) {
     const gain = this.audioCtx.createGain()
+    gain.gain.value = (velocity / 127) * 0.5
+    this.lfo.connect(gain.gain)
+
     const osc = this.audioCtx.createOscillator()
     osc.connect(gain)
     gain.connect(this.filter)
-    gain.gain.value = velocity / 127
     osc.type = 'square'
     osc.frequency.value = 440 * (2 ** ((note - 69) / 12))
     osc.start()
