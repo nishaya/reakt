@@ -11,20 +11,13 @@ export default class AnalyzerComponent extends Component {
   static defaultProps = {
     audioCtx: null,
   }
-
+  // TODO: this.analyzerを外部から参照できるようにしてoscにconnectする
   componentDidMount() {
     console.log('componentDidMount', this.props)
     if (this.props.audioCtx) {
       this.analyzer = this.props.audioCtx.createAnalyser()
+      this.analyzer.connect(this.props.audioCtx.destination)
       console.log(this.analyzer)
-      this.draw()
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps', nextProps)
-    if (!this.props.audioCtx && nextProps.audioCtx) {
-      this.analyzer = nextProps.audioCtx.createAnalyser()
       this.draw()
     }
   }
