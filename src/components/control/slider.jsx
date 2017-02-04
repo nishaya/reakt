@@ -1,4 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+import Slider from 'material-ui/Slider'
+
+const slyderStyle = {
+  height: 128,
+}
 
 export default class SliderControl extends Component {
   static propTypes = {
@@ -24,6 +29,13 @@ export default class SliderControl extends Component {
     return (<div>
       <h3>{this.props.label}</h3>
       <div>value: {this.props.value}</div>
+      <Slider
+        style={slyderStyle}
+        axis="y"
+        value={this.props.value}
+        min={0}
+        max={127}
+      />
     </div>)
   }
 }
