@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import SliderControl from 'components/control/slider'
+import AnalyzerComponent from 'components/synth/analyzer'
 
 class OscillatorComponent extends Component {
   static propTypes = {
@@ -77,6 +78,7 @@ class OscillatorComponent extends Component {
       </div>
       <SliderControl label="Resonance #71" value={this.props.controlChange[71]} />
       <SliderControl label="Cutoff #74" value={this.props.controlChange[74]} />
+      <AnalyzerComponent audioCtx={this.audioCtx} />
     </div>)
   }
 }
