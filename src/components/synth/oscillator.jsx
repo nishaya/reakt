@@ -16,8 +16,7 @@ class OscillatorComponent extends Component {
 
   constructor(props) {
     super(props)
-    this.audioCtx = new window.AudioContext
-    console.log(this.audioCtx)
+    this.audioCtx = new window.AudioContext()
     this.oscs = []
     this.filter = this.audioCtx.createBiquadFilter()
     this.filter.type = 'lowpass'
