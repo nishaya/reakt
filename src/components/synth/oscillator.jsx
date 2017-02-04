@@ -25,23 +25,6 @@ class OscillatorComponent extends Component {
     this.filter.connect(this.audioCtx.destination)
   }
 
-  noteOn(note, velocity) {
-    const gain = this.audioCtx.createGain()
-    const osc = this.audioCtx.createOscillator()
-    osc.connect(gain)
-    // gain.connect(this.audioCtx.destination)
-    gain.connect(this.filter)
-    gain.gain.value = velocity / 127
-    osc.type = 'square'
-    osc.frequency.value = 440 * Math.pow(2, ((note - 69) / 12))
-    osc.start()
-    this.oscs[note] = osc
-  }
-
-  noteOff(note) {
-    this.oscs[note].stop()
-  }
-
   componentWillReceiveProps(nextProps) {
     for (let i = 0; i <= 127; i += 1) {
       if (this.props.noteOn[i] === 0 && nextProps.noteOn[i] > 0) {
@@ -57,6 +40,22 @@ class OscillatorComponent extends Component {
     if (this.props.controlChange[74] !== nextProps.controlChange[74]) {
       this.filter.frequency.value = ((nextProps.controlChange[74] / 127) * 15000) + 10
     }
+  }
+
+  noteOn(note, velocity) {
+    const gain = this.audioCtx.createGain()
+    const osc = this.audioCtx.createOscillator()
+    osc.connect(gain)
+    gain.connect(this.filter)
+    gain.gain.value = velocity / 127
+    osc.type = 'square'
+    osc.frequency.value = 440 * (2 ** ((note - 69) / 12))
+    osc.start()
+    this.oscs[note] = osc
+  }
+
+  noteOff(note) {
+    this.oscs[note].stop()
   }
 
   render() {
