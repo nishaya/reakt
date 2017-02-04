@@ -30,10 +30,14 @@ export default class AnalyzerComponent extends Component {
   }
 
   draw() {
-    const bufferLength = this.analyzer.fftSize
+    this.analyzer.fftSize = 256
+    // const bufferLength = this.analyzer.fftSize
+    const bufferLength = this.analyzer.frequencyBinCount
     const dataArray = new Uint8Array(bufferLength)
-    this.analyzer.getByteTimeDomainData(dataArray)
+    // this.analyzer.getByteTimeDomainData(dataArray)
+    this.analyzer.getByteFrequencyData(dataArray)
     const canvasCtx = this.canvas.getContext('2d')
+    canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
     canvasCtx.fillStyle = 'rgb(200, 200, 200)'
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT)
     canvasCtx.lineWidth = 2
@@ -61,7 +65,11 @@ export default class AnalyzerComponent extends Component {
   render() {
     return (<div>
       analyzer
-      <canvas ref={canvas => this.canvas = canvas} />
+      <canvas
+        ref={canvas => this.canvas = canvas}
+        width={WIDTH}
+        height={HEIGHT}
+      />
     </div>)
   }
 }
