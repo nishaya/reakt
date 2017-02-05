@@ -5,15 +5,26 @@ export default class SliderControl extends Component {
   static propTypes = {
     value: PropTypes.number,
     label: PropTypes.string,
-    // onChanged: PropTypes.func,
-    height: PropTypes.number,
+    onChanged: PropTypes.func,
+    width: PropTypes.number,
   }
 
   static defaultProps = {
     value: 0,
     label: 'Untitled Control',
-    height: 128,
+    width: 128,
+    onChanged: value => (
+      console.log(`value changed to ${value}`)
+    ),
   }
+
+  onSliderMoving(value) {
+    if (this.sliderMoving) {
+      this.props.onChanged(parseInt(value, 10))
+    }
+  }
+
+  sliderMoving = false
 
   shouldComponetUpdate(nextProps) {
     /**
@@ -28,11 +39,13 @@ export default class SliderControl extends Component {
       <h3>{this.props.label}</h3>
       <div>value: {this.props.value}</div>
       <Slider
-        style={{ height: this.props.height }}
-        axis="y"
+        style={{ width: this.props.width }}
         value={this.props.value}
         min={0}
         max={127}
+        onChange={(e, value) => this.onSliderMoving(value)}
+        onDragStart={() => { this.sliderMoving = true }}
+        onDragStop={() => { this.sliderMoving = false }}
       />
     </div>)
   }
