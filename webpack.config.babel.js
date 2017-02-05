@@ -1,5 +1,21 @@
+import webpack from 'webpack'
 import path from 'path'
 import config from 'config'
+
+console.log(process.env.NODE_ENV)
+
+const plugins = [
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    PORT_CONFIG: JSON.stringify(config),
+  }),
+]
+
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({ compress: { drop_debugger: true, drop_console: true } }),
+  )
+}
 
 module.exports = {
   entry: './src/application.jsx',
@@ -7,6 +23,7 @@ module.exports = {
     path: './public',
     filename: 'application.js',
   },
+  plugins,
   resolve: {
     root: [path.resolve('./'), path.resolve('./src')],
     extensions: ['', '.js', '.jsx'],
