@@ -4,17 +4,37 @@ import { connect } from 'react-redux'
 
 class MIDIEvent extends Component {
   static propTypes = {
+    noteOn: PropTypes.shape(),
+    controlChange: PropTypes.shape(),
     onNoteOn: PropTypes.func,
     onNoteOff: PropTypes.func,
+    onControlChange: PropTypes.func,
   }
 
   static defaultProps = {
     onNoteOn: (note, velocity) => { console.log('note on', note, velocity) },
     onNoteOff: (note) => { console.log('note off', note) },
+    onControlChange: (controlNumber, value) => { console.log('control change', controlNumber, value) },
   }
 
   constructor(props) {
     super(props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    for (let i = 0; i <= 127; i += 1) {
+      if (this.props.noteOn[i] === 0 && nextProps.noteOn[i] > 0) {
+        this.props.onNoteOn(i, nextProps.noteOn[i])
+      } else if (this.props.noteOn[i] > 0 && nextProps.noteOn[i] === 0) {
+        this.props.onNoteOff(i)
+      }
+    }
+
+    [71, 74].forEach((controlNumber) => {
+      if (this.props.controlChange[controlNumber] !== nextProps.controlChange[controlNumber]) {
+        this.props.onControlChange(controlNumber, nextProps.controlChange[controlNumber])
+      }
+    })
   }
 
   render() {

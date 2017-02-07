@@ -5,6 +5,7 @@ import Controls from 'components/control/controls'
 import AnalyzerComponent from 'components/synth/analyzer'
 import Filter from 'components/synth/filter'
 import LFO from 'components/synth/lfo'
+import MIDIEvent from 'components/synth/midi_event'
 
 class OscillatorComponent extends Component {
   static propTypes = {
@@ -30,14 +31,6 @@ class OscillatorComponent extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    for (let i = 0; i <= 127; i += 1) {
-      if (this.props.noteOn[i] === 0 && nextProps.noteOn[i] > 0) {
-        this.noteOn(i, nextProps.noteOn[i])
-      } else if (this.props.noteOn[i] > 0 && nextProps.noteOn[i] === 0) {
-        this.noteOff(i)
-      }
-    }
-
     if (this.props.controlChange[71] !== nextProps.controlChange[71]) {
       this.filterComponent.q = nextProps.controlChange[71]
     }
@@ -76,8 +69,6 @@ class OscillatorComponent extends Component {
           this.props.noteOn[note] ? 'o' : '-'
         )).join('')}
       </div>
-      <Controls.Slider label="Resonance #71" value={this.props.controlChange[71]} />
-      <Controls.Slider label="Cutoff #74" value={this.props.controlChange[74]} />
       <AnalyzerComponent audioCtx={this.audioCtx} />
       <Filter
         audioCtx={this.audioCtx}
@@ -90,6 +81,10 @@ class OscillatorComponent extends Component {
       <LFO
         audioCtx={this.audioCtx}
         ref={(lfo) => { this.lfoComponent = lfo }}
+      />
+      <MIDIEvent
+        onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
+        onNoteOff={(note) => { this.noteOff(note) }}
       />
     </div>)
   }
