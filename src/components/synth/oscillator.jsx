@@ -21,10 +21,7 @@ class OscillatorComponent extends Component {
     super(props)
     this.audioCtx = new window.AudioContext()
     this.oscs = []
-    this.filter = this.audioCtx.createBiquadFilter()
-    this.filter.type = 'lowpass'
-    this.filter.Q.value = 10
-    this.filter.connect(this.audioCtx.destination)
+    this.filter = null
 
     this.lfo = this.audioCtx.createOscillator()
     this.lfo.frequency.value = 8.0
@@ -42,11 +39,11 @@ class OscillatorComponent extends Component {
     }
 
     if (this.props.controlChange[71] !== nextProps.controlChange[71]) {
-      this.filter.Q.value = ((nextProps.controlChange[71] / 127) * 70) + 0.0001
+      // this.filter.Q.value = ((nextProps.controlChange[71] / 127) * 70) + 0.0001
       this.filterComponent.q = nextProps.controlChange[71]
     }
     if (this.props.controlChange[74] !== nextProps.controlChange[74]) {
-      this.filter.frequency.value = ((nextProps.controlChange[74] / 127) * 15000) + 1
+      // this.filter.frequency.value = ((nextProps.controlChange[74] / 127) * 15000) + 1
       this.filterComponent.frequency = nextProps.controlChange[74]
     }
     // LFO freq
@@ -87,6 +84,10 @@ class OscillatorComponent extends Component {
       <Filter
         audioCtx={this.audioCtx}
         ref={(filter) => { this.filterComponent = filter }}
+        onReady={(filterNode) => {
+          console.log('filter onready', filterNode)
+          this.filter = filterNode
+        }}
       />
       <LFO
         audioCtx={this.audioCtx}
