@@ -22,11 +22,7 @@ class Synthesizer extends Component {
     this.audioCtx = new window.AudioContext()
     this.oscs = []
     this.filter = null
-
-    this.lfo = this.audioCtx.createOscillator()
-    this.lfo.frequency.value = 8.0
-    this.lfo.type = 'sine'
-    this.lfo.start()
+    this.lfo = null
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,7 +34,7 @@ class Synthesizer extends Component {
     }
     // LFO freq
     if (this.props.controlChange[72] !== nextProps.controlChange[72]) {
-      this.lfo.frequency.value = (nextProps.controlChange[72] / 4) + 0.001
+      // this.lfo.frequency.value = (nextProps.controlChange[72] / 4) + 0.001
       this.lfoComponent.frequency = nextProps.controlChange[72]
     }
   }
@@ -80,6 +76,10 @@ class Synthesizer extends Component {
       <LFO
         audioCtx={this.audioCtx}
         ref={(lfo) => { this.lfoComponent = lfo }}
+        onReady={(lfoNode) => {
+          console.log('LFO onready', lfoNode)
+          this.lfo = lfoNode
+        }}
       />
       <MIDIEvent
         onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}

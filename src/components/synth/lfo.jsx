@@ -41,7 +41,7 @@ export default class LFO extends Component {
 
   set frequency(frequency) {
     const actualFrequency = LFO.value2freq(frequency)
-    this.lfo.frequency.vcalue = actualFrequency
+    this.lfo.frequency.value = actualFrequency
     this.setState({ frequency, actualFrequency })
   }
 
