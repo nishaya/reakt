@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-export default class MIDIEvent extends Component {
+class MIDIEvent extends Component {
   static propTypes = {
     onNoteOn: PropTypes.func,
     onNoteOff: PropTypes.func,
@@ -21,3 +23,15 @@ export default class MIDIEvent extends Component {
     </div>)
   }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch)
+const mapStateToProps = state => ({
+  noteOn: state.midi.noteOn,
+  controlChange: state.midi.controlChange,
+})
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  { withRef: true },
+)(MIDIEvent)
