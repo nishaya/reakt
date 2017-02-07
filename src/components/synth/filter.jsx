@@ -5,33 +5,52 @@ export default class Filter extends Component {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
   }
 
+  static value2freq(value) {
+    return ((value / 127) * 15000) + 1
+  }
+
+  static value2q(value) {
+    return ((value / 127) * 70) + 0.0001
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       frequency: 0, // 0-127
+      actualFrequency: 0,
       q: 0, // 0-127
+      actualQ: 0,
     }
   }
 
   // setup & connect filter
   componentWillMount() {
-    this.filterNode = this.props.audioCtx.createBiquadFilter()
+    this.filter = this.props.audioCtx.createBiquadFilter()
     this.filter.type = 'lowpass'
     this.filter.Q.value = 10
-    this.filter.connect(this.props.audioCtx.destination)
+    // this.filter.connect(this.props.audioCtx.destination)
   }
 
   set frequency(frequency) {
-    this.setState({ frequency })
+    const actualFrequency = Filter.value2freq(frequency)
+    this.filter.frequency.vcalue = actualFrequency
+    this.setState({ frequency, actualFrequency })
   }
+
 
   set q(q) {
-    this.setState({ q })
+    const actualQ = Filter.value2q(q)
+    this.filter.Q.value = actualQ
+    this.setState({ q, actualQ })
   }
 
-  filterNode: null
+  filter: null
 
   render() {
-    return (<div>Filter</div>)
+    return (<div>
+      <h3>Filter</h3>
+      <div>frequency: {this.state.actualFrequency}</div>
+      <div>Q: {this.state.actualQ}</div>
+    </div>)
   }
 }
