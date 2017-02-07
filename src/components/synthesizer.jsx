@@ -7,16 +7,6 @@ import LFO from 'components/synth/lfo'
 import MIDIEvent from 'components/synth/midi_event'
 
 class Synthesizer extends Component {
-  static propTypes = {
-    noteOn: PropTypes.shape(),
-    controlChange: PropTypes.shape(),
-  }
-
-  static defaultProps = {
-    noteOn: {},
-    controlChange: {},
-  }
-
   constructor(props) {
     super(props)
     this.onControlChange = this.handleControlChange.bind(this)
@@ -36,18 +26,7 @@ class Synthesizer extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    /*
-    // LFO freq
-    if (this.props.controlChange[72] !== nextProps.controlChange[72]) {
-      // this.lfo.frequency.value = (nextProps.controlChange[72] / 4) + 0.001
-      this.lfoComponent.frequency = nextProps.controlChange[72]
-    }
-    */
-  }
-
   handleControlChange(controlNumber, value) {
-    console.log('handleControlChange', controlNumber, value)
     this.setState({ controlChange: { ...this.state.controlChange, [controlNumber]: value } })
   }
 
@@ -71,11 +50,6 @@ class Synthesizer extends Component {
 
   render() {
     return (<div>
-      <div>
-        {Object.keys(this.props.noteOn).map(note => (
-          this.props.noteOn[note] ? 'o' : '-'
-        )).join('')}
-      </div>
       <AnalyzerComponent audioCtx={this.audioCtx} />
       <Filter
         audioCtx={this.audioCtx}
