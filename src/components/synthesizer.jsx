@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Controls from 'components/control/controls'
 import AnalyzerComponent from 'components/synth/analyzer'
 import Filter from 'components/synth/filter'
 import LFO from 'components/synth/lfo'
 import MIDIEvent from 'components/synth/midi_event'
 
-class OscillatorComponent extends Component {
+class Synthesizer extends Component {
   static propTypes = {
     noteOn: PropTypes.shape(),
     controlChange: PropTypes.shape(),
@@ -101,4 +100,4 @@ export default connect(
   mapDispatchToProps,
   null,
   { withRef: true },
-)(OscillatorComponent)
+)(Synthesizer)
