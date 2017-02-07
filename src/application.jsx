@@ -9,6 +9,8 @@ import reducers from 'reducers/index'
 // http://www.material-ui.com/#/
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import reaktTheme from 'styles/reakt_theme'
 
 injectTapEventPlugin()
 
@@ -16,7 +18,7 @@ const middlewares = applyMiddleware(createLogger())
 const store = createStore(reducers, middlewares)
 
 render((<Provider store={store}>
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={getMuiTheme(reaktTheme)}>
     <IndexComponent />
   </MuiThemeProvider>
 </Provider>), document.getElementById('app'))
