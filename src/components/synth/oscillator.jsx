@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Controls from 'components/control/controls'
 import AnalyzerComponent from 'components/synth/analyzer'
+import Filter from 'components/filter'
 
 class OscillatorComponent extends Component {
   static propTypes = {
