@@ -43,13 +43,16 @@ class OscillatorComponent extends Component {
 
     if (this.props.controlChange[71] !== nextProps.controlChange[71]) {
       this.filter.Q.value = ((nextProps.controlChange[71] / 127) * 70) + 0.0001
+      this.filterComponent.q = nextProps.controlChange[71]
     }
     if (this.props.controlChange[74] !== nextProps.controlChange[74]) {
       this.filter.frequency.value = ((nextProps.controlChange[74] / 127) * 15000) + 1
+      this.filterComponent.frequency = nextProps.controlChange[74]
     }
     // LFO freq
     if (this.props.controlChange[72] !== nextProps.controlChange[72]) {
       this.lfo.frequency.value = (nextProps.controlChange[72] / 4) + 0.001
+      this.lfoComponent.frequency = nextProps.controlChange[72]
     }
   }
 
@@ -83,11 +86,11 @@ class OscillatorComponent extends Component {
       <AnalyzerComponent audioCtx={this.audioCtx} />
       <Filter
         audioCtx={this.audioCtx}
-        ref={(filter) => { this.filter = filter }}
+        ref={(filter) => { this.filterComponent = filter }}
       />
       <LFO
         audioCtx={this.audioCtx}
-        ref={(lfo) => { this.lfo = lfo }}
+        ref={(lfo) => { this.lfoComponent = lfo }}
       />
     </div>)
   }
