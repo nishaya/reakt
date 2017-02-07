@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Controls from 'components/control/controls'
 import AnalyzerComponent from 'components/synth/analyzer'
 import Filter from 'components/synth/filter'
+import LFO from 'components/synth/lfo'
 
 class OscillatorComponent extends Component {
   static propTypes = {
@@ -81,6 +82,7 @@ class OscillatorComponent extends Component {
       <Controls.Slider label="Cutoff #74" value={this.props.controlChange[74]} />
       <AnalyzerComponent audioCtx={this.audioCtx} />
       <Filter audioCtx={this.audioCtx} />
+      <LFO audioCtx={this.audioCtx} />
     </div>)
   }
 }
