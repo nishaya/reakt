@@ -54,8 +54,8 @@ export default class Filter extends Component {
 
   render() {
     return (<div>
-      <h3>Filter</h3>
-      <div>frequency: {this.state.actualFrequency}</div>
+      <h2>Filter</h2>
+      <div>frequency: {this.state.actualFrequency} Hz</div>
       <div>Q: {this.state.actualQ}</div>
     </div>)
   }

@@ -39,11 +39,9 @@ class OscillatorComponent extends Component {
     }
 
     if (this.props.controlChange[71] !== nextProps.controlChange[71]) {
-      // this.filter.Q.value = ((nextProps.controlChange[71] / 127) * 70) + 0.0001
       this.filterComponent.q = nextProps.controlChange[71]
     }
     if (this.props.controlChange[74] !== nextProps.controlChange[74]) {
-      // this.filter.frequency.value = ((nextProps.controlChange[74] / 127) * 15000) + 1
       this.filterComponent.frequency = nextProps.controlChange[74]
     }
     // LFO freq
