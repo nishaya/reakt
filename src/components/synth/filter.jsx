@@ -21,6 +21,8 @@ export default class Filter extends Component {
       q: 0, // 0-127
       actualQ: 0,
     }
+
+    this.filter = null
   }
 
   // setup & connect filter
@@ -43,8 +45,6 @@ export default class Filter extends Component {
     this.filter.Q.value = actualQ
     this.setState({ q, actualQ })
   }
-
-  filter: null
 
   render() {
     return (<div>
