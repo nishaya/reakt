@@ -81,8 +81,14 @@ class OscillatorComponent extends Component {
       <Controls.Slider label="Resonance #71" value={this.props.controlChange[71]} />
       <Controls.Slider label="Cutoff #74" value={this.props.controlChange[74]} />
       <AnalyzerComponent audioCtx={this.audioCtx} />
-      <Filter audioCtx={this.audioCtx} />
-      <LFO audioCtx={this.audioCtx} />
+      <Filter
+        audioCtx={this.audioCtx}
+        ref={(filter) => { this.filter = filter }}
+      />
+      <LFO
+        audioCtx={this.audioCtx}
+        ref={(lfo) => { this.lfo = lfo }}
+      />
     </div>)
   }
 }
