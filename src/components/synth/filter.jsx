@@ -4,10 +4,14 @@ export default class Filter extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
     onReady: PropTypes.func,
+    frequency: PropTypes.number,
+    q: PropTypes.number,
   }
 
   static defaultProps = {
-    onReady: (filter) => { console.log(filter) }
+    onReady: (filter) => { console.log(filter) },
+    frequency: 0,
+    q: 0,
   }
 
   static value2freq(value) {
@@ -21,7 +25,6 @@ export default class Filter extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      frequency: 0, // 0-127
       actualFrequency: 0,
       q: 0, // 0-127
       actualQ: 0,
@@ -37,6 +40,15 @@ export default class Filter extends Component {
     this.filter.Q.value = 10
     this.filter.connect(this.props.audioCtx.destination)
     this.props.onReady(this.filter)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.frequency !== nextProps.frequency) {
+      this.frequency = nextProps.frequency
+    }
+    if (this.props.q !== nextProps.q) {
+      this.q = nextProps.q
+    }
   }
 
   set frequency(frequency) {

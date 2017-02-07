@@ -4,10 +4,14 @@ export default class LFO extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
     onReady: PropTypes.func,
+    frequency: PropTypes.number,
+    depth: PropTypes.number,
   }
 
   static defaultProps = {
     onReady: (lfo) => { console.log(lfo) },
+    frequency: 0,
+    depth: 0,
   }
 
   static value2freq(value) {
@@ -37,6 +41,15 @@ export default class LFO extends Component {
     this.lfo.type = 'sine'
     this.props.onReady(this.lfo) // onReadyを介して親componentでgainNodeに接続させる
     this.lfo.start()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.frequency !== nextProps.frequency) {
+      this.frequency = nextProps.frequency
+    }
+    if (this.props.depth !== nextProps.depth) {
+      this.depth = nextProps.depth
+    }
   }
 
   set frequency(frequency) {

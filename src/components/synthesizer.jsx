@@ -19,24 +19,36 @@ class Synthesizer extends Component {
 
   constructor(props) {
     super(props)
+    this.onControlChange = this.handleControlChange.bind(this)
     this.audioCtx = new window.AudioContext()
     this.oscs = []
     this.filter = null
     this.lfo = null
+    this.filterComponent = null
+    this.lfoComponent = null
+
+    this.state = {
+      controlChange: {
+        71: 0,
+        72: 0,
+        74: 0,
+      },
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.controlChange[71] !== nextProps.controlChange[71]) {
-      this.filterComponent.q = nextProps.controlChange[71]
-    }
-    if (this.props.controlChange[74] !== nextProps.controlChange[74]) {
-      this.filterComponent.frequency = nextProps.controlChange[74]
-    }
+    /*
     // LFO freq
     if (this.props.controlChange[72] !== nextProps.controlChange[72]) {
       // this.lfo.frequency.value = (nextProps.controlChange[72] / 4) + 0.001
       this.lfoComponent.frequency = nextProps.controlChange[72]
     }
+    */
+  }
+
+  handleControlChange(controlNumber, value) {
+    console.log('handleControlChange', controlNumber, value)
+    this.setState({ controlChange: { ...this.state.controlChange, [controlNumber]: value } })
   }
 
   noteOn(note, velocity) {
@@ -68,6 +80,8 @@ class Synthesizer extends Component {
       <Filter
         audioCtx={this.audioCtx}
         ref={(filter) => { this.filterComponent = filter }}
+        frequency={this.state.controlChange[74]}
+        q={this.state.controlChange[71]}
         onReady={(filterNode) => {
           console.log('filter onready', filterNode)
           this.filter = filterNode
@@ -76,6 +90,7 @@ class Synthesizer extends Component {
       <LFO
         audioCtx={this.audioCtx}
         ref={(lfo) => { this.lfoComponent = lfo }}
+        frequency={this.state.controlChange[72]}
         onReady={(lfoNode) => {
           console.log('LFO onready', lfoNode)
           this.lfo = lfoNode
@@ -84,6 +99,7 @@ class Synthesizer extends Component {
       <MIDIEvent
         onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
         onNoteOff={(note) => { this.noteOff(note) }}
+        onControlChange={(controlNumber, value) => { this.handleControlChange(controlNumber, value) }}
       />
     </div>)
   }

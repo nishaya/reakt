@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 
 class MIDIEvent extends Component {
   static propTypes = {
-    noteOn: PropTypes.shape(),
-    controlChange: PropTypes.shape(),
+    noteOn: PropTypes.shape().isRequired,
+    controlChange: PropTypes.shape().isRequired,
     onNoteOn: PropTypes.func,
     onNoteOff: PropTypes.func,
     onControlChange: PropTypes.func,
@@ -30,7 +30,7 @@ class MIDIEvent extends Component {
       }
     }
 
-    [71, 74].forEach((controlNumber) => {
+    [71, 72, 74].forEach((controlNumber) => {
       if (this.props.controlChange[controlNumber] !== nextProps.controlChange[controlNumber]) {
         this.props.onControlChange(controlNumber, nextProps.controlChange[controlNumber])
       }
