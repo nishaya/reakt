@@ -1,34 +1,31 @@
 import React, { Component, PropTypes } from 'react'
 
-const WIDTH = 200
+const WIDTH = 256
 const HEIGHT = 100
 
 export default class AnalyzerComponent extends Component {
   static propTypes = {
-    audioCtx: PropTypes.instanceOf(AudioContext),
+    audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
+    onReady: PropTypes.func,
   }
 
   static defaultProps = {
-    audioCtx: null,
+    onReady: (analyzer) => { console.log(analyzer) },
   }
-  // TODO: this.analyzerを外部から参照できるようにしてoscにconnectする
+
   componentDidMount() {
-    console.log('componentDidMount', this.props)
-    if (this.props.audioCtx) {
-      this.analyzer = this.props.audioCtx.createAnalyser()
-      this.analyzer.connect(this.props.audioCtx.destination)
-      console.log(this.analyzer)
-      this.draw()
-    }
+    this.analyzer = this.props.audioCtx.createAnalyser()
+    this.props.onReady(this.analyzer)
+    this.draw()
   }
 
   draw() {
-    this.analyzer.fftSize = 256
-    // const bufferLength = this.analyzer.fftSize
-    const bufferLength = this.analyzer.frequencyBinCount
+    this.analyzer.fftSize = 1024
+    const bufferLength = this.analyzer.fftSize
+    // const bufferLength = this.analyzer.frequencyBinCount
     const dataArray = new Uint8Array(bufferLength)
-    // this.analyzer.getByteTimeDomainData(dataArray)
-    this.analyzer.getByteFrequencyData(dataArray)
+    this.analyzer.getByteTimeDomainData(dataArray)
+    // this.analyzer.getByteFrequencyData(dataArray)
     const canvasCtx = this.canvas.getContext('2d')
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
     canvasCtx.fillStyle = 'rgb(200, 200, 200)'
@@ -52,7 +49,7 @@ export default class AnalyzerComponent extends Component {
     canvasCtx.stroke()
 
     const draw = this.draw.bind(this)
-    setTimeout(draw, 1000)
+    setTimeout(draw, 30)
   }
 
   render() {

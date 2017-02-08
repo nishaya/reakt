@@ -10,13 +10,11 @@ import Oscillator from 'components/synth/oscillator'
 class Synthesizer extends Component {
   constructor(props) {
     super(props)
-    this.onControlChange = this.handleControlChange.bind(this)
     this.audioCtx = new window.AudioContext()
     this.oscs = []
     this.filter = null
     this.lfo = null
-    this.filterComponent = null
-    this.lfoComponent = null
+    this.analyzer = null
 
     this.state = {
       controlChange: {
@@ -45,6 +43,7 @@ class Synthesizer extends Component {
     const osc = this.oscComponent.play(frequency)
     osc.connect(gain)
     gain.connect(this.filter)
+    this.filter.connect(this.analyzer)
     osc.start()
     this.oscs[note] = osc
   }
@@ -55,7 +54,12 @@ class Synthesizer extends Component {
 
   render() {
     return (<div>
-      <AnalyzerComponent audioCtx={this.audioCtx} />
+      <AnalyzerComponent
+        audioCtx={this.audioCtx}
+        onReady={(analyzerNode) => {
+          this.analyzer = analyzerNode
+        }}
+      />
       <MIDIEvent
         onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
         onNoteOff={(note) => { this.noteOff(note) }}
