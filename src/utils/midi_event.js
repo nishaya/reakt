@@ -1,8 +1,15 @@
+import {
+  MIDI_NOTE_ON,
+  MIDI_NOTE_OFF,
+  MIDI_CONTROL_CHANGE,
+} from 'actions/action_types'
+
 class NoteOnEvent {
   constructor(message) {
     this.channel = message[0] & 0b00001111
     this.note = message[1]
     this.velocity = message[2]
+    this.type = MIDI_NOTE_ON
   }
 }
 
@@ -11,6 +18,7 @@ class NoteOffEvent {
     this.channel = message[0] & 0b00001111
     this.note = message[1]
     this.velocity = message[2]
+    this.type = MIDI_NOTE_OFF
   }
 }
 
@@ -19,6 +27,7 @@ class ControllChangeEvent {
     this.channel = message[0] & 0b00001111
     this.controlNumber = message[1]
     this.value = message[2]
+    this.type = MIDI_CONTROL_CHANGE
   }
 }
 

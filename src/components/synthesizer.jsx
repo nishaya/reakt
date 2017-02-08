@@ -31,6 +31,10 @@ class Synthesizer extends Component {
     this.setState({ controlChange: { ...this.state.controlChange, [controlNumber]: value } })
   }
 
+  componentWillReceiveProps() {
+    this.setState({})
+  }
+
   noteOn(note, velocity) {
     const gain = this.audioCtx.createGain()
     gain.gain.value = (velocity / 127) * 0.5
@@ -64,7 +68,10 @@ class Synthesizer extends Component {
       />
       <LFO
         audioCtx={this.audioCtx}
-        ref={(lfo) => { this.lfoComponent = lfo }}
+        ref={(lfo) => {
+          console.log('set LFO ref', lfo)
+          this.lfoComponent = lfo
+        }}
         frequency={this.state.controlChange[72]}
         onReady={(lfoNode) => {
           console.log('LFO onready', lfoNode)

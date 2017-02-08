@@ -8,7 +8,11 @@ const initialState = {
 
 export default createReducer(initialState, {
   [MIDI_NOTE_ON](state, action) {
-    return { ...state, noteOn: { ...state.noteOn, [action.payload.event.note]: action.payload.event.velocity } }
+    console.log(action.payload.event.noteOn)
+    return {
+      ...state,
+      noteOn: { ...state.noteOn, [action.payload.event.note]: action.payload.event.velocity },
+    }
   },
   [MIDI_NOTE_OFF](state, action) {
     return { ...state, noteOn: { ...state.noteOn, [action.payload.event.note]: 0 } }
