@@ -17,10 +17,6 @@ class MIDIEvent extends Component {
     onControlChange: (controlNumber, value) => { console.log('control change', controlNumber, value) },
   }
 
-  constructor(props) {
-    super(props)
-  }
-
   componentWillReceiveProps(nextProps) {
     for (let i = 0; i <= 127; i += 1) {
       if (this.props.noteOn[i] === 0 && nextProps.noteOn[i] > 0) {
