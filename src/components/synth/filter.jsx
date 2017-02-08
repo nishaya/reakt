@@ -68,8 +68,8 @@ export default class Filter extends Component {
     return (<div className="reakt-component__container">
       <h2>Filter</h2>
       <div className="reakt-component__body">
-        <div>frequency: {this.state.actualFrequency} Hz</div>
-        <div>Q: {this.state.actualQ}</div>
+        <div>frequency: {parseInt(this.state.actualFrequency * 100, 10) / 100} Hz</div>
+        <div>Q: {parseInt(this.state.actualQ * 100, 10) / 100}</div>
       </div>
     </div>)
   }
