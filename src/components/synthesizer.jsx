@@ -5,6 +5,7 @@ import AnalyzerComponent from 'components/synth/analyzer'
 import Filter from 'components/synth/filter'
 import LFO from 'components/synth/lfo'
 import MIDIEvent from 'components/synth/midi_event'
+import Oscillator from 'components/synth/oscillator'
 
 class Synthesizer extends Component {
   constructor(props) {
@@ -73,8 +74,11 @@ class Synthesizer extends Component {
       <MIDIEvent
         onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
         onNoteOff={(note) => { this.noteOff(note) }}
-        onControlChange={(controlNumber, value) => { this.handleControlChange(controlNumber, value) }}
+        onControlChange={
+          (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
+        }
       />
+      <Oscillator />
     </div>)
   }
 }

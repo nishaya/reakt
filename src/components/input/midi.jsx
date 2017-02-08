@@ -62,7 +62,7 @@ class MidiInput extends Component {
   }
 }
 
-const mapStateToProps = () => {}
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = dispatch => bindActionCreators(MidiActions, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(MidiInput)

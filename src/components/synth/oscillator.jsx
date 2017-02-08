@@ -7,7 +7,7 @@ export default class Oscillator extends Component {
   }
 
   static defaultProps = {
-    onPlay: (frequency, node) => { console.log('onPlay', frequency, node) }
+    onPlay: (frequency, node) => { console.log('onPlay', frequency, node) },
     type: 'square',
   }
 
@@ -38,7 +38,7 @@ export default class Oscillator extends Component {
       <h2>Oscillator</h2>
       <div className="reakt-component__body">
         <div>type: {this.state.type}</div>
-      <div>
+      </div>
     </div>)
   }
 }
