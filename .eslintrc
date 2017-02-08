@@ -8,9 +8,11 @@ rules:
     - never
   no-unused-vars:
     - error
+    - varsIgnorePattern: Style$
   import/extensions: 0
   import/no-extraneous-dependencies: 0
   import/no-unresolved: 0
+
 
   # React rules
   react/prefer-stateless-function: 0
