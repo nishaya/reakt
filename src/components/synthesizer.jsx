@@ -56,23 +56,6 @@ class Synthesizer extends Component {
   render() {
     return (<div>
       <AnalyzerComponent audioCtx={this.audioCtx} />
-      {this.oscComponent.render()}
-      <Filter
-        audioCtx={this.audioCtx}
-        ref={(filter) => { this.filterComponent = filter }}
-        frequency={this.state.controlChange[74]}
-        q={this.state.controlChange[71]}
-        onReady={(filterNode) => {
-          this.filter = filterNode
-        }}
-      />
-      <LFO
-        audioCtx={this.audioCtx}
-        frequency={this.state.controlChange[72]}
-        onReady={(lfoNode) => {
-          this.lfo = lfoNode
-        }}
-      />
       <MIDIEvent
         onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
         onNoteOff={(note) => { this.noteOff(note) }}
@@ -80,6 +63,25 @@ class Synthesizer extends Component {
           (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
         }
       />
+      <div>
+        {this.oscComponent.render()}
+        <Filter
+          audioCtx={this.audioCtx}
+          ref={(filter) => { this.filterComponent = filter }}
+          frequency={this.state.controlChange[74]}
+          q={this.state.controlChange[71]}
+          onReady={(filterNode) => {
+            this.filter = filterNode
+          }}
+        />
+        <LFO
+          audioCtx={this.audioCtx}
+          frequency={this.state.controlChange[72]}
+          onReady={(lfoNode) => {
+            this.lfo = lfoNode
+          }}
+        />
+      </div>
     </div>)
   }
 }
