@@ -28,8 +28,14 @@ export default class Oscillator extends Component {
     }
   }
 
+  play(frequency) {
+    const osc = this.props.audioCtx.createOscillator()
+    osc.type = this.state.type
+    osc.frequency.value = frequency
+    return osc
+  }
+
   set type(type) {
-    this.lfo.type = type
     this.setState({ type })
   }
 

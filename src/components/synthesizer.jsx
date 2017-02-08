@@ -25,6 +25,8 @@ class Synthesizer extends Component {
         74: 0,
       },
     }
+
+    this.oscComponent = new Oscillator({ audioCtx: this.audioCtx })
   }
 
   handleControlChange(controlNumber, value) {
@@ -32,15 +34,15 @@ class Synthesizer extends Component {
   }
 
   noteOn(note, velocity) {
+    console.log(this.oscComponent)
     const gain = this.audioCtx.createGain()
     gain.gain.value = (velocity / 127) * 0.5
     this.lfo.connect(gain.gain)
 
-    const osc = this.audioCtx.createOscillator()
+    const frequency = 440 * (2 ** ((note - 69) / 12))
+    const osc = this.oscComponent.play(frequency)
     osc.connect(gain)
     gain.connect(this.filter)
-    osc.type = 'square'
-    osc.frequency.value = 440 * (2 ** ((note - 69) / 12))
     osc.start()
     this.oscs[note] = osc
   }
@@ -64,10 +66,6 @@ class Synthesizer extends Component {
       />
       <LFO
         audioCtx={this.audioCtx}
-        ref={(lfo) => {
-          console.log('set LFO ref', lfo)
-          this.lfoComponent = lfo
-        }}
         frequency={this.state.controlChange[72]}
         onReady={(lfoNode) => {
           console.log('LFO onready', lfoNode)
@@ -81,9 +79,7 @@ class Synthesizer extends Component {
           (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
         }
       />
-      <Oscillator
-        audioCtx={this.audioCtx}
-      />
+      {this.oscComponent.render()}
     </div>)
   }
 }

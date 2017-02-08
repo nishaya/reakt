@@ -26,7 +26,7 @@ export default class LFO extends Component {
     super(props)
     this.state = {
       frequency: 0, // 0-127
-      actualFrequency: 0,
+      actualFrequency: 0.3,
       depth: 0, // 0-127
       actualDepth: 0,
       type: 'sine',
@@ -37,7 +37,7 @@ export default class LFO extends Component {
 
   componentWillMount() {
     this.lfo = this.props.audioCtx.createOscillator()
-    this.lfo.frequency.value = 8.0
+    this.lfo.frequency.value = this.state.actualFrequency
     this.lfo.type = 'sine'
     this.props.onReady(this.lfo) // onReadyを介して親componentでgainNodeに接続させる
     this.lfo.start()
