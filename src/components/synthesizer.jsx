@@ -31,10 +31,6 @@ class Synthesizer extends Component {
     this.setState({ controlChange: { ...this.state.controlChange, [controlNumber]: value } })
   }
 
-  componentWillReceiveProps() {
-    this.setState({})
-  }
-
   noteOn(note, velocity) {
     const gain = this.audioCtx.createGain()
     gain.gain.value = (velocity / 127) * 0.5
