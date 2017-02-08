@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AnalyzerComponent from 'components/synth/analyzer'
@@ -37,7 +37,6 @@ class Synthesizer extends Component {
   }
 
   noteOn(note, velocity) {
-    console.log(this.oscComponent)
     const gain = this.audioCtx.createGain()
     gain.gain.value = (velocity / 127) * 0.5
     this.lfo.connect(gain.gain)
@@ -64,7 +63,6 @@ class Synthesizer extends Component {
         frequency={this.state.controlChange[74]}
         q={this.state.controlChange[71]}
         onReady={(filterNode) => {
-          console.log('filter onready', filterNode)
           this.filter = filterNode
         }}
       />
@@ -72,7 +70,6 @@ class Synthesizer extends Component {
         audioCtx={this.audioCtx}
         frequency={this.state.controlChange[72]}
         onReady={(lfoNode) => {
-          console.log('LFO onready', lfoNode)
           this.lfo = lfoNode
         }}
       />
