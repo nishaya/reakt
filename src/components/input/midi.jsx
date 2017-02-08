@@ -10,9 +10,14 @@ class MidiInput extends Component {
     onMidiMessage: PropTypes.func,
   }
 
+  static defaultProps = {
+    onMidiMessage: () => {},
+  }
+
   constructor(props) {
     super(props)
-    navigator.requestMIDIAccess({ sysex: true }).then(this.midiEnabled.bind(this), this.midiUnavailable)
+    navigator.requestMIDIAccess({ sysex: true })
+      .then(this.midiEnabled.bind(this), this.midiUnavailable)
     this.state = {
       inputs: [],
       selectedInput: null,
@@ -20,10 +25,8 @@ class MidiInput extends Component {
   }
 
   midiEnabled(midi) {
-    console.log('midiEnabled', midi.inputs)
     const inputs = []
     for (const input of midi.inputs.values()) {
-      console.log(input)
       inputs.push(input)
     }
     this.setState({ inputs })
@@ -34,7 +37,6 @@ class MidiInput extends Component {
   }
 
   selectInput(index) {
-    console.log('selectInput', index)
     const input = this.state.inputs[index]
     input.onmidimessage = (e) => {
       this.props.onMidiMessage(e.data)
@@ -44,22 +46,23 @@ class MidiInput extends Component {
   }
 
   render() {
-    console.log(this.state)
-    return (<div>midi inputs
-      <DropDownMenu value={0} onChange={(event, key) => this.selectInput(key)} >
-        {this.state.inputs.map((input, index) => (
-          <MenuItem key={`input_${input.id}`} value={index} primaryText={input.name} />
-        ))}
-      </DropDownMenu>
-      {this.state.selectedInput ? (<div>
-        {this.state.selectedInput.name}
-      </div>) : null}
+    return (<div className="reakt-component__container">
+      <h2>MIDI Inputs</h2>
+      <div className="reakt-component__body">
+        <DropDownMenu value={0} onChange={(event, key) => this.selectInput(key)} >
+          {this.state.inputs.map((input, index) => (
+            <MenuItem key={`input_${input.id}`} value={index} primaryText={input.name} />
+          ))}
+        </DropDownMenu>
+        {this.state.selectedInput ? (<div>
+          {this.state.selectedInput.name}
+        </div>) : null}
+      </div>
     </div>)
   }
 }
 
-const mapStateToProps = state => ({
-})
+const mapStateToProps = () => {}
 
 const mapDispatchToProps = dispatch => bindActionCreators(MidiActions, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(MidiInput)

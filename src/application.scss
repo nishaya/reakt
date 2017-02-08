@@ -2,18 +2,20 @@ html, body {
   letter-spacing: 0.1em;
 
   h1, h2, h3 {
+    margin-top: 4px;
+    margin-bottom: 4px;
     font-weight: 400;
     letter-spacing: 0.1em;
     font-family: 'Roboto Condensed', sans-serif;
   }
 
   div {
-    .reakt-component__body {
+    .reakt-component__container {
       padding: 8px;
     }
 
     .reakt-component__body {
-      margin: 16px;
+      margin: 8px;
     }
   }
 }

@@ -65,7 +65,7 @@ export default class Filter extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div className="reakt-component__container">
       <h2>Filter</h2>
       <div className="reakt-component__body">
         <div>frequency: {this.state.actualFrequency} Hz</div>
