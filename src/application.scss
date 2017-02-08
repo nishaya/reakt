@@ -12,6 +12,8 @@ html, body {
   div {
     .reakt-component__container {
       padding: 8px;
+      display: inline-block;
+      vertical-align: top;
     }
 
     .reakt-component__body {
