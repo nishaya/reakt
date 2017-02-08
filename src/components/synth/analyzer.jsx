@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 const WIDTH = 200
-const HEIGHT = 200
+const HEIGHT = 100
 
 export default class AnalyzerComponent extends Component {
   static propTypes = {
@@ -57,12 +57,14 @@ export default class AnalyzerComponent extends Component {
 
   render() {
     return (<div>
-      analyzer
-      <canvas
-        ref={canvas => this.canvas = canvas}
-        width={WIDTH}
-        height={HEIGHT}
-      />
+      <h2>Analyzer</h2>
+      <div className="reakt-component__body">
+        <canvas
+          ref={(canvas) => { this.canvas = canvas }}
+          width={WIDTH}
+          height={HEIGHT}
+        />
+      </div>
     </div>)
   }
 }
