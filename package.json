@@ -6,7 +6,7 @@
   "author": "nishaya <nishaya@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "NODE_ENV=development webpack-dev-server",
     "build": "NODE_ENV=production webpack",
     "test": "NODE_ENV=test jest",
     "lint": "eslint . --ext .js,.jsx --cache --fix"

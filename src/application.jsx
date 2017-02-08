@@ -15,7 +15,9 @@ import applicationStyle from './application.scss'
 
 injectTapEventPlugin()
 
-const middlewares = applyMiddleware(createLogger())
+const middlewares = process.env.NODE_ENV === 'development' ?
+  applyMiddleware(createLogger()) : applyMiddleware()
+
 const store = createStore(reducers, middlewares)
 
 render((<Provider store={store}>
