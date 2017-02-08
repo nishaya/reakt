@@ -22,10 +22,8 @@ export default class AnalyzerComponent extends Component {
   draw() {
     this.analyzer.fftSize = 1024
     const bufferLength = this.analyzer.fftSize
-    // const bufferLength = this.analyzer.frequencyBinCount
     const dataArray = new Uint8Array(bufferLength)
     this.analyzer.getByteTimeDomainData(dataArray)
-    // this.analyzer.getByteFrequencyData(dataArray)
     const canvasCtx = this.canvas.getContext('2d')
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
     canvasCtx.fillStyle = 'rgb(200, 200, 200)'
