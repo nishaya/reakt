@@ -1,6 +1,6 @@
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 
 export default {
-  ...darkBaseTheme,
+  ...lightBaseTheme,
   fontFamily: "'Roboto Condensed', sans-serif",
 }
