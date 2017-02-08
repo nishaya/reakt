@@ -26,10 +26,10 @@ export default class AnalyzerComponent extends Component {
     this.analyzer.getByteTimeDomainData(dataArray)
     const canvasCtx = this.canvas.getContext('2d')
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
-    canvasCtx.fillStyle = 'rgb(200, 200, 200)'
+    canvasCtx.fillStyle = 'rgb(203, 213, 198)'
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT)
     canvasCtx.lineWidth = 2
-    canvasCtx.strokeStyle = 'rgb(0, 0, 0)'
+    canvasCtx.strokeStyle = 'rgb(98, 104, 95)'
     canvasCtx.beginPath()
     const sliceWidth = (WIDTH * 1.0) / bufferLength
     let x = 0
@@ -47,7 +47,7 @@ export default class AnalyzerComponent extends Component {
     canvasCtx.stroke()
 
     const draw = this.draw.bind(this)
-    setTimeout(draw, 30)
+    setTimeout(draw, 50)
   }
 
   render() {
