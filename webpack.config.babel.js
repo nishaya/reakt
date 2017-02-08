@@ -31,6 +31,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel'] },
+      { test: /application\.s[ac]ss$/, loaders: ['style', 'css', 'sass'] },
     ],
   },
   devServer: {

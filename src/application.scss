@@ -1,0 +1,13 @@
+html, body {
+  letter-spacing: 0.1em;
+
+  h1, h2, h3 {
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+  .reakt-component__body {
+    margin: 40px;
+  }
+}
