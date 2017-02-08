@@ -56,7 +56,7 @@ export default class AnalyzerComponent extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div className="reakt-component__container">
       <h2>Analyzer</h2>
       <div className="reakt-component__body">
         <canvas

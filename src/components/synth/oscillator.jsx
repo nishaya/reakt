@@ -34,9 +34,11 @@ export default class Oscillator extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div className="reakt-component__container">
       <h2>Oscillator</h2>
-      <div>type: {this.state.type}</div>
+      <div className="reakt-component__body">
+        <div>type: {this.state.type}</div>
+      <div>
     </div>)
   }
 }

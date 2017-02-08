@@ -59,9 +59,12 @@ class KeyboardInput extends Component {
   textInput = null
 
   render() {
-    return (<div>
-      <input type="text" ref={(input) => { this.textInput = input }} />
-      <input type="text" value={`${this.state.key}`} readOnly />
+    return (<div className="reakt-component__container">
+      <h2>Keyboard Events</h2>
+      <div className="reakt-component__body">
+        <input type="text" ref={(input) => { this.textInput = input }} />
+        <input type="text" value={`${this.state.key}`} readOnly />
+      </div>
     </div>)
   }
 }

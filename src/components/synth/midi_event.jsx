@@ -38,7 +38,7 @@ class MIDIEvent extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div className="reakt-component__container">
       <h2>MIDI Events</h2>
     </div>)
   }
