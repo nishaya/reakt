@@ -26,7 +26,10 @@ class Synthesizer extends Component {
       },
     }
 
-    this.oscComponent = new Oscillator({ audioCtx: this.audioCtx })
+    this.oscComponent = new Oscillator({
+      audioCtx: this.audioCtx,
+      type: 'sawtooth',
+    })
   }
 
   handleControlChange(controlNumber, value) {
@@ -54,6 +57,7 @@ class Synthesizer extends Component {
   render() {
     return (<div>
       <AnalyzerComponent audioCtx={this.audioCtx} />
+      {this.oscComponent.render()}
       <Filter
         audioCtx={this.audioCtx}
         ref={(filter) => { this.filterComponent = filter }}
@@ -79,7 +83,6 @@ class Synthesizer extends Component {
           (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
         }
       />
-      {this.oscComponent.render()}
     </div>)
   }
 }

@@ -7,18 +7,13 @@ export default class Oscillator extends Component {
   }
 
   static defaultProps = {
-    onPlay: (frequency, node) => { console.log('onPlay', frequency, node) },
     type: 'square',
-  }
-
-  static value2freq(value) {
-    return (value / 4) + 0.001
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      type: 'square',
+      type: props.type,
     }
   }
 
