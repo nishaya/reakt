@@ -78,7 +78,9 @@ class Synthesizer extends Component {
           (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
         }
       />
-      <Oscillator />
+      <Oscillator
+        audioCtx={this.audioCtx}
+      />
     </div>)
   }
 }
