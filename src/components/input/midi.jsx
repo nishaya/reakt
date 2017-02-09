@@ -5,11 +5,11 @@ import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import MidiActions from 'actions/midi'
 
-class MidiInput extends Component {
+class MIDIInput extends Component {
   static propTypes = {
     onMidiMessage: PropTypes.func.isRequired,
     selectMidiDevice: PropTypes.func.isRequired,
-    selectedDeviceId: PropTypes.string,
+    selectedDeviceId: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -74,4 +74,4 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(MidiActions, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(MidiInput)
+export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(MIDIInput)

@@ -4,7 +4,7 @@ import {
 import createReducer from './create_reducer'
 
 const initialState = {
-  deviceId: null,
+  deviceId: '',
 }
 
 export default createReducer(initialState, {

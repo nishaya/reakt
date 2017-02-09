@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import AnalyzerComponent from 'components/synth/analyzer'
 import Filter from 'components/synth/filter'
 import LFO from 'components/synth/lfo'
+import MIDIInput from 'components/input/midi'
 import MIDIEvent from 'components/synth/midi_event'
 import Oscillator from 'components/synth/oscillator'
 
@@ -60,6 +61,7 @@ class Synthesizer extends Component {
           this.analyzer = analyzerNode
         }}
       />
+      <MIDIInput />
       <MIDIEvent
         onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
         onNoteOff={(note) => { this.noteOff(note) }}
