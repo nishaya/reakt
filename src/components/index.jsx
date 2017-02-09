@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Card, CardText } from 'material-ui/Card'
-import KeyboardInput from 'components/input/keyboard'
 import Synthesizer from 'components/synthesizer'
 
 export default class IndexComponent extends Component {
@@ -12,7 +11,6 @@ export default class IndexComponent extends Component {
       </div>
       <Card>
         <CardText>
-          <KeyboardInput ref={input => (this.keyboardInput = input)} />
           <Synthesizer />
         </CardText>
       </Card>
