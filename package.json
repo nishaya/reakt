@@ -11,6 +11,7 @@
     "serve": "superstatic public --port 8088",
     "run!": "yarn build && yarn serve",
     "test": "NODE_ENV=test jest",
+    "deploy": "yarn build && git commit -am \"update\" && git push",
     "lint": "eslint . --ext .js,.jsx --cache --fix"
   },
   "dependencies": {
