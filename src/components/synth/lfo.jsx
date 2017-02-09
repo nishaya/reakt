@@ -15,7 +15,7 @@ export default class LFO extends Component {
   }
 
   static value2freq(value) {
-    return (value / 4) + 0.001
+    return (value / 4)
   }
 
   static value2depth(value) {
@@ -26,7 +26,7 @@ export default class LFO extends Component {
     super(props)
     this.state = {
       frequency: 0, // 0-127
-      actualFrequency: 0.3,
+      actualFrequency: 0,
       depth: 0, // 0-127
       actualDepth: 0,
       type: 'sine',

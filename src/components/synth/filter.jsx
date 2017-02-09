@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
+const DEFAULT_FREQUENCY = 15000
+
 export default class Filter extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
@@ -10,12 +12,12 @@ export default class Filter extends Component {
 
   static defaultProps = {
     onReady: (filter) => { console.log(filter) },
-    frequency: 0,
+    frequency: DEFAULT_FREQUENCY,
     q: 0,
   }
 
   static value2freq(value) {
-    return ((value / 127) * 15000) + 1
+    return ((value / 127) * 15000)
   }
 
   static value2q(value) {
@@ -25,7 +27,7 @@ export default class Filter extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      actualFrequency: 0,
+      actualFrequency: DEFAULT_FREQUENCY,
       q: 0, // 0-127
       actualQ: 0,
     }
@@ -38,6 +40,7 @@ export default class Filter extends Component {
     this.filter = this.props.audioCtx.createBiquadFilter()
     this.filter.type = 'lowpass'
     this.filter.Q.value = 10
+    this.filter.frequency.value = DEFAULT_FREQUENCY
     this.filter.connect(this.props.audioCtx.destination)
     this.props.onReady(this.filter)
   }

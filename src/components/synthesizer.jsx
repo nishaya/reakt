@@ -55,20 +55,24 @@ class Synthesizer extends Component {
 
   render() {
     return (<div>
-      <AnalyzerComponent
-        audioCtx={this.audioCtx}
-        onReady={(analyzerNode) => {
-          this.analyzer = analyzerNode
-        }}
-      />
-      <MIDIInput />
-      <MIDIEvent
-        onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
-        onNoteOff={(note) => { this.noteOff(note) }}
-        onControlChange={
-          (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
-        }
-      />
+      <div>
+        <MIDIInput />
+        <MIDIEvent
+          onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
+          onNoteOff={(note) => { this.noteOff(note) }}
+          onControlChange={
+            (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
+          }
+        />
+      </div>
+      <div>
+        <AnalyzerComponent
+          audioCtx={this.audioCtx}
+          onReady={(analyzerNode) => {
+            this.analyzer = analyzerNode
+          }}
+        />
+      </div>
       <div>
         {this.oscComponent.render()}
         <Filter
