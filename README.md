@@ -1,4 +1,4 @@
-# reakt
+# REAKT
 
 Polyphonic Web Synthesizer
 
