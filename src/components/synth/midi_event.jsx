@@ -9,6 +9,7 @@ class MIDIEvent extends Component {
     onNoteOn: PropTypes.func,
     onNoteOff: PropTypes.func,
     onControlChange: PropTypes.func,
+    logs: PropTypes.array.isRequired,
   }
 
   static defaultProps = {
@@ -36,6 +37,11 @@ class MIDIEvent extends Component {
   render() {
     return (<div className="reakt-component__container">
       <h2>MIDI Events</h2>
+      <div>
+        {this.props.logs.map(log => (<div key={log.time}>
+          {log.message}
+        </div>))}
+      </div>
     </div>)
   }
 }
@@ -44,6 +50,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch)
 const mapStateToProps = state => ({
   noteOn: state.midi.noteOn,
   controlChange: state.midi.controlChange,
+  logs: state.midi.logs,
 })
 export default connect(
   mapStateToProps,

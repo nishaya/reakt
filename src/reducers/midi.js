@@ -13,7 +13,7 @@ const initialState = {
 
 function createLogs(message, state) {
   const logs = state.logs.slice(-4)
-  logs.push(message)
+  logs.push({ message, time: performance.now() })
   return logs
 }
 
