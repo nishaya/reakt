@@ -42,7 +42,8 @@ class MidiInput extends Component {
     this.openInput(input)
   }
 
-  openInput(input) {
+  openInput(selectedInput) {
+    const input = selectedInput
     input.onmidimessage = (e) => {
       this.props.onMidiMessage(e.data)
     }
@@ -55,14 +56,14 @@ class MidiInput extends Component {
     return (<div className="reakt-component__container">
       <h2>MIDI Inputs</h2>
       <div className="reakt-component__body">
-        <DropDownMenu value={0} onChange={(event, key) => this.selectInput(key)} >
-          {this.state.inputs.map((input, index) => (
-            <MenuItem key={`input_${input.id}`} value={index} primaryText={input.name} />
+        <DropDownMenu
+          value={this.props.selectedDeviceId}
+          onChange={(event, key) => this.selectInput(key)}
+        >
+          {this.state.inputs.map(input => (
+            <MenuItem key={`input_${input.id}`} value={input.id} primaryText={input.name} />
           ))}
         </DropDownMenu>
-        {this.state.selectedInput ? (<div>
-          {this.state.selectedInput.name}
-        </div>) : null}
       </div>
     </div>)
   }
