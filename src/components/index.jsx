@@ -6,13 +6,18 @@ import Synthesizer from 'components/synthesizer'
 
 export default class IndexComponent extends Component {
   render() {
-    return (<Card>
-      <CardHeader title="REAKT" subtitle="synthesizer demo" />
-      <CardText>
-        <KeyboardInput ref={input => (this.keyboardInput = input)} />
-        <MidiInput />
-        <Synthesizer />
-      </CardText>
-    </Card>)
+    return (<div>
+      <div className="reakt-header">
+        <h1>REAKT</h1>
+        <div className="reakt-header__subtitle">Polyphonic Synthesizer</div>
+      </div>
+      <Card>
+        <CardText>
+          <KeyboardInput ref={input => (this.keyboardInput = input)} />
+          <MidiInput />
+          <Synthesizer />
+        </CardText>
+      </Card>
+    </div>)
   }
 }
