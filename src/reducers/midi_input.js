@@ -4,11 +4,11 @@ import {
 import createReducer from './create_reducer'
 
 const initialState = {
-  deviceName: null,
+  deviceId: null,
 }
 
 export default createReducer(initialState, {
   [MIDI_INPUT_SELECTED](state, action) {
-    return { ...state, deviceName: action.payload }
+    return { ...state, deviceId: action.payload }
   },
 })

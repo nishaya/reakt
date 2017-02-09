@@ -8,6 +8,7 @@ import MidiActions from 'actions/midi'
 class MidiInput extends Component {
   static propTypes = {
     onMidiMessage: PropTypes.func,
+    selectMidiDevice: PropTypes.func,
   }
 
   static defaultProps = {
@@ -43,6 +44,7 @@ class MidiInput extends Component {
     }
     input.open().then(port => console.log('opened', port))
     this.setState({ selectedInput: input })
+    this.props.selectMidiDevice(input.id)
   }
 
   render() {

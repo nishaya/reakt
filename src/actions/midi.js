@@ -2,10 +2,10 @@ import MIDIEventFactory from 'utils/midi_event'
 import { MIDI_INPUT_SELECTED } from 'actions/action_types'
 
 export default {
-  selectMidiDevice: deviceName => (
+  selectMidiDevice: deviceId => (
     {
       type: MIDI_INPUT_SELECTED,
-      payload: deviceName,
+      payload: deviceId,
     }
   ),
   onMidiMessage: (message) => {
