@@ -7,7 +7,7 @@ export default class IndexComponent extends Component {
     return (<div>
       <div className="reakt-header">
         <h1>REAKT</h1>
-        <div className="reakt-header__subtitle">Polyphonic Synthesizer</div>
+        <div className="reakt-header__subtitle">Polyphonic Web Synthesizer</div>
       </div>
       <Card>
         <CardText>
