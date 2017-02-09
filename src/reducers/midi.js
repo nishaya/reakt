@@ -1,4 +1,8 @@
-import { MIDI_NOTE_ON, MIDI_NOTE_OFF, MIDI_CONTROL_CHANGE } from 'actions/action_types'
+import {
+  MIDI_NOTE_ON,
+  MIDI_NOTE_OFF,
+  MIDI_CONTROL_CHANGE,
+} from 'actions/action_types'
 import createReducer from './create_reducer'
 
 const initialState = {
@@ -8,7 +12,6 @@ const initialState = {
 
 export default createReducer(initialState, {
   [MIDI_NOTE_ON](state, action) {
-    console.log(action.payload.event.noteOn)
     return {
       ...state,
       noteOn: { ...state.noteOn, [action.payload.event.note]: action.payload.event.velocity },
