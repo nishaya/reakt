@@ -1,6 +1,13 @@
 import MIDIEventFactory from 'utils/midi_event'
+import { MIDI_INPUT_SELECTED } from 'actions/action_types'
 
 export default {
+  selectMidiDevice: deviceName => (
+    {
+      type: MIDI_INPUT_SELECTED,
+      payload: deviceName,
+    }
+  ),
   onMidiMessage: (message) => {
     const event = MIDIEventFactory.build(message)
     console.log('onMidiMessage', message, event)
