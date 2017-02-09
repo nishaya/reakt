@@ -7,12 +7,9 @@ import MidiActions from 'actions/midi'
 
 class MidiInput extends Component {
   static propTypes = {
-    onMidiMessage: PropTypes.func,
-    selectMidiDevice: PropTypes.func,
-  }
-
-  static defaultProps = {
-    onMidiMessage: () => {},
+    onMidiMessage: PropTypes.func.isRequired,
+    selectMidiDevice: PropTypes.func.isRequired,
+    selectedDeviceId: PropTypes.string,
   }
 
   constructor(props) {
@@ -29,6 +26,9 @@ class MidiInput extends Component {
     const inputs = []
     for (const input of midi.inputs.values()) {
       inputs.push(input)
+      if (input.id === this.props.selectedDeviceId) {
+        this.openInput(input)
+      }
     }
     this.setState({ inputs })
   }
@@ -39,6 +39,10 @@ class MidiInput extends Component {
 
   selectInput(index) {
     const input = this.state.inputs[index]
+    this.openInput(input)
+  }
+
+  openInput(input) {
     input.onmidimessage = (e) => {
       this.props.onMidiMessage(e.data)
     }
@@ -64,7 +68,9 @@ class MidiInput extends Component {
   }
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = state => ({
+  selectedDeviceId: state.midiInput.deviceId,
+})
 
 const mapDispatchToProps = dispatch => bindActionCreators(MidiActions, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(MidiInput)
