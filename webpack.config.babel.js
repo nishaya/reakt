@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   entry: './src/application.jsx',
   output: {
-    path: './public',
+    path: './docs',
     filename: 'application.js',
   },
   plugins,
@@ -35,7 +35,7 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: './public',
+    contentBase: './docs',
     port: config.WEBPACK_DEV_SERVER_PORT || 8080,
     historyApiFallback: true,
   },
