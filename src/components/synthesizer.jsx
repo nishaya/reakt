@@ -7,6 +7,7 @@ import LFO from 'components/synth/lfo'
 import MIDIInput from 'components/input/midi'
 import MIDIEvent from 'components/synth/midi_event'
 import Oscillator from 'components/synth/oscillator'
+import EG from 'components/synth/eg'
 
 class Synthesizer extends Component {
   constructor(props) {
@@ -19,9 +20,14 @@ class Synthesizer extends Component {
 
     this.state = {
       controlChange: {
-        71: 0,
-        72: 0,
-        74: 0,
+        71: 0, // Q
+        74: 0, // Filter Freq
+        76: 0, // LFO Freq
+        77: 0, // LFO Depth
+        73: 0, // Attack Time
+        75: 0, // Decay Time
+        85: 0, // Sustain Level
+        72: 0, // Release Time
       },
     }
 
