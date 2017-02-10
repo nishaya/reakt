@@ -68,7 +68,7 @@ export default class LFO extends Component {
     return (<div className="reakt-component__container">
       <h2>LFO</h2>
       <div className="reakt-component__body">
-        <div>frequency: {this.state.actualFrequency} Hz</div>
+        <div>freq: {this.state.actualFrequency} Hz</div>
         <div>depth: {this.state.actualDepth}</div>
       </div>
     </div>)
