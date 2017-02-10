@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 export default class EG extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
+    onReady: PropTypes.func,
     attack: PropTypes.number,
     decay: PropTypes.number,
     sustain: PropTypes.number,
@@ -10,6 +11,7 @@ export default class EG extends Component {
   }
 
   static defaultProps = {
+    onReady: (generateEnvelopFunc) => { console.log(generateEnvelopFunc) },
     attack: 0,
     decay: 2,
     sustain: 2,
@@ -31,17 +33,17 @@ export default class EG extends Component {
     this.props.onReady(this.generateEnvelop)
   }
 
-  generateEnvelop(gain) {
-    const gainNode = gain || this.props.audioCtx.createGain()
-    return gainNode
-  }
-
   componentWillReceiveProps(nextProps) {
     const nextState = {}
     if (this.props.attack !== nextProps.attack) {
       nextState.actualAttack = nextProps.attack // TOOD: 0-127から変換
     }
     this.setState(nextState)
+  }
+
+  generateEnvelop(gain) {
+    const gainNode = gain || this.props.audioCtx.createGain()
+    return gainNode
   }
 
   render() {
