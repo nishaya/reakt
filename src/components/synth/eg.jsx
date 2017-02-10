@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 
-const DEFAULT_FREQUENCY = 15000
-
 export default class EG extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
-    onReady: PropTypes.func,
     attack: PropTypes.number,
     decay: PropTypes.number,
     sustain: PropTypes.number,
@@ -13,70 +10,48 @@ export default class EG extends Component {
   }
 
   static defaultProps = {
-    onReady: (filter) => { console.log(filter) },
     attack: 0,
     decay: 2,
     sustain: 2,
     release: 0.5,
   }
 
-  static value2freq(value) {
-    return ((value / 127) * 15000)
-  }
-
-  static value2q(value) {
-    return ((value / 127) * 70) + 0.0001
-  }
-
   constructor(props) {
     super(props)
     this.state = {
-      actualFrequency: DEFAULT_FREQUENCY,
-      q: 0, // 0-127
-      actualQ: 0,
+      actualAttack: 0,
+      actualDecay: 2,
+      actualSustain: 2,
+      actualRelease: 0.5,
     }
-
-    this.filter = null
   }
 
   // setup & connect filter
   componentWillMount() {
-    this.filter = this.props.audioCtx.createBiquadFilter()
-    this.filter.type = 'lowpass'
-    this.filter.Q.value = 10
-    this.filter.frequency.value = DEFAULT_FREQUENCY
-    this.filter.connect(this.props.audioCtx.destination)
-    this.props.onReady(this.filter)
+    this.props.onReady(this.generateEnvelop)
+  }
+
+  generateEnvelop(gain) {
+    const gainNode = gain || this.props.audioCtx.createGain()
+    return gainNode
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.frequency !== nextProps.frequency) {
-      this.frequency = nextProps.frequency
+    const nextState = {}
+    if (this.props.attack !== nextProps.attack) {
+      nextState.actualAttack = nextProps.attack // TOOD: 0-127から変換
     }
-    if (this.props.q !== nextProps.q) {
-      this.q = nextProps.q
-    }
-  }
-
-  set frequency(frequency) {
-    const actualFrequency = Filter.value2freq(frequency)
-    this.filter.frequency.value = actualFrequency
-    this.setState({ frequency, actualFrequency })
-  }
-
-
-  set q(q) {
-    const actualQ = Filter.value2q(q)
-    this.filter.Q.value = actualQ
-    this.setState({ q, actualQ })
+    this.setState(nextState)
   }
 
   render() {
     return (<div className="reakt-component__container">
-      <h2>Filter</h2>
+      <h2>EG</h2>
       <div className="reakt-component__body">
-        <div>frequency: {parseInt(this.state.actualFrequency * 100, 10) / 100} Hz</div>
-        <div>Q: {parseInt(this.state.actualQ * 100, 10) / 100}</div>
+        <div>Attack: {this.state.actualAttack}</div>
+        <div>Decay: {this.state.actualDecay}</div>
+        <div>Sustain: {this.state.actualSustain}</div>
+        <div>Release: {this.state.actualRelease}</div>
       </div>
     </div>)
   }
