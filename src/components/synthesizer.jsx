@@ -34,6 +34,7 @@ class Synthesizer extends Component {
     this.oscComponent = new Oscillator({
       audioCtx: this.audioCtx,
       type: 'sawtooth',
+      className: 'reakt-component__30percent',
     })
   }
 
@@ -82,6 +83,7 @@ class Synthesizer extends Component {
       <div>
         {this.oscComponent.render()}
         <Filter
+          className="reakt-component__30percent"
           audioCtx={this.audioCtx}
           ref={(filter) => { this.filterComponent = filter }}
           frequency={this.state.controlChange[74]}
@@ -91,6 +93,7 @@ class Synthesizer extends Component {
           }}
         />
         <LFO
+          className="reakt-component__30percent"
           audioCtx={this.audioCtx}
           frequency={this.state.controlChange[72]}
           onReady={(lfoNode) => {
