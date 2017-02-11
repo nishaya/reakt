@@ -45,12 +45,11 @@ export default class Oscillator extends Component {
     return (<div className="reakt-component__container">
       <h2>Oscillator</h2>
       <div className="reakt-component__body">
-        <div>type: {this.state.type}</div>
         <div>
           <RadioButtonGroup
             className="reakt-oscillator__typeselector"
             name="type"
-            defaultSelected={this.state.type}
+            defaultSelected={this.props.type}
             onChange={(event, value) => {
               this.setState({ type: value })
             }}

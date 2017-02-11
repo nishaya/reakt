@@ -84,7 +84,7 @@ class Synthesizer extends Component {
       <div>
         <Oscillator
           audioCtx={this.audioCtx}
-          type="saw"
+          type="sawtooth"
           onReady={(playFunc) => { this.playFunc = playFunc }}
         />
         <Filter
