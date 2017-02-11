@@ -57,6 +57,10 @@ html, body {
     background-color: #333;
   }
 
+  .reakt-keyboard__key__pressed {
+    box-shadow: 0px 0px 4px 4px rgba(63, 230, 255, 0.7) inset;
+  }
+
   .reakt-keyboard__key__label {
     color: #999;
   }

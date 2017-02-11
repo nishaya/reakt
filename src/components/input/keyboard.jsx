@@ -43,6 +43,7 @@ class KeyboardInput extends Component {
     this.state = {
       key: null,
       octave: KeyboardInput.DEFAULT_OCTAVE,
+      keyPressed: {},
     }
   }
 
@@ -75,13 +76,16 @@ class KeyboardInput extends Component {
       this.props.midiNoteOn(noteNumber, 127)
     }
 
-    this.setState({ key })
+    const keyPressed = { ...this.state.keyPressed, [key]: true }
+    this.setState({ key, keyPressed })
     this.props.keyDown(key)
   }
 
   onKeyUp(event) {
     const key = event.key
     this.props.keyUp(key)
+    const keyPressed = { ...this.state.keyPressed, [key]: false }
+    this.setState({ keyPressed })
 
     if (Object.keys(KeyboardInput.KEY_MAP).includes(key)) {
       const noteNumber = (this.state.octave * 12) + KeyboardInput.KEY_MAP[key].number
@@ -114,6 +118,9 @@ class KeyboardInput extends Component {
       const classNames = ['reakt-keyboard__key']
       if (KeyboardInput.KEY_MAP[key].black) {
         classNames.push('reakt-keyboard__key__black')
+      }
+      if (this.state.keyPressed[key]) {
+        classNames.push('reakt-keyboard__key__pressed')
       }
       return (<span
         key={`key_${key}`}
