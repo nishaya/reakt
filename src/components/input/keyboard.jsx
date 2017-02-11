@@ -80,7 +80,14 @@ class KeyboardInput extends Component {
   }
 
   onKeyUp(event) {
-    this.props.keyUp(event.key)
+    const key = event.key
+    this.props.keyUp(key)
+
+    if (Object.keys(KeyboardInput.KEY_MAP).includes(key)) {
+      const noteNumber = (this.state.octave * 12) + KeyboardInput.KEY_MAP[key].number
+      console.log('keyup', key, noteNumber)
+      this.props.midiNoteOff(noteNumber)
+    }
   }
 
   changeOctave(value) {
@@ -104,7 +111,7 @@ class KeyboardInput extends Component {
 
   render() {
     return (<div className="reakt-component__container">
-      <h2>Keyboard Events</h2>
+      <h2>Keyboard Input</h2>
       <div className="reakt-component__body">
 
         <div>
