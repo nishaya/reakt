@@ -109,13 +109,22 @@ class KeyboardInput extends Component {
 
   textInput = null
 
+  renderKeys() {
+    return Object.keys(KeyboardInput.KEY_MAP).map(key => (
+      (<span
+        key={`key_${key}`}
+        className="reakt-keyboard__key"
+      >{key}</span>)
+    ))
+  }
+
   render() {
     return (<div className="reakt-component__container">
       <h2>Keyboard Input</h2>
       <div className="reakt-component__body">
 
         <div>
-          Octave(z/x): {this.state.octave}
+          Octave(z:down/x:up): {this.state.octave}
           <Slider
             min={0}
             max={KeyboardInput.MAX_OCTAVE}
@@ -125,6 +134,7 @@ class KeyboardInput extends Component {
             onChange={(e, octave) => { this.setState({ octave }) }}
           />
         </div>
+        <div>{this.renderKeys()}</div>
         <div>Pressed: {this.state.key}</div>
       </div>
     </div>)

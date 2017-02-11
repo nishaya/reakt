@@ -38,6 +38,22 @@ html, body {
 
   }
 
+  .reakt-keyboard__key {
+    display: inline-block;
+    width: 20px;
+    height: 100px;
+    text-align: center;
+    margin: 2px;
+    color: #333;
+    border: 1px solid #eee;
+    background-color: #fff;
+  }
+
+  .reakt-keyboard__key__black {
+    color: #fff;
+    background-color: #333;
+  }
+
   div {
     .reakt-component__container {
       padding: 16px;
