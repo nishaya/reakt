@@ -4,7 +4,7 @@ import {
   MIDI_CONTROL_CHANGE,
 } from 'actions/action_types'
 
-class NoteOnEvent {
+export class NoteOnEvent {
   constructor(message) {
     this.channel = message[0] & 0b00001111
     this.note = message[1]
@@ -13,7 +13,7 @@ class NoteOnEvent {
   }
 }
 
-class NoteOffEvent {
+export class NoteOffEvent {
   constructor(message) {
     this.channel = message[0] & 0b00001111
     this.note = message[1]

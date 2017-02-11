@@ -5,8 +5,8 @@ import InputActions from 'actions/input'
 import Slider from 'material-ui/Slider'
 
 class KeyboardInput extends Component {
-  static MAX_OCTAVE = 10
-  static DEFAULT_OCTAVE = 5
+  static MAX_OCTAVE = 9
+  static DEFAULT_OCTAVE = 4
   static KEY_MAP = {
     a: { number: 0, label: 'C', black: false },
     w: { number: 1, label: 'C#', black: true },
@@ -64,6 +64,11 @@ class KeyboardInput extends Component {
         z: () => this.changeOctave(-1),
       }
       funcs[key]()
+    }
+
+    if (Object.keys(KeyboardInput.KEY_MAP).includes(key)) {
+      const noteNumber = (this.state.octave * 12) + KeyboardInput.KEY_MAP[key].number
+      console.log('keydown', key, noteNumber)
     }
 
     this.setState({ key })
