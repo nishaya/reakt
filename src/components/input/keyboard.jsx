@@ -40,16 +40,33 @@ class KeyboardInput extends Component {
   }
 
   onKeyDown(event) {
-    this.setState({ key: event.key })
-    this.props.keyDown(event.key)
+    const key = event.key
+    const octaveFuncs = {
+      z: () => {
+        let octave = this.state.octave
+        octave -= 1
+        if (octave < 0) {
+          octave = 0
+        }
+        this.setState({ octave })
+      },
+      x: () => {
+        let octave = this.state.octave
+        octave += 1
+        if (octave > KeyboardInput.MAX_OCTAVE) {
+          octave = KeyboardInput.MAX_OCTAVE
+        }
+        this.setState({ octave })
+      },
+    }
+    octaveFuncs[key] && octaveFuncs[key]()
+
+    this.setState({ key })
+    this.props.keyDown(key)
   }
 
   onKeyUp(event) {
     this.props.keyUp(event.key)
-  }
-
-  focus() {
-    this.textInput.focus()
   }
 
   get key() {
