@@ -1,8 +1,14 @@
-import { MIDIEventFactory, NoteOnEvent, NoteOffEvent } from 'utils/midi_event'
+import {
+  MIDIEventFactory,
+  NoteOnEvent,
+  NoteOffEvent,
+  ControllChangeEvent,
+} from 'utils/midi_event'
 import {
   MIDI_INPUT_SELECTED,
   MIDI_NOTE_ON,
   MIDI_NOTE_OFF,
+  MIDI_CONTROL_CHANGE,
 } from 'actions/action_types'
 
 
@@ -26,6 +32,14 @@ export default {
       type: MIDI_NOTE_OFF,
       payload: {
         event: new NoteOffEvent([0, note, 0]),
+      },
+    }
+  ),
+  midiControlChange: (cc, value) => (
+    {
+      type: MIDI_CONTROL_CHANGE,
+      payload: {
+        event: new ControllChangeEvent([0, cc, value]),
       },
     }
   ),

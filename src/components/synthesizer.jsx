@@ -6,6 +6,7 @@ import Filter from 'components/synth/filter'
 import LFO from 'components/synth/lfo'
 import MIDIInput from 'components/input/midi'
 import KeyboardInput from 'components/input/keyboard'
+import PadInput from 'components/input/pad'
 import MIDIEvent from 'components/synth/midi_event'
 import Oscillator from 'components/synth/oscillator'
 
@@ -73,6 +74,7 @@ class Synthesizer extends Component {
       </div>
       <div>
         <KeyboardInput />
+        <PadInput />
       </div>
       <div>
         <AnalyzerComponent
