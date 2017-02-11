@@ -18,22 +18,25 @@ export default class Oscillator extends Component {
 
   constructor(props) {
     super(props)
-    this.type = 'sawtooth'
+    this.state = {
+      type: 'sawtooth',
+    }
   }
 
   componentWillMount() {
+    this.setState({ type: this.props.type })
     this.props.onReady(this.play.bind(this))
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.type !== nextProps.type) {
-      this.type = nextProps.type
+      this.setState({ type: nextProps.type })
     }
   }
 
   play(frequency) {
     const osc = this.props.audioCtx.createOscillator()
-    osc.type = this.type
+    osc.type = this.state.type
     osc.frequency.value = frequency
     return osc
   }
@@ -42,14 +45,14 @@ export default class Oscillator extends Component {
     return (<div className="reakt-component__container">
       <h2>Oscillator</h2>
       <div className="reakt-component__body">
-        <div>type: {this.type}</div>
+        <div>type: {this.state.type}</div>
         <div>
           <RadioButtonGroup
             className="reakt-oscillator__typeselector"
             name="type"
-            defaultSelected={this.type}
+            defaultSelected={this.state.type}
             onChange={(event, value) => {
-              this.type = value
+              this.setState({ type: value })
             }}
           >
             <RadioButton

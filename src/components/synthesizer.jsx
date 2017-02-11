@@ -33,11 +33,6 @@ class Synthesizer extends Component {
       },
       label: 'aaa',
     }
-
-    this.oscComponent = new Oscillator({
-      audioCtx: this.audioCtx,
-      type: 'sawtooth',
-    })
   }
 
   handleControlChange(controlNumber, value) {
@@ -87,10 +82,9 @@ class Synthesizer extends Component {
         />
       </div>
       <div>
-        {this.oscComponent.render()}
         <Oscillator
           audioCtx={this.audioCtx}
-          type="sine"
+          type="saw"
           onReady={(playFunc) => { this.playFunc = playFunc }}
         />
         <Filter
