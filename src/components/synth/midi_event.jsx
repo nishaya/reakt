@@ -27,7 +27,7 @@ class MIDIEvent extends Component {
       }
     }
 
-    [71, 72, 74].forEach((controlNumber) => {
+    [71, 72, 73, 74, 75, 76, 77, 85].forEach((controlNumber) => {
       if (this.props.controlChange[controlNumber] !== nextProps.controlChange[controlNumber]) {
         this.props.onControlChange(controlNumber, nextProps.controlChange[controlNumber])
       }
