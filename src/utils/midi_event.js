@@ -32,7 +32,7 @@ export class ControlChangeEvent {
 }
 
 /* eslint no-bitwise: ["error", { "allow": ["&"] }] */
-export default class MIDIEventFactory {
+export class MIDIEventFactory {
   static build(message) {
     // https://www.midi.org/specifications/item/table-1-summary-of-midi-message
     const table = {
