@@ -7,6 +7,23 @@ import Slider from 'material-ui/Slider'
 class KeyboardInput extends Component {
   static MAX_OCTAVE = 10
   static DEFAULT_OCTAVE = 5
+  static KEY_MAP = {
+    a: { number: 0, label: 'C', black: false },
+    w: { number: 1, label: 'C#', black: true },
+    s: { number: 2, label: 'D', black: false },
+    e: { number: 3, label: 'D#', black: true },
+    d: { number: 4, label: 'E', black: false },
+    f: { number: 5, label: 'F', black: false },
+    t: { number: 6, label: 'F#', black: true },
+    g: { number: 7, label: 'G', black: false },
+    y: { number: 8, label: 'G#', black: true },
+    h: { number: 9, label: 'A', black: false },
+    u: { number: 10, label: 'A#', black: true },
+    j: { number: 11, label: 'B', black: false },
+    k: { number: 12, label: 'C', black: false },
+    o: { number: 13, label: 'C#', black: true },
+    l: { number: 14, label: 'D', black: false },
+  }
 
   static propTypes = {
     keyDown: PropTypes.func,
