@@ -3,6 +3,7 @@ import {
   RadioButton,
   RadioButtonGroup,
 } from 'material-ui/RadioButton'
+import SuperOscillator from 'models/super_oscillator'
 
 export default class Oscillator extends Component {
   static propTypes = {
@@ -35,9 +36,23 @@ export default class Oscillator extends Component {
   }
 
   play(frequency) {
+    if (this.state.type.match(/^super/)) {
+      console.log(this.state.type.replace(/^super/, ''))
+      return this.generateSuperSaw(
+        {
+          type: this.state.type.replace(/^super/, ''),
+          frequency,
+        },
+      )
+    }
     const osc = this.props.audioCtx.createOscillator()
     osc.type = this.state.type
     osc.frequency.value = frequency
+    return osc
+  }
+
+  generateSuperSaw(options) {
+    const osc = new SuperOscillator(this.props.audioCtx, options)
     return osc
   }
 
@@ -67,8 +82,12 @@ export default class Oscillator extends Component {
               label="Sine"
             />
             <RadioButton
-              value="super"
+              value="supersawtooth"
               label="Super Saw"
+            />
+            <RadioButton
+              value="supersquare"
+              label="Super Square"
             />
           </RadioButtonGroup>
         </div>
