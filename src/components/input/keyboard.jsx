@@ -110,12 +110,19 @@ class KeyboardInput extends Component {
   textInput = null
 
   renderKeys() {
-    return Object.keys(KeyboardInput.KEY_MAP).map(key => (
-      (<span
+    return Object.keys(KeyboardInput.KEY_MAP).map((key) => {
+      const classNames = ['reakt-keyboard__key']
+      if (KeyboardInput.KEY_MAP[key].black) {
+        classNames.push('reakt-keyboard__key__black')
+      }
+      return (<span
         key={`key_${key}`}
-        className="reakt-keyboard__key"
-      >{key}</span>)
-    ))
+        className={classNames.join(' ')}
+      >
+        <div className="reakt-keyboard__key__label">{KeyboardInput.KEY_MAP[key].label}</div>
+        <div>{key.toUpperCase()}</div>
+      </span>)
+    })
   }
 
   render() {
@@ -135,7 +142,6 @@ class KeyboardInput extends Component {
           />
         </div>
         <div>{this.renderKeys()}</div>
-        <div>Pressed: {this.state.key}</div>
       </div>
     </div>)
   }

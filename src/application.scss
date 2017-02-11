@@ -39,8 +39,9 @@ html, body {
   }
 
   .reakt-keyboard__key {
+    vertical-align: baseline;
     display: inline-block;
-    width: 20px;
+    width: 30px;
     height: 100px;
     text-align: center;
     margin: 2px;
@@ -52,6 +53,10 @@ html, body {
   .reakt-keyboard__key__black {
     color: #fff;
     background-color: #333;
+  }
+
+  .reakt-keyboard__key__label {
+    color: #999;
   }
 
   div {
