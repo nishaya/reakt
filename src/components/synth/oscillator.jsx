@@ -66,6 +66,10 @@ export default class Oscillator extends Component {
               value="sine"
               label="Sine"
             />
+            <RadioButton
+              value="super"
+              label="Super Saw"
+            />
           </RadioButtonGroup>
         </div>
       </div>
