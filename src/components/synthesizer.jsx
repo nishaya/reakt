@@ -63,7 +63,6 @@ class Synthesizer extends Component {
     return (<div>
       <div>
         <MIDIInput />
-        <KeyboardInput />
         <MIDIEvent
           onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
           onNoteOff={(note) => { this.noteOff(note) }}
@@ -71,6 +70,9 @@ class Synthesizer extends Component {
             (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
           }
         />
+      </div>
+      <div>
+        <KeyboardInput />
       </div>
       <div>
         <AnalyzerComponent

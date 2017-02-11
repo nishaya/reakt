@@ -119,8 +119,8 @@ class KeyboardInput extends Component {
         key={`key_${key}`}
         className={classNames.join(' ')}
       >
-        <div className="reakt-keyboard__key__label">{KeyboardInput.KEY_MAP[key].label}</div>
         <div>{key.toUpperCase()}</div>
+        <div className="reakt-keyboard__key__label">{KeyboardInput.KEY_MAP[key].label}</div>
       </span>)
     })
   }
