@@ -24,7 +24,7 @@ class PadInput extends Component {
   mouseMove(event) {
     const clientRect = event.target.getBoundingClientRect()
     const x = parseInt(((event.clientX - clientRect.left) / (clientRect.width - 2)) * 127, 10)
-    const y = parseInt(((event.clientY - clientRect.top) / (clientRect.height - 2)) * 127, 10)
+    const y = 127 - parseInt(((event.clientY - clientRect.top) / (clientRect.height - 2)) * 127, 10)
     if (this.lastX !== x) {
       this.props.midiControlChange(this.state.xControlNumber, x)
     }
