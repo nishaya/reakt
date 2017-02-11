@@ -7,7 +7,6 @@ import LFO from 'components/synth/lfo'
 import MIDIInput from 'components/input/midi'
 import MIDIEvent from 'components/synth/midi_event'
 import Oscillator from 'components/synth/oscillator'
-import EG from 'components/synth/eg'
 
 class Synthesizer extends Component {
   constructor(props) {
