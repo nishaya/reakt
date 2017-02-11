@@ -1,20 +1,28 @@
 import React, { Component, PropTypes } from 'react'
+import {
+  RadioButton,
+  RadioButtonGroup,
+} from 'material-ui/RadioButton'
 
 export default class Oscillator extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
     type: PropTypes.string,
+    onReady: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
-    type: 'square',
+    type: 'sawtooth',
+    onReady: (playFunc) => { console.log(playFunc) },
   }
 
   constructor(props) {
     super(props)
-    this.state = {
-      type: props.type,
-    }
+    this.type = 'sawtooth'
+  }
+
+  componentWillMount() {
+    this.props.onReady(this.play.bind(this))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,20 +33,39 @@ export default class Oscillator extends Component {
 
   play(frequency) {
     const osc = this.props.audioCtx.createOscillator()
-    osc.type = this.state.type
+    osc.type = this.type
     osc.frequency.value = frequency
     return osc
-  }
-
-  set type(type) {
-    this.setState({ type })
   }
 
   render() {
     return (<div className="reakt-component__container">
       <h2>Oscillator</h2>
       <div className="reakt-component__body">
-        <div>type: {this.state.type}</div>
+        <div>type: {this.type}</div>
+        <div>
+          <RadioButtonGroup
+            className="reakt-oscillator__typeselector"
+            name="type"
+            defaultSelected={this.type}
+            onChange={(event, value) => {
+              this.type = value
+            }}
+          >
+            <RadioButton
+              value="sawtooth"
+              label="Saw"
+            />
+            <RadioButton
+              value="square"
+              label="Square"
+            />
+            <RadioButton
+              value="sine"
+              label="Sine"
+            />
+          </RadioButtonGroup>
+        </div>
       </div>
     </div>)
   }

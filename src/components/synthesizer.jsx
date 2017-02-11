@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, ReactDOM } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AnalyzerComponent from 'components/synth/analyzer'
@@ -18,6 +18,7 @@ class Synthesizer extends Component {
     this.filter = null
     this.lfo = null
     this.analyzer = null
+    this.playFunc = (freq) => { console.log(freq) }
 
     this.state = {
       controlChange: {
@@ -30,6 +31,7 @@ class Synthesizer extends Component {
         85: 0, // Sustain Level
         72: 0, // Release Time
       },
+      label: 'aaa',
     }
 
     this.oscComponent = new Oscillator({
@@ -48,7 +50,7 @@ class Synthesizer extends Component {
     this.lfo.connect(gain.gain)
 
     const frequency = 440 * (2 ** ((note - 69) / 12))
-    const osc = this.oscComponent.play(frequency)
+    const osc = this.playFunc(frequency)
     osc.connect(gain)
     gain.connect(this.filter)
     this.filter.connect(this.analyzer)
@@ -86,6 +88,11 @@ class Synthesizer extends Component {
       </div>
       <div>
         {this.oscComponent.render()}
+        <Oscillator
+          audioCtx={this.audioCtx}
+          type="sine"
+          onReady={(playFunc) => { this.playFunc = playFunc }}
+        />
         <Filter
           audioCtx={this.audioCtx}
           ref={(filter) => { this.filterComponent = filter }}
