@@ -17,7 +17,7 @@ export default {
     {
       type: MIDI_NOTE_ON,
       payload: {
-        event: new NoteOnEvent(0, note, velocity),
+        event: new NoteOnEvent([0, note, velocity]),
       },
     }
   ),
@@ -25,7 +25,7 @@ export default {
     {
       type: MIDI_NOTE_OFF,
       payload: {
-        event: new NoteOffEvent(0, note, 0),
+        event: new NoteOffEvent([0, note, 0]),
       },
     }
   ),

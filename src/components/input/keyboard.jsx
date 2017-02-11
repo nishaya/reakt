@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import InputActions from 'actions/input'
+import MIDIActions from 'actions/midi'
 import Slider from 'material-ui/Slider'
 
 class KeyboardInput extends Component {
@@ -28,6 +29,8 @@ class KeyboardInput extends Component {
   static propTypes = {
     keyDown: PropTypes.func,
     keyUp: PropTypes.func,
+    midiNoteOn: PropTypes.func.isRequired,
+    midiNoteOff: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -69,6 +72,7 @@ class KeyboardInput extends Component {
     if (Object.keys(KeyboardInput.KEY_MAP).includes(key)) {
       const noteNumber = (this.state.octave * 12) + KeyboardInput.KEY_MAP[key].number
       console.log('keydown', key, noteNumber)
+      this.props.midiNoteOn(noteNumber, 127)
     }
 
     this.setState({ key })
@@ -124,5 +128,8 @@ const mapStateToProps = state => ({
   pressedKeys: state.input.keyDown,
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators(InputActions, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators(
+  { ...InputActions, ...MIDIActions },
+  dispatch,
+)
 export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(KeyboardInput)
