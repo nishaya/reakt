@@ -85,8 +85,10 @@ class KeyboardInput extends Component {
           <Slider
             min={0}
             max={KeyboardInput.MAX_OCTAVE}
+            step={1}
             value={this.state.octave}
             defaultValue={KeyboardInput.DEFAULT_OCTAVE}
+            onChange={(e, octave) => { this.setState({ octave }) }}
           />
         </div>
         <div>Pressed: {this.state.key}</div>
