@@ -1,4 +1,4 @@
-import React, { Component, ReactDOM } from 'react'
+import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AnalyzerComponent from 'components/synth/analyzer'
@@ -9,6 +9,8 @@ import KeyboardInput from 'components/input/keyboard'
 import PadInput from 'components/input/pad'
 import MIDIEvent from 'components/synth/midi_event'
 import Oscillator from 'components/synth/oscillator'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import PanicButtonIcon from 'material-ui/svg-icons/av/pause'
 
 class Synthesizer extends Component {
   constructor(props) {
@@ -57,6 +59,14 @@ class Synthesizer extends Component {
     this.oscs[note].stop()
   }
 
+  panic() {
+    this.oscs.forEach((osc) => {
+      if (typeof osc.stop === 'function') {
+        osc.stop()
+      }
+    })
+  }
+
   render() {
     return (<div>
       <div>
@@ -80,6 +90,13 @@ class Synthesizer extends Component {
             this.analyzer = analyzerNode
           }}
         />
+        <FloatingActionButton
+          onClick={() => this.panic()}
+          style={{ marginTop: 95 }}
+          secondary
+        >
+          <PanicButtonIcon />
+        </FloatingActionButton>
       </div>
       <div>
         <Oscillator
