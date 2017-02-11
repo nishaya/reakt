@@ -5,7 +5,7 @@ import MidiActions from 'actions/midi'
 
 class PadInput extends Component {
   static propTypes = {
-    
+    midiControlChange: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -16,14 +16,27 @@ class PadInput extends Component {
       xValue: 0,
       yValue: 0,
     }
+
+    this.lastX = null
+    this.lastY = null
   }
 
   mouseMove(event) {
     const clientRect = event.target.getBoundingClientRect()
-    const x = parseInt(((event.clientX - clientRect.left) / clientRect.width) * 127, 10)
-    const y = parseInt(((event.clientY - clientRect.top) / clientRect.height) * 127, 10)
-    console.log(`CC: ${this.state.xControlNumber}, ${x}`)
-    console.log(`CC: ${this.state.yControlNumber}, ${y}`)
+    const x = parseInt(((event.clientX - clientRect.left) / (clientRect.width - 2)) * 127, 10)
+    const y = parseInt(((event.clientY - clientRect.top) / (clientRect.height - 2)) * 127, 10)
+    if (this.lastX !== x) {
+      this.props.midiControlChange(this.state.xControlNumber, x)
+    }
+    if (this.lastY !== y) {
+      this.props.midiControlChange(this.state.yControlNumber, y)
+    }
+    this.setState({
+      xValue: x,
+      yValue: y,
+    })
+    this.lastX = x
+    this.lastY = y
   }
 
   render() {
@@ -34,6 +47,8 @@ class PadInput extends Component {
           className="reakt-pad"
           onMouseMove={event => this.mouseMove(event)}
         />
+        <div>x: {this.state.xValue}</div>
+        <div>y: {this.state.yValue}</div>
       </div>
     </div>)
   }

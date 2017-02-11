@@ -2,7 +2,7 @@ import {
   MIDIEventFactory,
   NoteOnEvent,
   NoteOffEvent,
-  ControllChangeEvent,
+  ControlChangeEvent,
 } from 'utils/midi_event'
 import {
   MIDI_INPUT_SELECTED,
@@ -39,7 +39,7 @@ export default {
     {
       type: MIDI_CONTROL_CHANGE,
       payload: {
-        event: new ControllChangeEvent([0, cc, value]),
+        event: new ControlChangeEvent([0, cc, value]),
       },
     }
   ),

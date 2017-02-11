@@ -67,10 +67,12 @@ html, body {
 
   .reakt-pad {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3) inset;
+    background-color: #f9f9f9;
     border-radius: 8px;
     border: 1px solid #999;
     width: 200px;
     height: 200px;
+    margin: 10px;
   }
 
   div {

@@ -22,7 +22,7 @@ export class NoteOffEvent {
   }
 }
 
-class ControllChangeEvent {
+export class ControlChangeEvent {
   constructor(message) {
     this.channel = message[0] & 0b00001111
     this.controlNumber = message[1]
@@ -38,7 +38,7 @@ export default class MIDIEventFactory {
     const table = {
       0b10000000: data => new NoteOffEvent(data),
       0b10010000: data => new NoteOnEvent(data),
-      0b10110000: data => new ControllChangeEvent(data),
+      0b10110000: data => new ControlChangeEvent(data),
     }
     const status = message[0] & 0b11110000
     if (table[status]) {
