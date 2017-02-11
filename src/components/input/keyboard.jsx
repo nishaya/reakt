@@ -2,8 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import InputActions from 'actions/input'
+import Slider from 'material-ui/Slider'
 
 class KeyboardInput extends Component {
+  static MAX_OCTAVE = 10
+  static DEFAULT_OCTAVE = 5
+
   static propTypes = {
     keyDown: PropTypes.func,
     keyUp: PropTypes.func,
@@ -20,6 +24,7 @@ class KeyboardInput extends Component {
     document.addEventListener('keyup', event => this.onKeyUp(event))
     this.state = {
       key: null,
+      octave: KeyboardInput.DEFAULT_OCTAVE,
     }
     this.focus = this.focus.bind(this)
     this.keyCount = 0
@@ -62,8 +67,16 @@ class KeyboardInput extends Component {
     return (<div className="reakt-component__container">
       <h2>Keyboard Events</h2>
       <div className="reakt-component__body">
-        <input type="text" ref={(input) => { this.textInput = input }} />
-        <input type="text" value={`${this.state.key}`} readOnly />
+
+        <div>
+          Octave(z/x):
+          <Slider
+            min={0}
+            max={KeyboardInput.MAX_OCTAVE}
+            value={this.state.octave}
+            defaultValue={KeyboardInput.DEFAULT_OCTAVE}
+          />
+        </div>
       </div>
     </div>)
   }
