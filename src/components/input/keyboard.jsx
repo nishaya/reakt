@@ -106,7 +106,6 @@ class KeyboardInput extends Component {
     this.setState({ octave })
   }
 
-
   get key() {
     return this.state.key
   }
