@@ -5,6 +5,7 @@ import AnalyzerComponent from 'components/synth/analyzer'
 import Filter from 'components/synth/filter'
 import LFO from 'components/synth/lfo'
 import MIDIInput from 'components/input/midi'
+import KeyboardInput from 'components/input/keyboard'
 import MIDIEvent from 'components/synth/midi_event'
 import Oscillator from 'components/synth/oscillator'
 
@@ -62,6 +63,7 @@ class Synthesizer extends Component {
     return (<div>
       <div>
         <MIDIInput />
+        <KeyboardInput />
         <MIDIEvent
           onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
           onNoteOff={(note) => { this.noteOff(note) }}

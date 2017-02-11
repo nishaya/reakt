@@ -11,24 +11,24 @@ class KeyboardInput extends Component {
   static propTypes = {
     keyDown: PropTypes.func,
     keyUp: PropTypes.func,
-    pressedKeys: PropTypes.shape(),
   }
 
   static defaultProps = {
     keyDown: () => {},
+    keyUp: () => {},
   }
 
   constructor(props) {
     super(props)
-    document.addEventListener('keydown', event => this.onKeyDown(event))
-    document.addEventListener('keyup', event => this.onKeyUp(event))
     this.state = {
       key: null,
       octave: KeyboardInput.DEFAULT_OCTAVE,
     }
-    this.focus = this.focus.bind(this)
-    this.keyCount = 0
-    this.totalTime = 0
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', event => this.onKeyDown(event))
+    document.addEventListener('keyup', event => this.onKeyUp(event))
   }
 
   componentWillReceiveProps(newProps) {
@@ -40,13 +40,8 @@ class KeyboardInput extends Component {
   }
 
   onKeyDown(event) {
-    this.pressedKey = event.key
-    this.time = performance.now()
-    this.keyCount += 1
-
     this.setState({ key: event.key })
     this.props.keyDown(event.key)
-    this.textInput.value = event.key
   }
 
   onKeyUp(event) {
@@ -69,7 +64,7 @@ class KeyboardInput extends Component {
       <div className="reakt-component__body">
 
         <div>
-          Octave(z/x):
+          Octave(z/x): {this.state.octave}
           <Slider
             min={0}
             max={KeyboardInput.MAX_OCTAVE}
@@ -77,6 +72,7 @@ class KeyboardInput extends Component {
             defaultValue={KeyboardInput.DEFAULT_OCTAVE}
           />
         </div>
+        <div>Pressed: {this.state.key}</div>
       </div>
     </div>)
   }
