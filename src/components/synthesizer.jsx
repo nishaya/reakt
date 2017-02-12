@@ -117,6 +117,13 @@ class Synthesizer extends Component {
           type="sawtooth"
           onReady={(playFunc) => { this.playFunc = playFunc }}
         />
+        <EG
+          audioCtx={this.audioCtx}
+          onReady={(egFunc, releaseFunc) => {
+            this.egFunc = egFunc
+            this.releaseFunc = releaseFunc
+          }}
+        />
         <Filter
           audioCtx={this.audioCtx}
           ref={(filter) => { this.filterComponent = filter }}
@@ -124,13 +131,6 @@ class Synthesizer extends Component {
           q={this.state.controlChange[71]}
           onReady={(filterNode) => {
             this.filter = filterNode
-          }}
-        />
-        <EG
-          audioCtx={this.audioCtx}
-          onReady={(egFunc, releaseFunc) => {
-            this.egFunc = egFunc
-            this.releaseFunc = releaseFunc
           }}
         />
       </div>

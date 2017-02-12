@@ -1,13 +1,10 @@
 import React, { Component, PropTypes } from 'react'
+import Slider from 'material-ui/Slider'
 
 export default class EG extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
     onReady: PropTypes.func,
-    attack: PropTypes.number,
-    decay: PropTypes.number,
-    sustain: PropTypes.number,
-    release: PropTypes.number,
   }
 
   static ATTACK_OFFSET = 0.001
@@ -16,19 +13,15 @@ export default class EG extends Component {
     onReady: (generateEnvelopFunc, setReleaseFunc) => {
       console.log(generateEnvelopFunc, setReleaseFunc)
     },
-    attack: 0,
-    decay: 0,
-    sustain: 1.0,
-    release: 0.3,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      actualAttack: 0.6,
-      actualDecay: 0.2,
-      actualSustain: 0.8,
-      actualRelease: 0.7,
+      attack: 0,
+      decay: 0.1,
+      sustain: 0.5,
+      release: 0.5,
     }
   }
 
@@ -40,18 +33,9 @@ export default class EG extends Component {
     )
   }
 
-  componentWillReceiveProps(nextProps) {
-    const nextState = {}
-    if (this.props.attack !== nextProps.attack) {
-      nextState.actualAttack = nextProps.attack // TOOD: 0-127から変換
-    }
-    this.setState(nextState)
-  }
-
   setRelease(gain) {
-    console.log('setRelease')
     const now = this.props.audioCtx.currentTime
-    const releaseTime = now + this.state.actualRelease + 0.001
+    const releaseTime = now + this.state.release + 0.0001
     gain.gain.cancelScheduledValues(0)
     gain.gain.linearRampToValueAtTime(
       0,
@@ -63,28 +47,61 @@ export default class EG extends Component {
   generateEnvelop(gain, volume = 1.0) {
     const gainNode = gain || this.props.audioCtx.createGain()
     const now = this.props.audioCtx.currentTime
-    const attackTime = now + this.state.actualAttack + EG.ATTACK_OFFSET
-    const decayTime = attackTime + this.state.actualDecay
+    const attackTime = now + this.state.attack + EG.ATTACK_OFFSET
+    const decayTime = attackTime + this.state.decay
     gainNode.gain.setValueAtTime(0, now)
     gainNode.gain.linearRampToValueAtTime(
       1.0 * volume,
       attackTime,
     )
     gainNode.gain.linearRampToValueAtTime(
-      this.state.actualSustain * volume,
+      this.state.sustain * volume,
       decayTime,
     )
     return gainNode
+  }
+
+  static PARAMS = {
+    attack: {
+      min: 0,
+      max: 10,
+    },
+    decay: {
+      min: 0,
+      max: 10,
+    },
+    sustain: {
+      min: 0,
+      max: 1.0,
+    },
+    release: {
+      min: 0,
+      max: 10,
+    },
+  }
+
+  renderSlider(key) {
+    return (<div>
+      {key} : {this.state[key]}
+      <Slider
+        key={`slider_${key}`}
+        min={EG.PARAMS[key].min}
+        max={EG.PARAMS[key].max}
+        step={(EG.PARAMS[key].max - EG.PARAMS[key].min) / 127}
+        value={this.state[key]}
+        onChange={(e, value) => { this.setState({ [key]: value }) }}
+      />
+    </div>)
   }
 
   render() {
     return (<div className="reakt-component__container">
       <h2>EG</h2>
       <div className="reakt-component__body">
-        <div>Attack: {this.state.actualAttack}</div>
-        <div>Decay: {this.state.actualDecay}</div>
-        <div>Sustain: {this.state.actualSustain}</div>
-        <div>Release: {this.state.actualRelease}</div>
+        {this.renderSlider('attack')}
+        {this.renderSlider('decay')}
+        {this.renderSlider('sustain')}
+        {this.renderSlider('release')}
       </div>
     </div>)
   }
