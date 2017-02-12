@@ -65,7 +65,7 @@ export default class EG extends Component {
 
   setRelease(gain) {
     const now = this.props.audioCtx.currentTime
-    const releaseTime = now + this.state.release + 0.0001
+    const releaseTime = now + this.state.release + 0.001
     gain.gain.cancelScheduledValues(0)
     gain.gain.linearRampToValueAtTime(
       0,

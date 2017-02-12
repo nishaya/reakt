@@ -51,6 +51,6 @@ export default {
       payload: {
         event,
       },
-    } : null
+    } : { type: null }
   },
 }

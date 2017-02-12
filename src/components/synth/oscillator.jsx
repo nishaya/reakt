@@ -49,8 +49,8 @@ export default class Oscillator extends Component {
     if (this.state.type.match(/^wt/)) {
       const presetName = this.state.type.replace(/^wt_/, '')
       let len = parseInt(-(Math.log2(frequency / 880) * 80), 10)
-      if (len < 10) {
-        len = 10
+      if (len < 30) {
+        len = 30
       }
       const waveTable = WaveTable.loadPreset(presetName)
       osc.setPeriodicWave(
