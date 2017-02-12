@@ -82,6 +82,10 @@ export default class Oscillator extends Component {
               label="Sine"
             />
             <RadioButton
+              value="triangle"
+              label="Triangle"
+            />
+            <RadioButton
               value="supersawtooth"
               label="SuperSaw"
             />
@@ -93,6 +97,11 @@ export default class Oscillator extends Component {
               value="supersine"
               label="SuperSine"
             />
+            <RadioButton
+              value="supertriangle"
+              label="SuperTriangle"
+            />
+
           </RadioButtonGroup>
         </div>
       </div>
