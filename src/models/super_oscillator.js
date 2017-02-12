@@ -10,14 +10,12 @@ export default class SuperOscillator {
   }
 
   static genDetunedFreq(frequency, cent) {
-    const freqCent = SuperOscillator.freq2cent(frequency)
-    const centFreq = SuperOscillator.cent2freq(freqCent + cent)
-    console.log('genDetunedFreq', frequency, cent, freqCent, centFreq)
-    return centFreq
+    return SuperOscillator.cent2freq(SuperOscillator.freq2cent(frequency) + cent)
   }
 
   constructor(context, options) {
-    this.oscs = [-1220, -1180, -20, 0, 20, 1180, 1220]
+    const cents = [-1200, -20, 0, 20, 1200]
+    this.oscs = cents
       .map(cent => (
         new OscillatorNode(
           context,
