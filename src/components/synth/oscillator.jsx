@@ -47,18 +47,12 @@ export default class Oscillator extends Component {
     }
     const osc = this.props.audioCtx.createOscillator()
     if (this.state.type.match(/^wt/)) {
-      const table = [1, -1, -1, -1]
-      // const table = [1, -1, -1, -1]
-      // const table = [100, 80, 60, 40, 20, 0, 20, 40, 60, 80]
+      const presetName = this.state.type.replace(/^wt_/, '')
       let len = parseInt(-(Math.log2(frequency / 880) * 80), 10)
       if (len < 10) {
         len = 10
       }
-      console.log('WT', frequency, len)
-
-      const waveTable = new WaveTable(
-        table,
-      )
+      const waveTable = WaveTable.loadPreset(presetName)
       osc.setPeriodicWave(
         waveTable.createPeriodicWave(this.props.audioCtx, len),
       )
@@ -120,8 +114,16 @@ export default class Oscillator extends Component {
               label="SuperTriangle"
             />
             <RadioButton
-              value="wt"
-              label="WaveTable"
+              value="wt_1_4"
+              label="PWM 25%"
+            />
+            <RadioButton
+              value="wt_1_8"
+              label="PWM 12.5%"
+            />
+            <RadioButton
+              value="wt_triangle"
+              label="PseudoTriangle"
             />
 
           </RadioButtonGroup>

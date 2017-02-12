@@ -24,10 +24,36 @@ export default class WaveTable {
 
   createPeriodicWave(audioCtx, len) {
     this.fft(len)
-    console.log(audioCtx)
     return audioCtx.createPeriodicWave(
       this.real,
       this.imag,
     )
+  }
+
+  static PRESETS = {
+    '1_4': [1, -1, -1, -1],
+    '1_8': [1, -1, -1, -1, -1, -1, -1, -1],
+    triangle: [
+      1,
+      0.75,
+      0.5,
+      0.25,
+      0,
+      -0.25,
+      -0.5,
+      -0.75,
+      -1,
+      -0.75,
+      -0.5,
+      -0.25,
+      0,
+      0.25,
+      0.5,
+      0.75,
+    ],
+  }
+
+  static loadPreset(name) {
+    return new WaveTable(WaveTable.PRESETS[name])
   }
 }
