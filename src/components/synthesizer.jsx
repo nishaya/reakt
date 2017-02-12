@@ -60,6 +60,17 @@ class Synthesizer extends Component {
   }
 
   noteOn(note, velocity) {
+    if (this.oscs[note]) {
+      const exGain = this.gainMap.get(this.oscs[note])
+      const stopTime = this.audioCtx.currentTime + 0.001
+      exGain.gain.cancelScheduledValues(0)
+      exGain.gain.linearRampToValueAtTime(
+        0,
+        stopTime,
+      )
+      this.oscs[note].stop(stopTime)
+    }
+
     const volume = (velocity / 127) * 0.5
     const gain = this.egFunc(this.audioCtx.createGain(), volume)
 

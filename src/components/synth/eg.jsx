@@ -12,12 +12,12 @@ export default class EG extends Component {
     attack: {
       label: 'Attack Time',
       min: 0,
-      max: 10,
+      max: 5,
     },
     decay: {
       label: 'Decay Time',
       min: 0,
-      max: 10,
+      max: 5,
     },
     sustain: {
       label: 'Sustain Level',
@@ -27,7 +27,7 @@ export default class EG extends Component {
     release: {
       label: 'Release Time',
       min: 0,
-      max: 10,
+      max: 5,
     },
   }
 
