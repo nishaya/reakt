@@ -10,27 +10,34 @@ export default class EG extends Component {
     release: PropTypes.number,
   }
 
+  static ATTACK_OFFSET = 0.001
+
   static defaultProps = {
-    onReady: (generateEnvelopFunc) => { console.log(generateEnvelopFunc) },
+    onReady: (generateEnvelopFunc, setReleaseFunc) => {
+      console.log(generateEnvelopFunc, setReleaseFunc)
+    },
     attack: 0,
-    decay: 2,
-    sustain: 2,
-    release: 0.5,
+    decay: 0,
+    sustain: 1.0,
+    release: 0.3,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      actualAttack: 0,
-      actualDecay: 2,
-      actualSustain: 2,
-      actualRelease: 0.5,
+      actualAttack: 0.6,
+      actualDecay: 0.2,
+      actualSustain: 0.8,
+      actualRelease: 0.3,
     }
   }
 
   // setup & connect filter
   componentWillMount() {
-    this.props.onReady(this.generateEnvelop)
+    this.props.onReady(
+      this.generateEnvelop.bind(this),
+      this.setRelease.bind(this),
+    )
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,8 +48,30 @@ export default class EG extends Component {
     this.setState(nextState)
   }
 
+  setRelease(gain) {
+    const now = this.props.audioCtx.currentTime
+    const releaseTime = now + this.state.actualRelease
+    gain.gain.linearRampToValueAtTime(
+      0,
+      releaseTime,
+    )
+    return releaseTime + 0.01
+  }
+
   generateEnvelop(gain) {
     const gainNode = gain || this.props.audioCtx.createGain()
+    const now = this.props.audioCtx.currentTime
+    const attackTime = now + this.state.actualAttack + EG.ATTACK_OFFSET
+    const decayTime = attackTime + this.state.actualDecay
+    gainNode.gain.setValueAtTime(0, now)
+    gainNode.gain.linearRampToValueAtTime(
+      1,
+      attackTime,
+    )
+    gainNode.gain.linearRampToValueAtTime(
+      this.state.actualSustain,
+      decayTime,
+    )
     return gainNode
   }
 

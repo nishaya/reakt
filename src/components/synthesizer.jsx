@@ -9,6 +9,7 @@ import KeyboardInput from 'components/input/keyboard'
 import PadInput from 'components/input/pad'
 import MIDIEvent from 'components/synth/midi_event'
 import Oscillator from 'components/synth/oscillator'
+import EG from 'components/synth/eg'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import PanicButtonIcon from 'material-ui/svg-icons/av/pause'
 
@@ -24,6 +25,10 @@ class Synthesizer extends Component {
     this.lfo = null
     this.analyzer = null
     this.playFunc = (freq) => { console.log(freq) }
+    this.egFunc = (gainNode) => { console.log(gainNode) }
+    this.releaseFunc = (gainNode) => { console.log(gainNode) }
+
+    this.gainMap = new WeakMap()
 
     this.state = {
       controlChange: {
@@ -45,12 +50,13 @@ class Synthesizer extends Component {
   }
 
   noteOn(note, velocity) {
-    const gain = this.audioCtx.createGain()
+    const gain = this.egFunc(this.audioCtx.createGain())
     gain.gain.value = (velocity / 127) * 0.5
     this.lfo.connect(gain.gain)
 
     const frequency = 440 * (2 ** ((note - 69) / 12))
     const osc = this.playFunc(frequency)
+    this.gainMap[osc] = gain
     osc.connect(gain)
     gain.connect(this.filter)
     this.filter.connect(this.analyzer)
@@ -59,7 +65,12 @@ class Synthesizer extends Component {
   }
 
   noteOff(note) {
-    this.oscs[note].stop()
+    const osc = this.oscs[note]
+    if (!osc) {
+      return
+    }
+    const gain = this.gainMap[osc]
+    osc.stop(this.releaseFunc(gain))
   }
 
   panic() {
@@ -114,6 +125,13 @@ class Synthesizer extends Component {
           q={this.state.controlChange[71]}
           onReady={(filterNode) => {
             this.filter = filterNode
+          }}
+        />
+        <EG
+          audioCtx={this.audioCtx}
+          onReady={(egFunc, releaseFunc) => {
+            this.egFunc = egFunc
+            this.releaseFunc = releaseFunc
           }}
         />
         <LFO
