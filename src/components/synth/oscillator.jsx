@@ -115,11 +115,15 @@ export default class Oscillator extends Component {
             />
             <RadioButton
               value="wt_1_4"
-              label="PWM 25%"
+              label="PWM 1/4"
             />
             <RadioButton
               value="wt_1_8"
-              label="PWM 12.5%"
+              label="PWM 1/8"
+            />
+            <RadioButton
+              value="wt_1_16"
+              label="PWM 1/16"
             />
             <RadioButton
               value="wt_triangle"
