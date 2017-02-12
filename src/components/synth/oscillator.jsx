@@ -4,6 +4,7 @@ import {
   RadioButtonGroup,
 } from 'material-ui/RadioButton'
 import SuperOscillator from 'models/super_oscillator'
+import WaveTable from 'models/wave_table'
 
 export default class Oscillator extends Component {
   static propTypes = {
@@ -37,7 +38,6 @@ export default class Oscillator extends Component {
 
   play(frequency) {
     if (this.state.type.match(/^super/)) {
-      console.log(this.state.type.replace(/^super/, ''))
       return this.generateSuperSaw(
         {
           type: this.state.type.replace(/^super/, ''),
@@ -46,7 +46,21 @@ export default class Oscillator extends Component {
       )
     }
     const osc = this.props.audioCtx.createOscillator()
-    osc.type = this.state.type
+    if (this.state.type.match(/^wt/)) {
+      const table = [100, 100, -100, -100, -100, -100, -100, -100]
+      // const table = [100, 80, 60, 40, 20, 0, 20, 40, 60, 80]
+      console.log('WT', frequency)
+
+      const waveTable = new WaveTable(
+        table,
+        70,
+      )
+      osc.setPeriodicWave(
+        waveTable.createPeriodicWave(this.props.audioCtx),
+      )
+    } else {
+      osc.type = this.state.type
+    }
     osc.frequency.value = frequency
     return osc
   }
@@ -100,6 +114,10 @@ export default class Oscillator extends Component {
             <RadioButton
               value="supertriangle"
               label="SuperTriangle"
+            />
+            <RadioButton
+              value="wt"
+              label="WaveTable"
             />
 
           </RadioButtonGroup>
