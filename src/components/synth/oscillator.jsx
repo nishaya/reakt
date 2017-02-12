@@ -125,7 +125,6 @@ export default class Oscillator extends Component {
               value="wt_triangle"
               label="PseudoTriangle"
             />
-
           </RadioButtonGroup>
         </div>
       </div>
