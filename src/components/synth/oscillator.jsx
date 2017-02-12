@@ -47,16 +47,20 @@ export default class Oscillator extends Component {
     }
     const osc = this.props.audioCtx.createOscillator()
     if (this.state.type.match(/^wt/)) {
-      const table = [100, 100, -100, -100, -100, -100, -100, -100]
+      const table = [1, -1, -1, -1]
+      // const table = [1, -1, -1, -1]
       // const table = [100, 80, 60, 40, 20, 0, 20, 40, 60, 80]
-      console.log('WT', frequency)
+      let len = parseInt(-(Math.log2(frequency / 880) * 80), 10)
+      if (len < 10) {
+        len = 10
+      }
+      console.log('WT', frequency, len)
 
       const waveTable = new WaveTable(
         table,
-        70,
       )
       osc.setPeriodicWave(
-        waveTable.createPeriodicWave(this.props.audioCtx),
+        waveTable.createPeriodicWave(this.props.audioCtx, len),
       )
     } else {
       osc.type = this.state.type
