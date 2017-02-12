@@ -15,7 +15,10 @@ import PanicButtonIcon from 'material-ui/svg-icons/av/pause'
 class Synthesizer extends Component {
   constructor(props) {
     super(props)
-    this.audioCtx = new window.AudioContext()
+    const AudioContext = window.AudioContext || window.webkitAudioContext
+    console.log(AudioContext)
+    this.audioCtx = new AudioContext()
+    console.log(this.audioCtx)
     this.oscs = []
     this.filter = null
     this.lfo = null
