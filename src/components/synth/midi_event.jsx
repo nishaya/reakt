@@ -9,7 +9,7 @@ class MIDIEvent extends Component {
     onNoteOn: PropTypes.func,
     onNoteOff: PropTypes.func,
     onControlChange: PropTypes.func,
-    logs: PropTypes.array.isRequired,
+    logs: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   }
 
   static defaultProps = {

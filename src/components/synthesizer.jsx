@@ -25,6 +25,7 @@ class Synthesizer extends Component {
     this.playFunc = (freq) => { console.log(freq) }
     this.egFunc = (gainNode) => { console.log(gainNode) }
     this.releaseFunc = (gainNode) => { console.log(gainNode) }
+    this.egCCFunc = (paramName, value) => { console.log(paramName, value) }
 
     this.gainMap = new WeakMap()
     this.duplicatedOscs = new WeakSet()
@@ -44,8 +45,18 @@ class Synthesizer extends Component {
     }
   }
 
+  static EG_CC = {
+    73: 'attack',
+    75: 'decay',
+    85: 'sustain',
+    72: 'release',
+  }
+
   handleControlChange(controlNumber, value) {
     this.setState({ controlChange: { ...this.state.controlChange, [controlNumber]: value } })
+    if (Object.keys(Synthesizer.EG_CC).includes(`${controlNumber}`)) {
+      this.egCCFunc(Synthesizer.EG_CC[`${controlNumber}`], value)
+    }
   }
 
   noteOn(note, velocity) {
@@ -68,7 +79,6 @@ class Synthesizer extends Component {
       return
     }
     const gain = this.gainMap.get(osc)
-    console.log(gain)
     osc.stop(this.releaseFunc(gain))
   }
 
@@ -82,16 +92,6 @@ class Synthesizer extends Component {
 
   render() {
     return (<div>
-      <div>
-        <MIDIInput />
-        <MIDIEvent
-          onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
-          onNoteOff={(note) => { this.noteOff(note) }}
-          onControlChange={
-            (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
-          }
-        />
-      </div>
       <div>
         <KeyboardInput />
         <PadInput />
@@ -119,9 +119,10 @@ class Synthesizer extends Component {
         />
         <EG
           audioCtx={this.audioCtx}
-          onReady={(egFunc, releaseFunc) => {
+          onReady={(egFunc, releaseFunc, egCCFunc) => {
             this.egFunc = egFunc
             this.releaseFunc = releaseFunc
+            this.egCCFunc = egCCFunc
           }}
         />
         <Filter
@@ -132,6 +133,16 @@ class Synthesizer extends Component {
           onReady={(filterNode) => {
             this.filter = filterNode
           }}
+        />
+      </div>
+      <div>
+        <MIDIInput />
+        <MIDIEvent
+          onNoteOn={(note, velocity) => { this.noteOn(note, velocity) }}
+          onNoteOff={(note) => { this.noteOff(note) }}
+          onControlChange={
+            (controlNumber, value) => { this.handleControlChange(controlNumber, value) }
+          }
         />
       </div>
     </div>)

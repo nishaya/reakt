@@ -7,7 +7,29 @@ export default class EG extends Component {
     onReady: PropTypes.func,
   }
 
-  static ATTACK_OFFSET = 0.001
+  static ATTACK_OFFSET = 0.0001
+  static PARAMS = {
+    attack: {
+      label: 'Attack Time',
+      min: 0,
+      max: 10,
+    },
+    decay: {
+      label: 'Decay Time',
+      min: 0,
+      max: 10,
+    },
+    sustain: {
+      label: 'Sustain Level',
+      min: 0,
+      max: 1.0,
+    },
+    release: {
+      label: 'Release Time',
+      min: 0,
+      max: 10,
+    },
+  }
 
   static defaultProps = {
     onReady: (generateEnvelopFunc, setReleaseFunc) => {
@@ -30,7 +52,15 @@ export default class EG extends Component {
     this.props.onReady(
       this.generateEnvelop.bind(this),
       this.setRelease.bind(this),
+      this.setControlChange.bind(this),
     )
+  }
+
+  setControlChange(paramName, value) {
+    this.setState({
+      [paramName]: EG.PARAMS[paramName].min
+        + value / 127 * (EG.PARAMS[paramName].max - EG.PARAMS[paramName].min),
+    })
   }
 
   setRelease(gain) {
@@ -59,29 +89,6 @@ export default class EG extends Component {
       decayTime,
     )
     return gainNode
-  }
-
-  static PARAMS = {
-    attack: {
-      label: 'Attack Time',
-      min: 0,
-      max: 10,
-    },
-    decay: {
-      label: 'Decay Time',
-      min: 0,
-      max: 10,
-    },
-    sustain: {
-      label: 'Sustain Level',
-      min: 0,
-      max: 1.0,
-    },
-    release: {
-      label: 'Release Time',
-      min: 0,
-      max: 10,
-    },
   }
 
   renderSlider(key) {
