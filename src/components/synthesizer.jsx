@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AnalyzerComponent from 'components/synth/analyzer'
 import Filter from 'components/synth/filter'
-import LFO from 'components/synth/lfo'
 import MIDIInput from 'components/input/midi'
 import KeyboardInput from 'components/input/keyboard'
 import PadInput from 'components/input/pad'
@@ -22,13 +21,13 @@ class Synthesizer extends Component {
     console.log(this.audioCtx)
     this.oscs = []
     this.filter = null
-    this.lfo = null
     this.analyzer = null
     this.playFunc = (freq) => { console.log(freq) }
     this.egFunc = (gainNode) => { console.log(gainNode) }
     this.releaseFunc = (gainNode) => { console.log(gainNode) }
 
     this.gainMap = new WeakMap()
+    this.duplicatedOscs = new WeakSet()
 
     this.state = {
       controlChange: {
@@ -50,13 +49,12 @@ class Synthesizer extends Component {
   }
 
   noteOn(note, velocity) {
-    const gain = this.egFunc(this.audioCtx.createGain())
-    gain.gain.value = (velocity / 127) * 0.5
-    this.lfo.connect(gain.gain)
+    const volume = (velocity / 127) * 0.5
+    const gain = this.egFunc(this.audioCtx.createGain(), volume)
 
     const frequency = 440 * (2 ** ((note - 69) / 12))
     const osc = this.playFunc(frequency)
-    this.gainMap[osc] = gain
+    this.gainMap.set(osc, gain)
     osc.connect(gain)
     gain.connect(this.filter)
     this.filter.connect(this.analyzer)
@@ -69,7 +67,8 @@ class Synthesizer extends Component {
     if (!osc) {
       return
     }
-    const gain = this.gainMap[osc]
+    const gain = this.gainMap.get(osc)
+    console.log(gain)
     osc.stop(this.releaseFunc(gain))
   }
 
@@ -132,13 +131,6 @@ class Synthesizer extends Component {
           onReady={(egFunc, releaseFunc) => {
             this.egFunc = egFunc
             this.releaseFunc = releaseFunc
-          }}
-        />
-        <LFO
-          audioCtx={this.audioCtx}
-          frequency={this.state.controlChange[76]}
-          onReady={(lfoNode) => {
-            this.lfo = lfoNode
           }}
         />
       </div>

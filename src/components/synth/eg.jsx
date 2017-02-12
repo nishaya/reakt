@@ -28,7 +28,7 @@ export default class EG extends Component {
       actualAttack: 0.6,
       actualDecay: 0.2,
       actualSustain: 0.8,
-      actualRelease: 0.3,
+      actualRelease: 0.7,
     }
   }
 
@@ -49,27 +49,29 @@ export default class EG extends Component {
   }
 
   setRelease(gain) {
+    console.log('setRelease')
     const now = this.props.audioCtx.currentTime
-    const releaseTime = now + this.state.actualRelease
+    const releaseTime = now + this.state.actualRelease + 0.001
+    gain.gain.cancelScheduledValues(0)
     gain.gain.linearRampToValueAtTime(
       0,
       releaseTime,
     )
-    return releaseTime + 0.01
+    return releaseTime
   }
 
-  generateEnvelop(gain) {
+  generateEnvelop(gain, volume = 1.0) {
     const gainNode = gain || this.props.audioCtx.createGain()
     const now = this.props.audioCtx.currentTime
     const attackTime = now + this.state.actualAttack + EG.ATTACK_OFFSET
     const decayTime = attackTime + this.state.actualDecay
     gainNode.gain.setValueAtTime(0, now)
     gainNode.gain.linearRampToValueAtTime(
-      1,
+      1.0 * volume,
       attackTime,
     )
     gainNode.gain.linearRampToValueAtTime(
-      this.state.actualSustain,
+      this.state.actualSustain * volume,
       decayTime,
     )
     return gainNode
