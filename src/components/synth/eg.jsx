@@ -20,8 +20,8 @@ export default class EG extends Component {
     this.state = {
       attack: 0,
       decay: 0.1,
-      sustain: 0.5,
-      release: 0.5,
+      sustain: 0.8,
+      release: 0.3,
     }
   }
 
@@ -63,18 +63,22 @@ export default class EG extends Component {
 
   static PARAMS = {
     attack: {
+      label: 'Attack Time',
       min: 0,
       max: 10,
     },
     decay: {
+      label: 'Decay Time',
       min: 0,
       max: 10,
     },
     sustain: {
+      label: 'Sustain Level',
       min: 0,
       max: 1.0,
     },
     release: {
+      label: 'Release Time',
       min: 0,
       max: 10,
     },
@@ -82,7 +86,7 @@ export default class EG extends Component {
 
   renderSlider(key) {
     return (<div>
-      {key} : {this.state[key]}
+      {EG.PARAMS[key].label} : {parseInt(this.state[key] * 100, 10) / 100}
       <Slider
         key={`slider_${key}`}
         min={EG.PARAMS[key].min}
