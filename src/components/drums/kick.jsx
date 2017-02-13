@@ -36,7 +36,7 @@ export default class Kick extends Component {
       clearTimeout(this.pt)
     }
     const osc = this.props.audioCtx.createOscillator()
-    const volume = velocity / 127
+    const volume = velocity / 127 * 0.5
 
     const gain = this.props.audioCtx.createGain()
     const now = this.props.audioCtx.currentTime

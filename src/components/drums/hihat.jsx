@@ -36,7 +36,7 @@ export default class Hihat extends Component {
       clearTimeout(this.pt)
     }
     const bufferSource = this.props.audioCtx.createBufferSource()
-    const volume = velocity / 127
+    const volume = velocity / 127 * 0.5
 
     const gain = this.props.audioCtx.createGain()
     const now = this.props.audioCtx.currentTime
