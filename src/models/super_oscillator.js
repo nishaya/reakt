@@ -26,7 +26,7 @@ export default class SuperOscillator {
           },
         )
         const gain = context.createGain()
-        gain.gain.value = 0.3
+        gain.gain.value = 0.15
         osc.connect(gain)
         this.gains.set(osc, gain)
         return osc

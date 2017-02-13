@@ -82,11 +82,14 @@ class Synthesizer extends Component {
       this.oscs[note].stop(stopTime)
     }
 
-    const volume = (velocity / 127) * 0.5
-    const gain = this.egFunc(this.audioCtx.createGain(), volume)
-
     const frequency = 440 * (2 ** ((note - 69) / 12))
     const osc = this.playFunc(frequency)
+
+    let volume = velocity / 127
+    if (osc instanceof OscillatorNode && osc.type !== 'custom') {
+      volume *= 0.3
+    }
+    const gain = this.egFunc(this.audioCtx.createGain(), volume)
     this.gainMap.set(osc, gain)
     osc.connect(gain)
     gain.connect(this.filter)
