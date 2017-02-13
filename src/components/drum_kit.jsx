@@ -19,7 +19,9 @@ export default class DrumKit extends Component {
 
   trigger(note, velocity) {
     console.log('trigger', note, velocity)
-    this.triggerFuncs[0](velocity)
+    if (this.triggerFuncs[note]) {
+      this.triggerFuncs[note](velocity)
+    }
   }
 
   render() {
@@ -29,8 +31,22 @@ export default class DrumKit extends Component {
         <Hihat
           audioCtx={this.props.audioCtx}
           onReady={(triggerFunc) => {
-            this.triggerFuncs[0] = triggerFunc
+            this.triggerFuncs[2] = triggerFunc
           }}
+          attack={0}
+          decay={0.05}
+          sustain={0.5}
+          release={0}
+        />
+        <Hihat
+          audioCtx={this.props.audioCtx}
+          onReady={(triggerFunc) => {
+            this.triggerFuncs[3] = triggerFunc
+          }}
+          attack={0}
+          decay={0.1}
+          sustain={0.5}
+          release={0.2}
         />
       </div>
     </div>)
