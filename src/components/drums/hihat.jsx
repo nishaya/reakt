@@ -4,6 +4,7 @@ import NoiseGenerator from 'utils/noise_generator'
 export default class Hihat extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
+    label: PropTypes.string,
     onReady: PropTypes.func,
     attack: PropTypes.number,
     decay: PropTypes.number,
@@ -12,6 +13,7 @@ export default class Hihat extends Component {
   }
 
   static defaultProps = {
+    label: 'Hihat',
     onReady: (triggerFunc) => { console.log(triggerFunc) },
     attack: 0,
     decay: 0.1,
@@ -60,7 +62,7 @@ export default class Hihat extends Component {
 
   render() {
     return (<div className="reakt-drum__container">
-      <h3>Hihat</h3>
+      <h3>{this.props.label}</h3>
       <div>
         {this.state.playing ? 'playing' : 'stopped'}
       </div>

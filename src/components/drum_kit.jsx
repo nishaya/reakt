@@ -33,6 +33,7 @@ export default class DrumKit extends Component {
           onReady={(triggerFunc) => {
             this.triggerFuncs[1] = triggerFunc
           }}
+          label="Snare"
           attack={0}
           decay={0.08}
           sustain={0.7}
@@ -43,6 +44,7 @@ export default class DrumKit extends Component {
           onReady={(triggerFunc) => {
             this.triggerFuncs[2] = triggerFunc
           }}
+          label="CHH"
           attack={0}
           decay={0.05}
           sustain={0.3}
@@ -53,6 +55,7 @@ export default class DrumKit extends Component {
           onReady={(triggerFunc) => {
             this.triggerFuncs[3] = triggerFunc
           }}
+          label="OHH"
           attack={0}
           decay={0.05}
           sustain={0.5}
@@ -63,6 +66,7 @@ export default class DrumKit extends Component {
           onReady={(triggerFunc) => {
             this.triggerFuncs[4] = triggerFunc
           }}
+          label="Cymbal"
           attack={0}
           decay={0.05}
           sustain={0.3}
