@@ -6,6 +6,7 @@ import MIDIActions from 'actions/midi'
 import Slider from 'material-ui/Slider'
 
 class KeyboardInput extends Component {
+  static MIN_OCTAVE = 1
   static MAX_OCTAVE = 9
   static DEFAULT_OCTAVE = 4
   static KEY_MAP = {
@@ -139,7 +140,7 @@ class KeyboardInput extends Component {
         <div>
           Octave(z:down/x:up): {this.state.octave}
           <Slider
-            min={0}
+            min={KeyboardInput.MIN_OCTAVE}
             max={KeyboardInput.MAX_OCTAVE}
             step={1}
             value={this.state.octave}
