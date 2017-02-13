@@ -31,13 +31,22 @@ export default class DrumKit extends Component {
         <Hihat
           audioCtx={this.props.audioCtx}
           onReady={(triggerFunc) => {
+            this.triggerFuncs[1] = triggerFunc
+          }}
+          attack={0}
+          decay={0.08}
+          sustain={0.7}
+          release={0.5}
+        />
+        <Hihat
+          audioCtx={this.props.audioCtx}
+          onReady={(triggerFunc) => {
             this.triggerFuncs[2] = triggerFunc
           }}
           attack={0}
           decay={0.05}
-          sustain={0.5}
+          sustain={0.3}
           release={0}
-          rate={2}
         />
         <Hihat
           audioCtx={this.props.audioCtx}
@@ -45,10 +54,19 @@ export default class DrumKit extends Component {
             this.triggerFuncs[3] = triggerFunc
           }}
           attack={0}
-          decay={0.1}
+          decay={0.05}
           sustain={0.5}
           release={0.2}
-          rate={2}
+        />
+        <Hihat
+          audioCtx={this.props.audioCtx}
+          onReady={(triggerFunc) => {
+            this.triggerFuncs[4] = triggerFunc
+          }}
+          attack={0}
+          decay={0.05}
+          sustain={0.3}
+          release={1.0}
         />
       </div>
     </div>)
