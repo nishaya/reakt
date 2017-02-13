@@ -35,7 +35,6 @@ export default class Hihat extends Component {
     if (this.pt) {
       clearTimeout(this.pt)
     }
-    console.log('trigger hihat', velocity)
     const bufferSource = this.props.audioCtx.createBufferSource()
     const volume = velocity / 127
 

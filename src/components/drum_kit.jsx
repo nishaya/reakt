@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Hihat from 'components/drums/hihat'
+import Kick from 'components/drums/kick'
 
 export default class DrumKit extends Component {
   static propTypes = {
@@ -18,7 +19,6 @@ export default class DrumKit extends Component {
   triggerFuncs = []
 
   trigger(note, velocity) {
-    console.log('trigger', note, velocity)
     if (this.triggerFuncs[note]) {
       this.triggerFuncs[note](velocity)
     }
@@ -28,6 +28,13 @@ export default class DrumKit extends Component {
     return (<div className="reakt-component__container">
       <h2>Drum Kit</h2>
       <div>
+        <Kick
+          audioCtx={this.props.audioCtx}
+          onReady={(triggerFunc) => {
+            this.triggerFuncs[0] = triggerFunc
+          }}
+          label="Kick"
+        />
         <Hihat
           audioCtx={this.props.audioCtx}
           onReady={(triggerFunc) => {
@@ -35,9 +42,9 @@ export default class DrumKit extends Component {
           }}
           label="Snare"
           attack={0}
-          decay={0.08}
-          sustain={0.7}
-          release={0.5}
+          decay={0.02}
+          sustain={0.8}
+          release={0.2}
         />
         <Hihat
           audioCtx={this.props.audioCtx}
