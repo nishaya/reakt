@@ -101,6 +101,8 @@ html, body {
       display: inline-block !important;
       padding: 4px;
       display: block;
+      min-width: 80px;
+      text-align: center;
     }
   }
 }
