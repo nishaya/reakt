@@ -34,6 +34,7 @@ class Synthesizer extends Component {
     this.egFunc = (gainNode) => { console.log(gainNode) }
     this.releaseFunc = (gainNode) => { console.log(gainNode) }
     this.egCCFunc = (paramName, value) => { console.log(paramName, value) }
+    this.dkTriggerFunc = (note, velocity) => { console.log( note, value) }
 
     this.gainMap = new WeakMap()
     this.duplicatedOscs = new WeakSet()
@@ -150,6 +151,9 @@ class Synthesizer extends Component {
       <div>
         <DrumKit
           audioCtx={this.audioCtx}
+          onReady={(triggerFunc) => {
+            this.dkTriggerFunc = triggerFunc
+          }}
         />
       </div>
       <div>

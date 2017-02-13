@@ -3,11 +3,19 @@ import React, { Component, PropTypes } from 'react'
 export default class DrumKit extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
-    trigger: PropTypes.func.isRequired,
+    onReady: PropTypes.func,
   }
 
   static defaultProps = {
-    trigger: (note, velocity) => { console.log('trigger', note, velocity) },
+    onReady: (triggerFunc) => { console.log(triggerFunc) },
+  }
+
+  componentDidMount() {
+    this.props.onReady(this.trigger.bind(this))
+  }
+
+  trigger(note, velocity) {
+    console.log('trigger', note, velocity)
   }
 
   render() {
