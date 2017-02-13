@@ -7,6 +7,12 @@ html, body {
     font-family: 'Roboto Condensed', sans-serif;
   }
 
+  h3 {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 20px;
+  }
+
   h2 {
     margin-top: 4px;
     margin-bottom: 4px;
@@ -89,6 +95,11 @@ html, body {
     .reakt-component__body {
       font-size: 20px;
       margin: 8px;
+    }
+
+    .reakt-drum__container {
+      padding: 4px;
+      display: block;
     }
   }
 }
