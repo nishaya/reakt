@@ -46,11 +46,14 @@ export default {
   onMidiMessage: (message) => {
     const event = MIDIEventFactory.build(message)
     console.log('onMidiMessage', message, event)
-    return event ? {
+    if (!event) {
+      return { type: null }
+    }
+    return {
       type: event.type,
       payload: {
         event,
       },
-    } : { type: null }
+    }
   },
 }

@@ -45,6 +45,9 @@ class MIDIInput extends Component {
   openInput(selectedInput) {
     const input = selectedInput
     input.onmidimessage = (e) => {
+      if (e.data[0] === 248) {
+        return
+      }
       this.props.onMidiMessage(e.data)
     }
     input.open().then(port => console.log('opened', port))
