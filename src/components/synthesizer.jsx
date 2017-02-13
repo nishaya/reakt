@@ -11,6 +11,7 @@ import Oscillator from 'components/synth/oscillator'
 import EG from 'components/synth/eg'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import PanicButtonIcon from 'material-ui/svg-icons/av/pause'
+import DrumKit from 'components/drum_kit'
 
 class Synthesizer extends Component {
   static EG_CC = {
@@ -144,6 +145,11 @@ class Synthesizer extends Component {
           onReady={(filterNode) => {
             this.filter = filterNode
           }}
+        />
+      </div>
+      <div>
+        <DrumKit
+          audioCtx={this.audioCtx}
         />
       </div>
       <div>
