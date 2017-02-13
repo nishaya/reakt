@@ -13,6 +13,13 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import PanicButtonIcon from 'material-ui/svg-icons/av/pause'
 
 class Synthesizer extends Component {
+  static EG_CC = {
+    73: 'attack',
+    75: 'decay',
+    85: 'sustain',
+    72: 'release',
+  }
+
   constructor(props) {
     super(props)
     const AudioContext = window.AudioContext || window.webkitAudioContext
@@ -43,13 +50,6 @@ class Synthesizer extends Component {
       },
       label: 'aaa',
     }
-  }
-
-  static EG_CC = {
-    73: 'attack',
-    75: 'decay',
-    85: 'sustain',
-    72: 'release',
   }
 
   handleControlChange(controlNumber, value) {
