@@ -1,5 +1,6 @@
 export default class SuperOscillator {
   oscs = []
+  gains = new WeakMap()
 
   static freq2cent(freq) {
     return (1200 * Math.log2(freq / 440)) + 5700
@@ -16,15 +17,20 @@ export default class SuperOscillator {
   constructor(context, options) {
     const cents = [-1200, -20, 0, 20, 1200]
     this.oscs = cents
-      .map(cent => (
-        new OscillatorNode(
+      .map((cent) => {
+        const osc = new OscillatorNode(
           context,
           {
             ...options,
             frequency: SuperOscillator.genDetunedFreq(options.frequency, cent),
           },
         )
-      ))
+        const gain = context.createGain()
+        gain.gain.value = 0.3
+        osc.connect(gain)
+        this.gains.set(osc, gain)
+        return osc
+      })
   }
 
   start(when) {
@@ -32,7 +38,7 @@ export default class SuperOscillator {
   }
 
   connect(node) {
-    this.oscs.forEach(osc => osc.connect(node))
+    this.oscs.forEach(osc => this.gains.get(osc).connect(node))
   }
 
   stop(when) {
