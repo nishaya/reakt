@@ -9,6 +9,7 @@ export default class Hihat extends Component {
     decay: PropTypes.number,
     sustain: PropTypes.number,
     release: PropTypes.number,
+    rate: PropTypes.number,
   }
 
   static defaultProps = {
@@ -17,11 +18,12 @@ export default class Hihat extends Component {
     decay: 0.1,
     sustain: 0.5,
     release: 0.3,
+    rate: 2.0,
   }
 
   componentDidMount() {
     this.props.onReady(this.trigger.bind(this))
-    this.buffer = NoiseGenerator.generatePinkNoise(this.props.audioCtx)
+    this.buffer = NoiseGenerator.generateWhiteNoise(this.props.audioCtx)
   }
 
   trigger(velocity) {
@@ -42,6 +44,7 @@ export default class Hihat extends Component {
     gain.connect(this.props.audioCtx.destination)
 
     bufferSource.buffer = this.buffer
+    bufferSource.playbackRate.value = this.props.rate
     bufferSource.connect(gain)
     bufferSource.loop = true
     bufferSource.start()

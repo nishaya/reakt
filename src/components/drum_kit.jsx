@@ -37,6 +37,7 @@ export default class DrumKit extends Component {
           decay={0.05}
           sustain={0.5}
           release={0}
+          rate={2}
         />
         <Hihat
           audioCtx={this.props.audioCtx}
@@ -47,6 +48,7 @@ export default class DrumKit extends Component {
           decay={0.1}
           sustain={0.5}
           release={0.2}
+          rate={2}
         />
       </div>
     </div>)
