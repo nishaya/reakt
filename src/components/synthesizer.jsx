@@ -34,7 +34,7 @@ class Synthesizer extends Component {
     this.egFunc = (gainNode) => { console.log(gainNode) }
     this.releaseFunc = (gainNode) => { console.log(gainNode) }
     this.egCCFunc = (paramName, value) => { console.log(paramName, value) }
-    this.dkTriggerFunc = (note, velocity) => { console.log( note, velocity) }
+    this.dkTriggerFunc = (note, velocity) => { console.log(note, velocity) }
 
     this.gainMap = new WeakMap()
     this.duplicatedOscs = new WeakSet()
@@ -64,7 +64,10 @@ class Synthesizer extends Component {
   noteOn(note, velocity) {
     // trigger drum sounds
     if (note < 12) {
-      this.dkTriggerFunc(note, velocity)
+      const dkNode = this.dkTriggerFunc(note, velocity)
+      console.log(dkNode)
+      dkNode.connect(this.filter)
+      this.filter.connect(this.analyzer)
       return
     }
     if (this.oscs[note]) {

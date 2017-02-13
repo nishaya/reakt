@@ -6,10 +6,12 @@ export default class DrumKit extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
     onReady: PropTypes.func,
+    destination: PropTypes.instanceOf(AudioNode),
   }
 
   static defaultProps = {
     onReady: (triggerFunc) => { console.log(triggerFunc) },
+    destination: null,
   }
 
   componentDidMount() {
@@ -20,8 +22,10 @@ export default class DrumKit extends Component {
 
   trigger(note, velocity) {
     if (this.triggerFuncs[note]) {
-      this.triggerFuncs[note](velocity)
+      return this.triggerFuncs[note](velocity)
     }
+
+    return null
   }
 
   render() {

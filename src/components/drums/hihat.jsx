@@ -48,7 +48,6 @@ export default class Hihat extends Component {
     gain.gain.linearRampToValueAtTime(volume, attack)
     gain.gain.linearRampToValueAtTime(volume * this.props.sustain, decay)
     gain.gain.linearRampToValueAtTime(0, release)
-    gain.connect(this.props.audioCtx.destination)
 
     bufferSource.buffer = this.buffer
     bufferSource.connect(gain)
@@ -59,6 +58,8 @@ export default class Hihat extends Component {
     this.setState({ playing: true })
 
     this.pt = setTimeout(() => this.setState({ playing: false }), (release - now) * 1000)
+
+    return gain
   }
 
   render() {
