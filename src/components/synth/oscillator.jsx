@@ -114,6 +114,10 @@ export default class Oscillator extends Component {
               label="SuperTriangle"
             />
             <RadioButton
+              value="wt_1_2"
+              label="PWM 1/2"
+            />
+            <RadioButton
               value="wt_1_4"
               label="PWM 1/4"
             />
