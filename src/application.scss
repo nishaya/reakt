@@ -98,6 +98,7 @@ html, body {
     }
 
     .reakt-drum__container {
+      display: inline-block !important;
       padding: 4px;
       display: block;
     }
