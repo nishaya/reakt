@@ -57,6 +57,20 @@ html, body {
     background-color: #fff;
   }
 
+  .reakt-keyboard__pad {
+    padding-top: 20px;
+    vertical-align: baseline;
+    display: inline-block;
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    margin: 3px;
+    color: #333;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ddd;
+  }
+
   .reakt-keyboard__key__black {
     color: #fff;
     background-color: #333;

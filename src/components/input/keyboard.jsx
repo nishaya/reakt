@@ -27,6 +27,14 @@ class KeyboardInput extends Component {
     l: { number: 14, label: 'D', black: false },
   }
 
+  static NUM_KEY_MAP = {
+    1: { number: 0, label: 'Kick' },
+    2: { number: 1, label: 'Snare' },
+    3: { number: 2, label: 'CHH' },
+    4: { number: 3, label: 'OHH' },
+    5: { number: 4, label: 'Cymbal' },
+  }
+
   static propTypes = {
     keyDown: PropTypes.func,
     keyUp: PropTypes.func,
@@ -77,6 +85,11 @@ class KeyboardInput extends Component {
       this.props.midiNoteOn(noteNumber, 127)
     }
 
+    if (Object.keys(KeyboardInput.NUM_KEY_MAP).includes(key)) {
+      console.log('keydown', key)
+      this.props.midiNoteOn(KeyboardInput.NUM_KEY_MAP[key].number, 127)
+    }
+
     const keyPressed = { ...this.state.keyPressed, [key]: true }
     this.setState({ key, keyPressed })
     this.props.keyDown(key)
@@ -92,6 +105,11 @@ class KeyboardInput extends Component {
       const noteNumber = (this.state.octave * 12) + KeyboardInput.KEY_MAP[key].number
       console.log('keyup', key, noteNumber)
       this.props.midiNoteOff(noteNumber)
+    }
+
+    if (Object.keys(KeyboardInput.NUM_KEY_MAP).includes(key)) {
+      console.log('keyup', key)
+      this.props.midiNoteOff(KeyboardInput.NUM_KEY_MAP[key].number)
     }
   }
 
@@ -132,6 +150,22 @@ class KeyboardInput extends Component {
     })
   }
 
+  renderNumKeys() {
+    return Object.keys(KeyboardInput.NUM_KEY_MAP).map((key) => {
+      const classNames = ['reakt-keyboard__pad']
+      if (this.state.keyPressed[key]) {
+        classNames.push('reakt-keyboard__key__pressed')
+      }
+      return (<span
+        key={`key_${key}`}
+        className={classNames.join(' ')}
+      >
+        <div>{key}</div>
+        <div className="reakt-keyboard__key__label">{KeyboardInput.NUM_KEY_MAP[key].label}</div>
+      </span>)
+    })
+  }
+
   render() {
     return (<div className="reakt-component__container">
       <h2>Keyboard Input</h2>
@@ -149,6 +183,7 @@ class KeyboardInput extends Component {
           />
         </div>
         <div>{this.renderKeys()}</div>
+        <div>{this.renderNumKeys()}</div>
       </div>
     </div>)
   }
