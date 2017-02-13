@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import NoiseGenerator from 'utils/noise_generator'
+import PausedIcon from 'material-ui/svg-icons/av/pause'
+import PlayingIcon from 'material-ui/svg-icons/av/play-arrow'
 
 export default class Hihat extends Component {
   static propTypes = {
@@ -64,7 +66,9 @@ export default class Hihat extends Component {
     return (<div className="reakt-drum__container">
       <h3>{this.props.label}</h3>
       <div>
-        {this.state.playing ? 'playing' : 'stopped'}
+        {this.state.playing ?
+          (<PlayingIcon style={{ color: 'rgb(0, 188, 212)' }} />) :
+          (<PausedIcon style={{ color: '#ccc' }} />)}
       </div>
     </div>)
   }
