@@ -30,6 +30,7 @@ class Synthesizer extends Component {
     this.oscs = []
     this.filter = null
     this.analyzer = null
+    this.analyzerConnected = false
     this.playFunc = (freq) => { console.log(freq) }
     this.egFunc = (gainNode) => { console.log(gainNode) }
     this.releaseFunc = (gainNode) => { console.log(gainNode) }
@@ -62,12 +63,12 @@ class Synthesizer extends Component {
   }
 
   noteOn(note, velocity) {
-    // trigger drum sounds
     if (note < 12) {
       const dkNode = this.dkTriggerFunc(note, velocity)
-      console.log(dkNode)
+      if (!dkNode) {
+        return
+      }
       dkNode.connect(this.filter)
-      this.filter.connect(this.analyzer)
       return
     }
     if (this.oscs[note]) {
@@ -89,7 +90,6 @@ class Synthesizer extends Component {
     this.gainMap.set(osc, gain)
     osc.connect(gain)
     gain.connect(this.filter)
-    this.filter.connect(this.analyzer)
     osc.start()
     this.oscs[note] = osc
   }
@@ -111,6 +111,14 @@ class Synthesizer extends Component {
     })
   }
 
+  connectAnalyzer() {
+    if (!this.analyzerConnected && this.filter && this.analyzer) {
+      console.log('analyzer connected.')
+      this.filter.connect(this.analyzer)
+      this.analyzerConnected = true
+    }
+  }
+
   render() {
     return (<div>
       <div>
@@ -122,6 +130,7 @@ class Synthesizer extends Component {
           audioCtx={this.audioCtx}
           onReady={(analyzerNode) => {
             this.analyzer = analyzerNode
+            this.connectAnalyzer()
           }}
         />
         <FloatingActionButton
@@ -153,6 +162,7 @@ class Synthesizer extends Component {
           q={this.state.controlChange[71]}
           onReady={(filterNode) => {
             this.filter = filterNode
+            this.connectAnalyzer()
           }}
         />
       </div>
