@@ -9,4 +9,8 @@ Polyphonic Web Synthesizer
 ## Compatibility
 
 - This app is currently available only on Google Chrome
-    - Tested on Google Chrome 56+/macOS Sierra 10.12.3
+
+### Tested on
+
+- Google Chrome 56+/macOS Sierra 10.12.3
+- Google Chrome 56+/Windows 10 Pro
