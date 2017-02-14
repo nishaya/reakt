@@ -1,9 +1,16 @@
 export default class DelayEffect {
-  constructor(audioCtx, time = 1.0) {
+  constructor(audioCtx, time = 0.3461, volume = 0.5) {
     this.delayNode = audioCtx.createDelay(10)
     this.delayNode.delayTime.value = time
+    this.input = audioCtx.createGain()
+    this.wet = audioCtx.createGain()
+    this.wet.gain.value = volume
     this.output = audioCtx.createGain()
+
+    this.input.connect(this.wet)
+    this.wet.connect(this.delayNode)
     this.delayNode.connect(this.output)
+    this.input.connect(this.output)
   }
 
   connect(destination) {
@@ -12,15 +19,10 @@ export default class DelayEffect {
   }
 
   get destination() {
-    return this.delayNode
+    return this.input
   }
 
   set time(time) {
     this.delayNode.delayTime = time
-  }
-
-  // 1.0 = 100%
-  set wet(value) {
-    this.output.gain.value = value
   }
 }
