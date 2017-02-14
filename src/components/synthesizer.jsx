@@ -12,6 +12,7 @@ import EG from 'components/synth/eg'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import PanicButtonIcon from 'material-ui/svg-icons/av/pause'
 import DrumKit from 'components/drum_kit'
+import Delay from 'components/synth/effects/delay'
 
 class Synthesizer extends Component {
   static EG_CC = {
@@ -31,6 +32,8 @@ class Synthesizer extends Component {
     this.filter = null
     this.analyzer = null
     this.analyzerConnected = false
+    this.delayEffect = null
+    this.delayConnected = false
     this.playFunc = (freq) => { console.log(freq) }
     this.egFunc = (gainNode) => { console.log(gainNode) }
     this.releaseFunc = (gainNode) => { console.log(gainNode) }
@@ -114,11 +117,19 @@ class Synthesizer extends Component {
     })
   }
 
-  connectAnalyzer() {
-    if (!this.analyzerConnected && this.filter && this.analyzer) {
+  connectNodes() {
+    console.log('connectNodes')
+    if (!this.analyzerConnected && this.delayEffect && this.analyzer) {
       console.log('analyzer connected.')
-      this.filter.connect(this.analyzer)
+      this.delayEffect.connect(this.analyzer)
       this.analyzerConnected = true
+    }
+
+    if (!this.delayConnected && this.filter && this.delayEffect) {
+      console.log('delay connected.')
+      this.filter.connect(this.delayEffect.destination)
+      this.delayEffect.connect(this.audioCtx.destination)
+      this.delayConnected = true
     }
   }
 
@@ -133,7 +144,7 @@ class Synthesizer extends Component {
           audioCtx={this.audioCtx}
           onReady={(analyzerNode) => {
             this.analyzer = analyzerNode
-            this.connectAnalyzer()
+            this.connectNodes()
           }}
         />
         <FloatingActionButton
@@ -165,7 +176,7 @@ class Synthesizer extends Component {
           q={this.state.controlChange[71]}
           onReady={(filterNode) => {
             this.filter = filterNode
-            this.connectAnalyzer()
+            this.connectNodes()
           }}
         />
       </div>
@@ -174,6 +185,15 @@ class Synthesizer extends Component {
           audioCtx={this.audioCtx}
           onReady={(triggerFunc) => {
             this.dkTriggerFunc = triggerFunc
+          }}
+        />
+      </div>
+      <div>
+        <Delay
+          audioCtx={this.audioCtx}
+          onReady={(delay) => {
+            this.delayEffect = delay
+            this.connectNodes()
           }}
         />
       </div>

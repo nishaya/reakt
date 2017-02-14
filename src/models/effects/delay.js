@@ -1,16 +1,18 @@
-export default class Delay {
+export default class DelayEffect {
   constructor(audioCtx, time = 1.0) {
-    this.delayNode = audioCtx.createDelay(time)
+    this.delayNode = audioCtx.createDelay(10)
+    this.delayNode.delayTime.value = time
     this.output = audioCtx.createGain()
     this.delayNode.connect(this.output)
   }
 
   connect(destination) {
+    console.log('connect 2 delay')
     this.output.connect(destination)
   }
 
   get destination() {
-    return this.output
+    return this.delayNode
   }
 
   set time(time) {

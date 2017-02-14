@@ -41,7 +41,7 @@ export default class Filter extends Component {
     this.filter.type = 'lowpass'
     this.filter.Q.value = 10
     this.filter.frequency.value = DEFAULT_FREQUENCY
-    this.filter.connect(this.props.audioCtx.destination)
+    // this.filter.connect(this.props.audioCtx.destination)
     this.props.onReady(this.filter)
   }
 
