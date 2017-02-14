@@ -179,21 +179,19 @@ class Synthesizer extends Component {
             this.connectNodes()
           }}
         />
+        <Delay
+          audioCtx={this.audioCtx}
+          onReady={(delay) => {
+            this.delayEffect = delay
+            this.connectNodes()
+          }}
+        />
       </div>
       <div>
         <DrumKit
           audioCtx={this.audioCtx}
           onReady={(triggerFunc) => {
             this.dkTriggerFunc = triggerFunc
-          }}
-        />
-      </div>
-      <div>
-        <Delay
-          audioCtx={this.audioCtx}
-          onReady={(delay) => {
-            this.delayEffect = delay
-            this.connectNodes()
           }}
         />
       </div>

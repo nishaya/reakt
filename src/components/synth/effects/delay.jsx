@@ -6,12 +6,18 @@ export default class Delay extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
     onReady: PropTypes.func,
+    amount: PropTypes.number,
+    time: PropTypes.number,
+    feedback: PropTypes.number,
   }
 
   static defaultProps = {
     onReady: (delay) => {
       console.log(delay)
     },
+    amout: 0.5,
+    time: 0.3461,
+    feedback: 0.5,
   }
 
   constructor(props) {
@@ -19,7 +25,12 @@ export default class Delay extends Component {
   }
 
   componentWillMount() {
-    this.delay = new DelayEffect(this.props.audioCtx)
+    this.delay = new DelayEffect(
+      this.props.audioCtx,
+      this.time,
+      this.amount,
+      this.feedback,
+    )
     this.props.onReady(this.delay)
   }
 
