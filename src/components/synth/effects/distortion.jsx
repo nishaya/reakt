@@ -46,6 +46,8 @@ export default class Distortion extends Component {
     this.distortion = new DistortionEffect(
       this.props.audioCtx,
       this.state.amount,
+      this.state.inputGain,
+      this.state.volume,
     )
     this.props.onReady(this.distortion)
   }

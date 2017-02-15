@@ -1,5 +1,6 @@
 export default class DistortionEffect {
   constructor(audioCtx, amount = 0.3, inputGain = 1.5, volume = 0.3) {
+    console.log('distortion', amount, inputGain, volume)
     this.waveShaperNode = audioCtx.createWaveShaper()
     this.output = audioCtx.createGain()
     this.input = audioCtx.createGain()
@@ -21,8 +22,9 @@ export default class DistortionEffect {
     if (value) {
       console.log('power on')
       this.input.disconnect()
-      this.input.gain.value = this.inputGainValue
-      this.output.gain.value = this.volumeValue
+      this.inputGain = this.inputGainValue
+      this.volume = this.volumeValue
+      this.amount = this.amountValue
       this.input.connect(this.waveShaperNode)
     } else {
       console.log('power off')
