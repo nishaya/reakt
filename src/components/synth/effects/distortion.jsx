@@ -35,7 +35,7 @@ export default class Distortion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      amount: 0.5,
+      amount: 0.7,
       inputGain: 1.0,
       volume: 0.7,
     }
