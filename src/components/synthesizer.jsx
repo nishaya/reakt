@@ -95,10 +95,10 @@ class Synthesizer extends Component {
     }
     const gain = this.egFunc(this.audioCtx.createGain(), volume)
     this.gainMap.set(osc, gain)
-    // osc.connect(gain)
-    osc.connect(this.distortionEffect.destination)
-    this.distortionEffect.connect(gain)
-    gain.connect(this.filter)
+    osc.connect(gain)
+    gain.connect(this.distortionEffect.destination)
+    this.distortionEffect.connect(this.filter)
+    // gain.connect(this.filter)
     osc.start()
     this.oscs[note] = osc
   }
