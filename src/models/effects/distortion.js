@@ -1,5 +1,5 @@
 export default class DistortionEffect {
-  constructor(audioCtx, amount = 0.3, inputGain = 0.7, volume = 0.7) {
+  constructor(audioCtx, amount = 0.3, inputGain = 1.5, volume = 0.3) {
     this.waveShaperNode = audioCtx.createWaveShaper()
     this.output = audioCtx.createGain()
     this.input = audioCtx.createGain()

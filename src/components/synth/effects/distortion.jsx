@@ -20,12 +20,24 @@ export default class Distortion extends Component {
       min: 0,
       max: 1.0,
     },
+    inputGain: {
+      label: 'InputGain',
+      min: 0,
+      max: 1.0,
+    },
+    volume: {
+      label: 'Volume',
+      min: 0,
+      max: 1.0,
+    },
   }
 
   constructor(props) {
     super(props)
     this.state = {
       amount: 0.5,
+      inputGain: 1.0,
+      volume: 0.7,
     }
   }
 
@@ -59,6 +71,8 @@ export default class Distortion extends Component {
       <h2>Distortion</h2>
       <div className="reakt-component__body">
         {this.renderSlider('amount')}
+        {this.renderSlider('inputGain')}
+        {this.renderSlider('volume')}
       </div>
     </div>)
   }
