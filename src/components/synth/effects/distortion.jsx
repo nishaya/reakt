@@ -74,7 +74,9 @@ export default class Distortion extends Component {
         <Toggle
           label="Power"
           labelPosition="right"
-          onToggle={(e, checked) => { console.log('toggle', checked) }}
+          onToggle={(e, checked) => {
+            this.distortion.on = checked
+          }}
           style={{
             marginTop: '20px',
             marginBottom: '20px',

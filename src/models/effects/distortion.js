@@ -8,6 +8,7 @@ export default class DistortionEffect {
     this.volume = volume
     this.input.connect(this.waveShaperNode)
     this.waveShaperNode.connect(this.output)
+    this.on = false
   }
 
   connect(destination) {
@@ -16,13 +17,18 @@ export default class DistortionEffect {
   }
 
   set on(value) {
+    this.powerOn = value
     if (value) {
       console.log('power on')
-      this.input.disconnect(this.output)
+      this.input.disconnect()
+      this.input.gain.value = this.inputGainValue
+      this.output.gain.value = this.volumeValue
       this.input.connect(this.waveShaperNode)
     } else {
       console.log('power off')
-      this.input.disconnect(this.waveShaperNode)
+      this.input.disconnect()
+      this.input.gain.value = 1.0
+      this.output.gain.value = 1.0
       this.input.connect(this.output)
     }
   }
@@ -33,16 +39,25 @@ export default class DistortionEffect {
 
   set inputGain(volume) {
     this.inputGainValue = volume
+    if (!this.powerOn) {
+      return
+    }
     this.input.gain.value = volume
   }
 
   set volume(volume) {
     this.volumeValue = volume
+    if (!this.powerOn) {
+      return
+    }
     this.output.gain.value = volume
   }
 
   set amount(amount) {
     this.amountValue = amount
+    if (!this.powerOn) {
+      return
+    }
     this.waveShaperNode.curve = DistortionEffect.generateCurve(amount)
   }
 
