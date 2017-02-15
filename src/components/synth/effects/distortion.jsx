@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/Slider'
-import DelayEffect from 'models/effects/delay'
+import DistortionEffect from 'models/effects/distortion'
 
 export default class Distortion extends Component {
   static propTypes = {
@@ -9,8 +9,8 @@ export default class Distortion extends Component {
   }
 
   static defaultProps = {
-    onReady: (delay) => {
-      console.log(delay)
+    onReady: (distortion) => {
+      console.log(distortion)
     },
   }
 
@@ -20,35 +20,21 @@ export default class Distortion extends Component {
       min: 0,
       max: 1.0,
     },
-    time: {
-      label: 'DelayTime',
-      min: 0,
-      max: 5.0,
-    },
-    feedback: {
-      label: 'FeedbackLevel',
-      min: 0,
-      max: 1.0,
-    },
   }
 
   constructor(props) {
     super(props)
     this.state = {
       amount: 0.5,
-      time: 0.3461,
-      feedback: 0.5,
     }
   }
 
   componentWillMount() {
-    this.delay = new DelayEffect(
+    this.distortion = new DistortionEffect(
       this.props.audioCtx,
-      this.state.time,
       this.state.amount,
-      this.state.feedback,
     )
-    this.props.onReady(this.delay)
+    this.props.onReady(this.distortion)
   }
 
   renderSlider(key) {
@@ -61,7 +47,7 @@ export default class Distortion extends Component {
         step={0.01}
         value={this.state[key]}
         onChange={(e, value) => {
-          this.delay[key] = value
+          this.distortion[key] = value
           this.setState({ [key]: value })
         }}
       />
@@ -72,9 +58,7 @@ export default class Distortion extends Component {
     return (<div className="reakt-component__container">
       <h2>Distortion</h2>
       <div className="reakt-component__body">
-        {this.renderSlider('time')}
         {this.renderSlider('amount')}
-        {this.renderSlider('feedback')}
       </div>
     </div>)
   }
