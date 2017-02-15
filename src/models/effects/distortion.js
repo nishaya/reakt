@@ -15,19 +15,34 @@ export default class DistortionEffect {
     this.output.connect(destination)
   }
 
+  set on(value) {
+    if (value) {
+      console.log('power on')
+      this.input.disconnect(this.output)
+      this.input.connect(this.waveShaperNode)
+    } else {
+      console.log('power off')
+      this.input.disconnect(this.waveShaperNode)
+      this.input.connect(this.output)
+    }
+  }
+
   get destination() {
     return this.input
   }
 
   set inputGain(volume) {
+    this.inputGainValue = volume
     this.input.gain.value = volume
   }
 
   set volume(volume) {
+    this.volumeValue = volume
     this.output.gain.value = volume
   }
 
   set amount(amount) {
+    this.amountValue = amount
     this.waveShaperNode.curve = DistortionEffect.generateCurve(amount)
   }
 

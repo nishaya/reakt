@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/Slider'
+import Toggle from 'material-ui/Toggle'
 import DistortionEffect from 'models/effects/distortion'
 
 export default class Distortion extends Component {
@@ -70,6 +71,15 @@ export default class Distortion extends Component {
     return (<div className="reakt-component__container">
       <h2>Distortion</h2>
       <div className="reakt-component__body">
+        <Toggle
+          label="Power"
+          labelPosition="right"
+          onToggle={(e, checked) => { console.log('toggle', checked) }}
+          style={{
+            marginTop: '20px',
+            marginBottom: '20px',
+          }}
+        />
         {this.renderSlider('amount')}
         {this.renderSlider('inputGain')}
         {this.renderSlider('volume')}
