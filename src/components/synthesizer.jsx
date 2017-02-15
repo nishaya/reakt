@@ -13,6 +13,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import PanicButtonIcon from 'material-ui/svg-icons/av/pause'
 import DrumKit from 'components/drum_kit'
 import Delay from 'components/synth/effects/delay'
+import Distortion from 'components/synth/effects/distortion'
 
 class Synthesizer extends Component {
   static EG_CC = {
@@ -118,15 +119,12 @@ class Synthesizer extends Component {
   }
 
   connectNodes() {
-    console.log('connectNodes')
     if (!this.analyzerConnected && this.delayEffect && this.analyzer) {
-      console.log('analyzer connected.')
       this.delayEffect.connect(this.analyzer)
       this.analyzerConnected = true
     }
 
     if (!this.delayConnected && this.filter && this.delayEffect) {
-      console.log('delay connected.')
       this.filter.connect(this.delayEffect.destination)
       this.delayEffect.connect(this.audioCtx.destination)
       this.delayConnected = true
@@ -184,6 +182,12 @@ class Synthesizer extends Component {
           onReady={(delay) => {
             this.delayEffect = delay
             this.connectNodes()
+          }}
+        />
+        <Distortion
+          audioCtx={this.audioCtx}
+          onReady={(distortion) => {
+            this.distortionEffect = distortion
           }}
         />
       </div>
