@@ -31,6 +31,11 @@ export default class Distortion extends Component {
       min: 0,
       max: 1.0,
     },
+    feedbackGain: {
+      label: 'Feedback',
+      min: 0,
+      max: 0.3,
+    },
   }
 
   constructor(props) {
@@ -39,6 +44,7 @@ export default class Distortion extends Component {
       amount: 0.7,
       inputGain: 1.0,
       volume: 0.7,
+      feedbackGain: 0.1,
     }
   }
 
@@ -87,6 +93,7 @@ export default class Distortion extends Component {
         {this.renderSlider('amount')}
         {this.renderSlider('inputGain')}
         {this.renderSlider('volume')}
+        {this.renderSlider('feedbackGain')}
       </div>
     </div>)
   }
