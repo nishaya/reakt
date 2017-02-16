@@ -3,18 +3,18 @@ export default class DistortionEffect {
     console.log('distortion', amount, inputGain, volume)
     this.waveShaperNode = audioCtx.createWaveShaper()
     this.output = audioCtx.createGain()
-    this.feedbackGain = audioCtx.createGain()
+    this.feedback = audioCtx.createGain()
     this.input = audioCtx.createGain()
 
-    this.feedbackGain.gain.value = 0.1
+    this.feedbackGain = 0.1
     this.amount = amount
     this.volume = volume
     this.inputGain = inputGain
 
-    this.waveShaperNode.connect(this.feedbackGain)
-    this.feedbackGain.connect(this.input)
+    this.feedback.connect(this.input)
     this.input.connect(this.waveShaperNode)
     this.waveShaperNode.connect(this.output)
+    this.waveShaperNode.connect(this.feedback)
     this.on = false
   }
 
@@ -30,6 +30,7 @@ export default class DistortionEffect {
       this.input.disconnect()
       this.inputGain = this.inputGainValue
       this.volume = this.volumeValue
+      this.feedbackGain = this.feedbackGainValue
       this.amount = this.amountValue
       this.input.connect(this.waveShaperNode)
     } else {
