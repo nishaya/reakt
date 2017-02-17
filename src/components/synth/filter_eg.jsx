@@ -6,6 +6,16 @@ export default class FilterEG extends EG {
     label: 'FilterEG',
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      attack: 0,
+      decay: 0.2,
+      sustain: 0.2,
+      release: 0.3,
+    }
+  }
+
   setRelease(filter) {
     const now = this.props.audioCtx.currentTime
     const releaseTime = now + this.state.release + 0.001
