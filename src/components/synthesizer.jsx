@@ -43,6 +43,7 @@ class Synthesizer extends Component {
     this.dkTriggerFunc = (note, velocity) => { console.log(note, velocity) }
 
     this.gainMap = new WeakMap()
+    this.filterMap = new WeakMap()
     this.duplicatedOscs = new WeakSet()
 
     this.state = {
@@ -97,12 +98,11 @@ class Synthesizer extends Component {
     const gain = this.egFunc(this.audioCtx.createGain(), volume)
     const filter = this.fEgFunc()
     this.gainMap.set(osc, gain)
-    // osc.connect(gain)
+    this.filterMap.set(osc, filter)
     osc.connect(filter)
     filter.connect(gain)
     gain.connect(this.distortionEffect.destination)
     this.distortionEffect.connect(this.filter)
-    // gain.connect(this.filter)
     osc.start()
     this.oscs[note] = osc
   }
@@ -114,6 +114,8 @@ class Synthesizer extends Component {
     }
     const gain = this.gainMap.get(osc)
     osc.stop(this.releaseFunc(gain))
+    const filter = this.filterMap.get(osc)
+    this.fReleaseFunc(filter)
   }
 
   panic() {
