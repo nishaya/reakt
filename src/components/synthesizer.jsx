@@ -9,6 +9,7 @@ import PadInput from 'components/input/pad'
 import MIDIEvent from 'components/synth/midi_event'
 import Oscillator from 'components/synth/oscillator'
 import EG from 'components/synth/eg'
+import FilterEG from 'components/synth/filter_eg'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import PanicButtonIcon from 'material-ui/svg-icons/av/pause'
 import DrumKit from 'components/drum_kit'
@@ -163,20 +164,20 @@ class Synthesizer extends Component {
         />
         <EG
           audioCtx={this.audioCtx}
+          label="AmpEG"
           onReady={(egFunc, releaseFunc, egCCFunc) => {
             this.egFunc = egFunc
             this.releaseFunc = releaseFunc
             this.egCCFunc = egCCFunc
           }}
         />
-        <Filter
+        <FilterEG
           audioCtx={this.audioCtx}
-          ref={(filter) => { this.filterComponent = filter }}
-          frequency={this.state.controlChange[74]}
-          q={this.state.controlChange[71]}
-          onReady={(filterNode) => {
-            this.filter = filterNode
-            this.connectNodes()
+          label="FilterEG"
+          onReady={(egFunc, releaseFunc, egCCFunc) => {
+            this.fEgFunc = egFunc
+            this.fReleaseFunc = releaseFunc
+            this.fEgCCFunc = egCCFunc
           }}
         />
         <Delay
@@ -190,6 +191,16 @@ class Synthesizer extends Component {
           audioCtx={this.audioCtx}
           onReady={(distortion) => {
             this.distortionEffect = distortion
+          }}
+        />
+        <Filter
+          audioCtx={this.audioCtx}
+          ref={(filter) => { this.filterComponent = filter }}
+          frequency={this.state.controlChange[74]}
+          q={this.state.controlChange[71]}
+          onReady={(filterNode) => {
+            this.filter = filterNode
+            this.connectNodes()
           }}
         />
       </div>
