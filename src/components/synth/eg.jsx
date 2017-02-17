@@ -5,6 +5,7 @@ export default class EG extends Component {
   static propTypes = {
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
     onReady: PropTypes.func,
+    label: PropTypes.string,
   }
 
   static ATTACK_OFFSET = 0.0001
@@ -35,6 +36,7 @@ export default class EG extends Component {
     onReady: (generateEnvelopFunc, setReleaseFunc) => {
       console.log(generateEnvelopFunc, setReleaseFunc)
     },
+    label: 'EG',
   }
 
   constructor(props) {
@@ -107,7 +109,7 @@ export default class EG extends Component {
 
   render() {
     return (<div className="reakt-component__container">
-      <h2>EG</h2>
+      <h2>{this.props.label}</h2>
       <div className="reakt-component__body">
         {this.renderSlider('attack')}
         {this.renderSlider('decay')}
