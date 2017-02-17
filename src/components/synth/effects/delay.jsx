@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/Slider'
+import Toggle from 'material-ui/Toggle'
 import DelayEffect from 'models/effects/delay'
 
 export default class Delay extends Component {
@@ -72,6 +73,17 @@ export default class Delay extends Component {
     return (<div className="reakt-component__container">
       <h2>Delay</h2>
       <div className="reakt-component__body">
+        <Toggle
+          label="Power"
+          labelPosition="right"
+          onToggle={(e, checked) => {
+            this.distortion.on = checked
+          }}
+          style={{
+            marginTop: '20px',
+            marginBottom: '20px',
+          }}
+        />
         {this.renderSlider('time')}
         {this.renderSlider('amount')}
         {this.renderSlider('feedback')}
