@@ -77,7 +77,7 @@ export default class Delay extends Component {
           label="Power"
           labelPosition="right"
           onToggle={(e, checked) => {
-            this.distortion.on = checked
+            this.delay.on = checked
           }}
           style={{
             marginTop: '20px',
