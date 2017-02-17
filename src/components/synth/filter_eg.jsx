@@ -6,20 +6,20 @@ export default class FilterEG extends EG {
     label: 'FilterEG',
   }
 
-  generateEnvelop(gain, volume = 1.0) {
-    const gainNode = gain || this.props.audioCtx.createGain()
+  generateEnvelop(filter, frequency = 1500) {
+    const filterNode = filter || this.props.audioCtx.createFilter()
     const now = this.props.audioCtx.currentTime
     const attackTime = now + this.state.attack + EG.ATTACK_OFFSET
     const decayTime = attackTime + this.state.decay
-    gainNode.gain.setValueAtTime(0, now)
-    gainNode.gain.linearRampToValueAtTime(
-      1.0 * volume,
+    filterNode.gain.setValueAtTime(0, now)
+    filterNode.gain.linearRampToValueAtTime(
+      1.0 * frequency,
       attackTime,
     )
-    gainNode.gain.linearRampToValueAtTime(
-      this.state.sustain * volume,
+    filterNode.gain.linearRampToValueAtTime(
+      this.state.sustain * frequency,
       decayTime,
     )
-    return gainNode
+    return filterNode
   }
 }
