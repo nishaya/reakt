@@ -2,8 +2,6 @@ import webpack from 'webpack'
 import path from 'path'
 import config from 'config'
 
-console.log(process.env.NODE_ENV)
-
 const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
