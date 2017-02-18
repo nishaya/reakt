@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react'
 import EG from 'components/synth/eg'
 
 export default class FilterEG extends EG {
