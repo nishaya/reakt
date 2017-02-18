@@ -18,7 +18,7 @@ export default class EG extends Component {
     decay: {
       label: 'Decay Time',
       min: 0,
-      max: 3,
+      max: 1,
     },
     sustain: {
       label: 'Sustain Level',

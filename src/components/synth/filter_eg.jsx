@@ -9,7 +9,7 @@ export default class FilterEG extends EG {
     super(props)
     this.state = {
       attack: 0,
-      decay: 0.2,
+      decay: 0.1,
       sustain: 0.2,
       release: 0.3,
     }
