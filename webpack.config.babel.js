@@ -24,7 +24,7 @@ module.exports = {
   plugins,
   resolve: {
     root: [path.resolve('./'), path.resolve('./src')],
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     loaders: [
