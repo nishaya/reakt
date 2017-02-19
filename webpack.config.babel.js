@@ -18,18 +18,18 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   entry: './src/application.jsx',
   output: {
-    path: './docs',
+    path: path.resolve(__dirname, 'docs'),
     filename: 'application.js',
   },
   plugins,
   resolve: {
-    root: [path.resolve('./'), path.resolve('./src')],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.js', '.jsx'],
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel'] },
-      { test: /application\.s[ac]ss$/, loaders: ['style', 'css', 'sass'] },
+      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel-loader'] },
+      { test: /application\.s[ac]ss$/, loaders: ['style-loader', 'css-loader', 'sass-loader'] },
     ],
   },
   devServer: {
