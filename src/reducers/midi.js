@@ -5,9 +5,10 @@ import {
 } from 'actions/action_types'
 import createReducer from './create_reducer'
 
+const initHash = Array(128).fill(0).reduce((o, v, i) => ({ ...o, [i]: 0 }), {})
 const initialState = {
-  noteOn: Array(128).fill(0).reduce((o, v, i) => ({ ...o, [i]: 0 }), {}),
-  controlChange: Array(128).fill(0).reduce((o, v, i) => ({ ...o, [i]: 0 }), {}),
+  noteOn: { ...initHash },
+  controlChange: { ...initHash },
   logs: [],
 }
 
