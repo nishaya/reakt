@@ -24,8 +24,6 @@ export default class Kick extends Base {
     pitch: -6,
   }
 
-  state = { playing: false }
-
   componentDidMount() {
     this.props.onReady(this.trigger.bind(this))
     this.pt = null

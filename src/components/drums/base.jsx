@@ -11,6 +11,8 @@ export default class Base extends Component {
     label: 'Base',
   }
 
+  state = { playing: false }
+
   render() {
     return (<div className="reakt-drum__container">
       <h3>{this.props.label}</h3>

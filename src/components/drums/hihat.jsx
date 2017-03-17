@@ -1,12 +1,11 @@
-import React, { Component, PropTypes } from 'react'
+import { PropTypes } from 'react'
 import NoiseGenerator from 'utils/noise_generator'
-import PausedIcon from 'material-ui/svg-icons/av/pause'
-import PlayingIcon from 'material-ui/svg-icons/av/play-arrow'
+import Base from 'components/drums/base'
 
-export default class Hihat extends Component {
+export default class Hihat extends Base {
   static propTypes = {
+    ...Base.propTypes,
     audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
-    label: PropTypes.string,
     onReady: PropTypes.func,
     attack: PropTypes.number,
     decay: PropTypes.number,
@@ -15,6 +14,7 @@ export default class Hihat extends Component {
   }
 
   static defaultProps = {
+    ...Base.defaultProps,
     label: 'Hihat',
     onReady: (triggerFunc) => { console.log(triggerFunc) },
     attack: 0,
@@ -22,8 +22,6 @@ export default class Hihat extends Component {
     sustain: 0.5,
     release: 0.3,
   }
-
-  state = { playing: false }
 
   componentDidMount() {
     this.props.onReady(this.trigger.bind(this))
@@ -60,16 +58,5 @@ export default class Hihat extends Component {
     this.pt = setTimeout(() => this.setState({ playing: false }), (release - now) * 1000)
 
     return gain
-  }
-
-  render() {
-    return (<div className="reakt-drum__container">
-      <h3>{this.props.label}</h3>
-      <div>
-        {this.state.playing ?
-          (<PlayingIcon style={{ color: 'rgb(0, 188, 212)' }} />) :
-          (<PausedIcon style={{ color: '#ccc' }} />)}
-      </div>
-    </div>)
   }
 }
