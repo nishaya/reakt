@@ -4,19 +4,12 @@ import Base from 'components/drums/base'
 export default class Kick extends Base {
   static propTypes = {
     ...Base.propTypes,
-    audioCtx: PropTypes.instanceOf(AudioContext).isRequired,
-    onReady: PropTypes.func,
-    attack: PropTypes.number,
-    decay: PropTypes.number,
-    sustain: PropTypes.number,
-    release: PropTypes.number,
     pitch: PropTypes.number,
   }
 
   static defaultProps = {
     ...Base.defaultProps,
     label: 'Hihat',
-    onReady: (triggerFunc) => { console.log(triggerFunc) },
     attack: 0.005,
     decay: 0.04,
     sustain: 0.9,
