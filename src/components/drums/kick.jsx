@@ -9,17 +9,12 @@ export default class Kick extends Base {
 
   static defaultProps = {
     ...Base.defaultProps,
-    label: 'Hihat',
+    label: 'Kick',
     attack: 0.005,
     decay: 0.04,
     sustain: 0.9,
     release: 0.2,
     pitch: -6,
-  }
-
-  componentDidMount() {
-    this.props.onReady(this.trigger.bind(this))
-    this.pt = null
   }
 
   trigger(velocity) {
@@ -28,18 +23,8 @@ export default class Kick extends Base {
     }
     const osc = this.props.audioCtx.createOscillator()
     const volume = velocity / 127 * 0.5
-
-    const gain = this.props.audioCtx.createGain()
     const now = this.props.audioCtx.currentTime
-    const attack = now + this.props.attack
-    const decay = attack + this.props.decay
-    const release = decay + this.props.release
-    gain.gain.value = volume
-    gain.gain.setValueAtTime(0, now)
-    gain.gain.linearRampToValueAtTime(volume, attack)
-    gain.gain.linearRampToValueAtTime(volume * this.props.sustain, decay)
-    gain.gain.linearRampToValueAtTime(0, release)
-
+    const { gain, attack, decay, release } = this.applyADSR(now, volume)
     const freq = 440 * (2 ** ((this.props.pitch - 21) / 12))
     console.log(freq)
     osc.connect(gain)

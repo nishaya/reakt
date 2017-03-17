@@ -17,9 +17,8 @@ export default class Hihat extends Base {
   }
 
   componentDidMount() {
-    this.props.onReady(this.trigger.bind(this))
+    super.componentDidMount()
     this.buffer = NoiseGenerator.generateWhiteNoise(this.props.audioCtx)
-    this.pt = null
   }
 
   trigger(velocity) {

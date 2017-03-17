@@ -24,6 +24,12 @@ export default class Base extends Component {
 
   state = { playing: false }
 
+  componentDidMount() {
+    this.props.onReady(this.trigger.bind(this))
+  }
+
+  pt = null
+
   applyADSR(now, volume) {
     const gain = this.props.audioCtx.createGain()
     const attack = now + this.props.attack
