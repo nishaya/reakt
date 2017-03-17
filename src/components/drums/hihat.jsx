@@ -1,4 +1,3 @@
-import { PropTypes } from 'react'
 import NoiseGenerator from 'utils/noise_generator'
 import Base from 'components/drums/base'
 
