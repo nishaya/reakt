@@ -1,4 +1,5 @@
 # REAKT
+[![Code Climate](https://codeclimate.com/github/nishaya/reakt/badges/gpa.svg)](https://codeclimate.com/github/nishaya/reakt) [![Issue Count](https://codeclimate.com/github/nishaya/reakt/badges/issue_count.svg)](https://codeclimate.com/github/nishaya/reakt)
 
 Polyphonic Web Synthesizer
 
