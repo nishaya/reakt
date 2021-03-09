@@ -46,7 +46,7 @@
     "eslint-plugin-react": "^6.9.0",
     "flow-bin": "^0.37.4",
     "jest": "^18.1.0",
-    "node-sass": "^4.5.0",
+    "node-sass": "^4.13.1",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2",
     "redux-logger": "^2.7.4",
